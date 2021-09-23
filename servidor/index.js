@@ -1,6 +1,10 @@
+
 const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require("cors");
+
+// ruuting modulos
+const productoRounting = require('./routes/api/producto')
 
 
 //Creamos un app object global
@@ -16,16 +20,16 @@ const port = process.env.PORT || 4000
 
 
 //Para poder recivir peticiones externas
-app.use(cors())
+app.use(cors());
 
 
 app.use(express.json());
 
-//Dirigimos a routes
+//Lanzamos rutas modulos
 
-app.use('./routes', require('./routes'));
+app.use('/api/producto', productoRounting);
 
 
-app.listen( port, '0.0.0.0', () => { //app.get('port')
-    console.log(`El servidor está corriendo perfectamente en el puerto ${port}`)
+app.listen( port, '0.0.0.0', () => { 
+    console.log(`El servidor está corriendo perfectamente en el puerto ${port}`);
 })

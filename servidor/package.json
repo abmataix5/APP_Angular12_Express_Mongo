@@ -4,13 +4,13 @@
   "description": "MEAN API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon . "
+    "start": "nodemon index.js",
+    "dev": "nodemon ."
   },
   "author": "Abel Mataix y Hugo Micó",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.12"
   },
   "dependencies": {
     "cors": "^2.8.5",

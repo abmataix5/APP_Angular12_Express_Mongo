@@ -2,47 +2,60 @@ const mongoose = require('mongoose');
 var uniqueValidator = require("mongoose-unique-validator");
 var slug = require("slug");
 
+console.log('entra moddel');
+
 const ProductoSchema =  mongoose.Schema({
+    
     slug:{
         type: String, 
         lowercase: true, 
         unique: true
     },
+
     nombre:{
     type:String,
     required:true
     },
-        tipo: {
-        type: String,
-        required: true
+
+    tipo: {
+     type: String,
+    required: true
     },
+
     marca: {
         type: String,
         required: true
     },
+
     modelo: {
         type: String,
         required: true
     },
+
     estado: {
         type: String,
         required: true
     },
+
     precio: {
         type: Number,
         required: true
     },
+
     descripcion: {
         type: String,
        
     },
+
     imagen :{
         type:String,
         required:true
     },
+    
     ubicacion:{
         type:String,
     },
+    
     fecha_alta: {
         type: Date,
         default:Date.now()
