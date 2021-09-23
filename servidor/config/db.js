@@ -9,7 +9,7 @@ const conectarDB = async () => {
             useUnifiedTopology: true,
             useFindAndModify: false
         })
-        console.log('BD conectada');
+        console.log('BBDD Conectada!!');
         
     } catch (error) {
         console.log(error);
