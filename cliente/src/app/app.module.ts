@@ -3,6 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import {
+
+  HeaderComponent
+  
+} from './shared';
+
+//Componentes(Pages)
 import { ShopComponent } from './shop/shop.component';
 import { DetailsComponent } from './details/details.component';
 import { HomeComponent } from './home/home.component';
@@ -12,11 +20,14 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     ShopComponent,
     DetailsComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
