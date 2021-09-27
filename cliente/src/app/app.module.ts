@@ -11,22 +11,20 @@ import {
 } from './shared';
 
 //Componentes(Pages)
-import { ShopComponent } from './shop/shop.component';
+import { ShopModule } from './shop/shop.module';
 import { DetailsComponent } from './details/details.component';
-import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ShopComponent,
-    DetailsComponent,
-    HomeComponent,
     HeaderComponent
-    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HomeModule,
+    ShopModule
     
   ],
   providers: [],
