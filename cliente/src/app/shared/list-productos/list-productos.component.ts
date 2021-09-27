@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-list-productos',
   templateUrl: './list-productos.component.html',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListProductosComponent implements OnInit {
 
-  constructor() { }
+  constructor( private aRouter: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
   }

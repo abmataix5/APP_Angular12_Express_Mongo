@@ -1,19 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
 import { ListProductosComponent } from './list-productos/list-productos.component';
-import { HeaderComponent } from './layout/header.component';
-
-
 
 @NgModule({
   declarations: [
-    ListProductosComponent,
-    HeaderComponent
+    ListProductosComponent
     
   ],
   imports: [
     CommonModule,
-    HeaderComponent
-  ]
+    HttpClientModule,
+    RouterModule
+  ],
+
+  exports: [
+  
+    ListProductosComponent,
+    CommonModule,
+    HttpClientModule,
+    RouterModule
+]
 })
 export class SharedModule { }
