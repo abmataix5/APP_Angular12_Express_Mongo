@@ -1,1 +1,23 @@
 <p>details works!</p>
+
+<!-- <div *ngFor="let detail of details" class="container"> -->
+
+  
+        <div class="item">
+            <a>
+          <img src="{{ 'assets/images/' + detail.imagen + '.jpg'}}" alt="" class="item-img">
+          
+          <div class="item-text">
+            <h3>{{detail.nombre}}</h3>
+            <p>{{ detail.marca }}</p>
+            <p>{{ detail.modelo }}</p>
+            <p>{{ detail.estado }}</p>
+            <p>{{ detail.descripcion }}</p>
+            <p>{{ detail.precio }} $</p>
+            <p>{{ detail.ubicacion }}</p>
+          </div>
+        </a>
+        </div>
+      
+    
+  <!-- </div> -->

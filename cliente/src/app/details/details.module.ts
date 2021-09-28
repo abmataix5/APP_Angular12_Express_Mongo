@@ -9,6 +9,6 @@ import { DetailsComponent } from './details.component';
   imports: [
     CommonModule,
     DetailsRoutingModule
-  ]
+  ],
 })
 export class DetailsModule { }

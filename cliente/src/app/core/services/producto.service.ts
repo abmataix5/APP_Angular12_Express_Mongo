@@ -14,5 +14,9 @@ export class ProductoService {
     console.log('in');
     return this.http.get<Producto[]>(environment.url);
   }
+  getProducto(slug: string | null):Observable<Producto> {
+    console.log('inSingle');
+    return this.http.get<Producto>(environment.url + '/'+slug );
+  }
 
 }
