@@ -1,0 +1,15 @@
+<!-- <p>list-item-productos works!</p> -->
+<a [routerLink]="['/details', producto.slug]" class="preview-link">
+    <div class="item">
+  
+      <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
+      
+      <div class="item-text">
+        <h3>{{ producto.nombre }}</h3>
+        <p>{{ producto.descripcion }}</p>
+        <p>{{ producto.precio }} $</p>
+      </div>
+
+    </div>
+  
+ </a>

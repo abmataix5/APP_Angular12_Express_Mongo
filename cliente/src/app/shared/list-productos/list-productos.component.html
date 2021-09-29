@@ -3,29 +3,13 @@
     <h1 style="text-align: center;" >Estos son nuestros productos</h1>
 </div>
 
-
-
 <div *ngIf="listProductos.length > 0">
 
-    <div *ngFor="let producto of listProductos" class="container">
-
-      <a [routerLink]="['/details', producto.slug]" class="preview-link">
-          <div class="item">
-        
-            <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
-            
-            <div class="item-text">
-              <h3>{{ producto.nombre }}</h3>
-              <p>{{ producto.descripcion }}</p>
-              <p>{{ producto.precio }} $</p>
-            </div>
-      
-          </div>
-        
-       </a>
-    </div>
-
-</div>
-
+    <app-list-item-productos *ngFor="let producto of listProductos" [producto] = "producto" class="container"> </app-list-item-productos> 
+    
+    // Nested Component. Para todos los producto lo encapsulamos en un nuevo componente.
+    // [producto] = "producto" + @input en el list-item-productos.component.ts, recogemos los valores para inyectarlos en la vista.
+  
+  </div>
 
   <h3 *ngIf="listProductos.length == 0">Lo sentimos, pero no tenemos ningun dispositivo disponible</h3>
