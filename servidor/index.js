@@ -5,6 +5,7 @@ const cors = require("cors");
 
 // ruuting modulos
 const productoRounting = require('./routes/api/producto')
+const categoriaRounting = require('./routes/api/categoria')
 
 
 //Creamos un app object global
@@ -28,6 +29,7 @@ app.use(express.json());
 //Lanzamos rutas modulos
 
 app.use('/api/producto', productoRounting);
+app.use('/api/categoria', categoriaRounting);
 
 
 app.listen( port, '0.0.0.0', () => { 

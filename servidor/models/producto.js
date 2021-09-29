@@ -17,9 +17,8 @@ const ProductoSchema =  mongoose.Schema({
     required:true
     },
 
-    tipo: {
-     type: String,
-    required: true
+    tipo: {  
+        type: mongoose.Schema.Types.ObjectId, ref: 'Categoria' 
     },
 
     marca: {

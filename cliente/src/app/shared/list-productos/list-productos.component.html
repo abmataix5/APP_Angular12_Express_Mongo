@@ -6,10 +6,11 @@
 <div *ngIf="listProductos.length > 0">
 
     <app-list-item-productos *ngFor="let producto of listProductos" [producto] = "producto" class="container"> </app-list-item-productos> 
-    
+  <!--   
     // Nested Component. Para todos los producto lo encapsulamos en un nuevo componente.
-    // [producto] = "producto" + @input en el list-item-productos.component.ts, recogemos los valores para inyectarlos en la vista.
+    // [producto] = "producto" + @input en el list-item-productos.component.ts, recogemos los valores para inyectarlos en la vista. -->
   
   </div>
 
   <h3 *ngIf="listProductos.length == 0">Lo sentimos, pero no tenemos ningun dispositivo disponible</h3>
+<!--  -->
