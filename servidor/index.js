@@ -6,7 +6,7 @@ const cors = require("cors");
 // ruuting modulos
 const productoRounting = require('./routes/api/producto')
 const categoriaRounting = require('./routes/api/categoria')
-
+const imagenRounting = require('./routes/api/imagen')
 
 //Creamos un app object global
 var app = express();
@@ -30,7 +30,7 @@ app.use(express.json());
 
 app.use('/api/producto', productoRounting);
 app.use('/api/categoria', categoriaRounting);
-
+app.use('/api/imagen', imagenRounting);
 
 app.listen( port, '0.0.0.0', () => { 
     console.log(`El servidor está corriendo perfectamente en el puerto ${port}`);
