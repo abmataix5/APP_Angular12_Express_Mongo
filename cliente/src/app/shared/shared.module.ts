@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 
 import { ListProductosComponent } from './list-productos/list-productos.component';
 import { ListItemProductosComponent } from './list-item-productos/list-item-productos.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
     ListProductosComponent,
-    ListItemProductosComponent
+    ListItemProductosComponent,
+    CategoriesComponent
     
   ],
   imports: [
@@ -19,7 +21,7 @@ import { ListItemProductosComponent } from './list-item-productos/list-item-prod
   ],
 
   exports: [
-  
+    CategoriesComponent,
     ListProductosComponent,
     CommonModule,
     HttpClientModule,
