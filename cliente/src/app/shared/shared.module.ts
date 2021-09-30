@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { ListProductosComponent } from './list-productos/list-productos.component';
 import { ListItemProductosComponent } from './list-item-productos/list-item-productos.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { CarouselComponent } from './carousel';
 
 @NgModule({
   declarations: [
     ListProductosComponent,
     ListItemProductosComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    CarouselComponent
     
   ],
   imports: [
@@ -21,6 +23,7 @@ import { CategoriesComponent } from './categories/categories.component';
   ],
 
   exports: [
+    CarouselComponent,
     CategoriesComponent,
     ListProductosComponent,
     CommonModule,
