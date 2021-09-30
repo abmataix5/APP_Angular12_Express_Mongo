@@ -18,7 +18,10 @@ const CategoriaSchema =  mongoose.Schema({
     },
     descripcion:{
         type:String
-    }
+    },
+    productos:[{type: mongoose.Schema.Types.ObjectId, ref: 'Producto'}]
+     
+    
 
 
 });

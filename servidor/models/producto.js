@@ -13,12 +13,13 @@ const ProductoSchema =  mongoose.Schema({
     },
 
     nombre:{
-    type:String,
-    required:true
+        type:String,
+        required:true
     },
 
     tipo: {  
-        type: mongoose.Schema.Types.ObjectId, ref: 'Categoria' 
+        type:String,
+        required:true
     },
 
     marca: {
