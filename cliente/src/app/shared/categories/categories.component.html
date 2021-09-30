@@ -1,1 +1,23 @@
-<p>categories works!</p>
+    <div id="titulo"> 
+        <h1 style="text-align: center;" >NUESTRAS CATEGORIAS</h1>
+    </div>
+
+
+    <div *ngFor="let categoria of listCategorias" class="container">
+
+        <a [routerLink]="['/shop', categoria.slug]" class="preview-link">
+
+            <div class="item">
+
+                <img src="assets/images/iphone.jpg" alt="" class="item-img"> 
+
+                <div class="item-text">
+                    <h3 style="text-align: center;">{{ categoria.nombre_catego }}</h3>
+                
+                </div>
+
+            </div>
+        </a>
+
+    </div>
+

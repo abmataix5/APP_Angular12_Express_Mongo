@@ -9,11 +9,15 @@ import { ProductoService,Producto } from '../../core';
 })
 export class ListProductosComponent implements OnInit {
   listProductos: Producto[] = [];
-  constructor( private aRouter: ActivatedRoute,private router: Router, private _productoService: ProductoService,) { }
+  id : string | null ;
+  constructor( private aRouter: ActivatedRoute,private router: Router, private _productoService: ProductoService,) {
+    this.id = this.aRouter.snapshot.paramMap.get('nombre_catego');
+   }
 
 
   ngOnInit(): void {
     this.getProductos();
+    console.log(this.id);
   }
 
   getProductos() {

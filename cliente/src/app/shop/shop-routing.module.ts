@@ -10,6 +10,11 @@ const routes: Routes = [
     resolve: {
     
     }
+  },
+  {
+      path: ':nombre_catego',
+      component: ShopComponent,
+      resolve: {}
   }
 ];
 

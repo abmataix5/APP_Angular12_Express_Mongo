@@ -23,12 +23,12 @@ router.get("/", async (req, res) => {
 
 // GET ONE -> Seleccionamos solo un producto lo haremos seleccionandolo por -> slug
 
-router.get("/:slug", async (req, res) => {
+router.get("/:nombre_catego", async (req, res) => {
 
   try {
 
     let categoria;
-    categoria = await Categoria.findOne({slug : req.params.slug}); // buscamos por slug
+    categoria = await Categoria.findOne({nombre_catego : req.params.nombre_catego}).populate('productos'); // buscamos por slug
 
     if(categoria){
       res.json(categoria);

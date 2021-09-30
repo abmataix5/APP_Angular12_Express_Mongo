@@ -2,21 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.dev';
-import { Producto } from '../models/producto.model';
+import { Categoria } from '../models/categoria.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductoService {
+export class CategoriesService {
 
   constructor(private http:HttpClient) { }
 
-  getProductos(): Observable<any> {
+
+  getCategorias(): Observable<any> {
     console.log('in');
-    return this.http.get<Producto[]>(environment.url + '/producto');
+    return this.http.get<Categoria[]>(environment.url + '/categoria');
   }
-  getProducto(slug: string | null):Observable<Producto> {
+  getCategoria(slug: string | null):Observable<Categoria> {
     console.log('inSingle');
-    return this.http.get<Producto>(environment.url + '/'+slug );
+    return this.http.get<Categoria>(environment.url + '/'+slug );
   }
 
 }
