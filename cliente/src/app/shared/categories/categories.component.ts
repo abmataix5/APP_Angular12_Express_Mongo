@@ -10,11 +10,20 @@ import { CategoriesService,Categoria } from '../../core';
 export class CategoriesComponent implements OnInit {
 
   listCategorias: Categoria[] = [];
-  constructor( private aRouter: ActivatedRoute,private router: Router, private _categoriasService: CategoriesService,) { }
+
+  constructor( 
+    private aRouter: ActivatedRoute,
+    private router: Router, 
+    private _categoriasService: CategoriesService) {
+
+     }
 
   ngOnInit(): void {
     this.getCategorias();
   }
+
+
+
 
 
   getCategorias() {
@@ -30,5 +39,5 @@ export class CategoriesComponent implements OnInit {
       }
     );
   
-}
+  }
 }

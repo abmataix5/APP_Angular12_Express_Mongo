@@ -10,15 +10,14 @@ import {
   
 } from './shared';
 
-//Componentes(Pages)
-import { ShopModule } from './shop/shop.module';
-//import { DetailsComponent } from './details/details.component';
-import { HomeModule } from './home/home.module';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent
+ 
   ],
   imports: [
     HttpClientModule,

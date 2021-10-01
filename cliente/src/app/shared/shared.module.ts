@@ -7,13 +7,17 @@ import { ListProductosComponent } from './list-productos/list-productos.componen
 import { ListItemProductosComponent } from './list-item-productos/list-item-productos.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CarouselComponent } from './carousel';
+import { CategoriesItemComponent } from './categories-item/categories-item.component';
+
 
 @NgModule({
   declarations: [
     ListProductosComponent,
     ListItemProductosComponent,
     CategoriesComponent,
-    CarouselComponent
+    CarouselComponent,
+    CategoriesItemComponent
+
     
   ],
   imports: [

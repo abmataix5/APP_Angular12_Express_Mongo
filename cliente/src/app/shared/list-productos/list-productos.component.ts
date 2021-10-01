@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductoService,Producto ,CategoriesService} from '../../core';
+import { ProductoService,Producto } from '../../core';
 
 @Component({
   selector: 'app-list-productos',
@@ -15,8 +15,6 @@ export class ListProductosComponent implements OnInit {
 
   constructor( 
     private aRouter: ActivatedRoute,
-    private router: Router, 
-    private _categoriaService : CategoriesService,
     private _productoService: ProductoService) 
     {
     this.id = this.aRouter.snapshot.paramMap.get('nombre_catego'); // cogemos la categora de la URL
