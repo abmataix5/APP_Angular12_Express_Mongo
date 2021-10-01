@@ -31,14 +31,14 @@ router.get("/:nombre_catego", async (req, res) => {
     categoria = await Categoria.findOne({nombre_catego : req.params.nombre_catego}).populate('productos'); // buscamos por slug
 
     if(categoria){
-      res.json(categoria);
+      res.json(categoria.nombre_catego);
     }else{
-      res.status(500).send("No existe el producto con ese slug!!");
+      res.status(500).send("No existe la categoria con ese slug!!");
     }
   
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error en el GET de producto!!");
+    res.status(500).send("Error en el GET de categoria!!");
   }
 });
 
@@ -88,25 +88,19 @@ router.delete("/:id", async (req, res) => {
  router.put("/:id", async (req, res) => {
 
   try {
-    const {nombre,tipo,marca,modelo,estado,precio,descripcion,imagen,ubicacion} = req.body;
-    let producto = await Producto.findById(req.params.id);
+    const {nombre_catego,descripcion} = req.body;
+    let categoria = await Categoria.findById(req.params.id);
 
-    if(!producto) {
+    if(!categoria) {
         res.status(404).json({ msg: 'No existe el producto'})
     }
 
-    producto.nombre = nombre;
-    producto.tipo = tipo;
-    producto.marca = marca;
-    producto.modelo = modelo;
-    producto.estado = estado;
-    producto.precio = precio;
-    producto.descripcion = descripcion;
-    producto.imagen = imagen;
-    producto.ubicacion = ubicacion;
+    categoria.nombre_catego = nombre_catego;
+    categoria.descripcion = descripcion;
 
-    producto = await Categoria.findOneAndUpdate({ _id:req.params.id},producto, { new:true })
-    res.json(producto)
+
+    categoria = await Categoria.findOneAndUpdate({ _id:req.params.id},categoria, { new:true })
+    res.json(categoria)
     
 } catch (error) {
     console.log(error);

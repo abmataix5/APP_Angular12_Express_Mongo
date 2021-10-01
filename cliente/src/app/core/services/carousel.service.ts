@@ -14,7 +14,7 @@ export class CarouselService {
 
   getCarousel(): Observable<any> {
     console.log('inCarousel');
-    return this.http.get<Carousel[]>(environment.urlcarousel);
+    return this.http.get<Carousel[]>(environment.url);
   }
 
 }

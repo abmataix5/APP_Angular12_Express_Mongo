@@ -11,12 +11,17 @@ export class ProductoService {
   constructor(private http:HttpClient) { }
 
   getProductos(): Observable<any> {
-    console.log('in');
+    console.log('inHome');
     return this.http.get<Producto[]>(environment.url + '/producto');
   }
   getProducto(slug: string | null):Observable<Producto> {
     console.log('inSingle');
-    return this.http.get<Producto>(environment.url + '/'+slug );
+    return this.http.get<Producto>(environment.url + '/producto/'+slug );
+  }
+
+  getProducto_catego(tipo: string | null):Observable<any> {
+    console.log('inCatego');
+    return this.http.get<Producto>(environment.url + '/producto/categoria/'+ tipo );
   }
 
 }

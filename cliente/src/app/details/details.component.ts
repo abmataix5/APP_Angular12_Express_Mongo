@@ -23,26 +23,13 @@ export class DetailsComponent implements OnInit {
   }
 
 
-  // ngOnInit(): void {
-
-    
-  //   //console.log(this.route.data);
-  //   this.route.data.subscribe();
-  //   (data: { producto: Producto }) => {
-  //     //this.producto = data.producto;
-  //   console.log(data);
-  //   }
-  
-  // }
-
   ngOnInit(): void {
 
     // https://www.joshuacolvin.net/angular-subscribe-to-route-params-and-data/
-    
-    //console.log(this.route.data);
+
     this.route.data.subscribe(
       (data) => {
-        // console.log(data.details.nombre);
+      
         this.detail = data.details;
         console.log(this.detail);
       },

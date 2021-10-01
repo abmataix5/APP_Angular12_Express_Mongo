@@ -17,7 +17,7 @@ export class CategoriesService {
   }
   getCategoria(slug: string | null):Observable<Categoria> {
     console.log('inSingle');
-    return this.http.get<Categoria>(environment.url + '/'+slug );
+    return this.http.get<Categoria>(environment.url + '/categoria/'+slug );
   }
 
 }

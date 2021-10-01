@@ -20,6 +20,20 @@ router.get("/", async (req, res) => {
 });
 
 
+// GET -> Seleccionar todos los productos de una determinada categoria
+
+router.get("/categoria/:tipo/", async (req, res) => {
+
+  try {
+    const products = await Producto.find({tipo : req.params.tipo});
+    console.log(res);
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error en el GET de productos!!");
+  }
+});
+
 
 // GET ONE -> Seleccionamos solo un producto lo haremos seleccionandolo por -> slug
 
@@ -41,6 +55,7 @@ router.get("/:slug", async (req, res) => {
     res.status(500).send("Error en el GET de producto!!");
   }
 });
+
 
 //POST -> Crear nuevo producto
 

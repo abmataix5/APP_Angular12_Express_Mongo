@@ -14,12 +14,12 @@ const CategoriaSchema =  mongoose.Schema({
 
     nombre_catego:{
         type:String,
-        required:true
+        required:true,
+        unique: true
     },
     descripcion:{
         type:String
-    },
-    productos:[{type: mongoose.Schema.Types.ObjectId, ref: 'Producto'}]
+    }
      
     
 
