@@ -2,5 +2,12 @@
         <h1 style="text-align: center;" >NUESTRAS CATEGORIAS</h1>
     </div>
     
-
-    <app-categories-item *ngFor="let categoria of listCategorias" [categoria] = "categoria" class="container"> </app-categories-item> 
+    <div
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()">
+        
+        <app-categories-item *ngFor="let categoria of listCategorias" [categoria] = "categoria" class="container"> </app-categories-item> 
+    </div>
+ 

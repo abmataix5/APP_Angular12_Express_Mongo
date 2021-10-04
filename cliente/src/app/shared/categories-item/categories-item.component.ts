@@ -11,10 +11,11 @@ export class CategoriesItemComponent implements OnInit {
   @Input()    
 
   categoria!: Categoria;
-  
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.categoria);
   }
 
 }

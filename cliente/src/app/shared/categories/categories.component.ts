@@ -10,11 +10,13 @@ import { CategoriesService,Categoria } from '../../core';
 export class CategoriesComponent implements OnInit {
 
   listCategorias: Categoria[] = [];
+  scroll_items = 4;
 
   constructor( 
     private aRouter: ActivatedRoute,
     private router: Router, 
-    private _categoriasService: CategoriesService) {
+    private _categoriasService: CategoriesService) 
+    {
 
      }
 
@@ -31,7 +33,8 @@ export class CategoriesComponent implements OnInit {
     this._categoriasService.getCategorias().subscribe(
       (data) => {
         console.log(data);
-        this.listCategorias =data;
+        this.listCategorias =data.slice(0,4);
+        console.log(this.listCategorias);
       },
       (error) => {
       
@@ -40,4 +43,27 @@ export class CategoriesComponent implements OnInit {
     );
   
   }
+
+
+  onScroll(){
+
+    this.scroll_items += 4;
+
+    this._categoriasService.getCategorias().subscribe((data) => {
+   
+      this.listCategorias = data.slice(0,this.scroll_items)
+
+      },
+      (error) => {
+      
+        console.log(error);
+      }
+    );
+
+  }
+  
+
+
+
+
 }

@@ -8,6 +8,7 @@ import { ListItemProductosComponent } from './list-item-productos/list-item-prod
 import { CategoriesComponent } from './categories/categories.component';
 import { CarouselComponent } from './carousel';
 import { CategoriesItemComponent } from './categories-item/categories-item.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { CategoriesItemComponent } from './categories-item/categories-item.compo
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    InfiniteScrollModule
+    
   ],
 
   exports: [
