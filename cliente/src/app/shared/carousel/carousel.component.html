@@ -1,1 +1,20 @@
-<p>carousel works!</p>
+<div id="carousel">
+    <br>
+<ngb-carousel 
+   
+    [showNavigationArrows]="true" 
+    [showNavigationIndicators]="true"
+    [interval]="4000"
+    [keyboard]="true"
+    [pauseOnHover]="true"
+    [wrap]="true"
+    [activeId]="'sliderThree'" id="carousel">
+    <ng-template ngbSlide *ngFor="let image of images;">
+        <img class=" "  src="{{image.src}}" alt="{{image.alt}}">
+         <div class="carousel-caption">
+            <!-- <h3>Banner-{{i + 1}}</h3> -->
+        </div> 
+    </ng-template>
+</ngb-carousel>
+<br>
+</div>
