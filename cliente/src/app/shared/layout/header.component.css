@@ -59,3 +59,7 @@
                         nav ul li a:hover {
                             background: #0b76a6;
                         }
+
+                        .search{
+                            text-align: center;
+                        }

@@ -10,6 +10,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CarouselComponent } from './carousel';
 import { CategoriesItemComponent } from './categories-item/categories-item.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ListItemProductosComponent,
     CategoriesComponent,
     CarouselComponent,
-    CategoriesItemComponent
+    CategoriesItemComponent,
+    SearchComponent
 
     
   ],
