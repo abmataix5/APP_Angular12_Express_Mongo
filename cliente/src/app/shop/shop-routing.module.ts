@@ -15,6 +15,11 @@ const routes: Routes = [
       path: ':nombre_catego',
       component: ShopComponent,
       resolve: {}
+  },
+  {
+      path: 'search/:search',
+      component: ShopComponent,
+      resolve: {}
   }
 ];
 

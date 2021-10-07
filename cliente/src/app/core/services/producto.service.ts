@@ -24,4 +24,9 @@ export class ProductoService {
     return this.http.get<Producto>(environment.url + '/producto/categoria/'+ tipo );
   }
 
+  getProducto_search(search: string | null):Observable<any> {
+    console.log('inSearch');
+    return this.http.get<Producto>(environment.url + '/producto/search/'+ search );
+  }
+
 }

@@ -35,6 +35,23 @@ router.get("/categoria/:tipo/", async (req, res) => {
 });
 
 
+// GET -> Seleccionar todos los productos de una determinada categoria
+
+router.get("/search/:search/", async (req, res) => {
+
+  let search = new RegExp(req.params.search); // parametro de búsqueda
+  console.log(search);
+
+  try {
+    const products = await Producto.find({nombre : {$regex : search}});
+    console.log(res);
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error en el GET de productos!!");
+  }
+});
+
 // GET ONE -> Seleccionamos solo un producto lo haremos seleccionandolo por -> slug
 
 router.get("/:slug", async (req, res) => {

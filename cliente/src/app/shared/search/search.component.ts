@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-search',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+
+    keyword :any;
+    busca : any;
+
+  constructor(
+    private router : Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  search_prod(event : any){
+
+  this.router.navigate(['shop/search/',this.keyword]);  
+  }
+
+  search(event: any) {
+
+    this.keyword = event.target.value; // Recogemos los crietrios de busqueda
+ 
   }
 
 }

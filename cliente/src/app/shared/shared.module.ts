@@ -40,7 +40,9 @@ import { SearchComponent } from './search/search.component';
     CommonModule,
     HttpClientModule,
     RouterModule,
-    NgbModule
+    NgbModule,
+    SearchComponent
 ]
 })
+
 export class SharedModule { }
