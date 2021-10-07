@@ -5,19 +5,48 @@ var mongoose = require('mongoose');
 const Producto = require("../../models/producto");
 
 
+// // GET -> Seleccionar todos los productos
+
+// router.get("/", async (req, res) => {
+
+//     try {
+//       const products = await Producto.find();
+//       console.log(res);
+//       res.json(products);
+//     } catch (error) {
+//       console.log(error);
+//       res.status(500).send("Error en el GET de productos!!");
+//     }
+// });
+
 // GET -> Seleccionar todos los productos
 
 router.get("/", async (req, res) => {
 
-    try {
-      const products = await Producto.find();
-      console.log(res);
-      res.json(products);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send("Error en el GET de productos!!");
-    }
+var query = {};
+var limit = req.query.limit !== 'undefined' ? req.query.limit : 3;
+var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
+
+
+  try {
+
+    const products = await Producto.find(query)
+    .limit(Number(limit))
+    .skip(Number(offset))
+    .exec()
+    Producto.count(query).exec();
+
+    res.json(products );
+    // res.json(products : productos.map(funtion (articulo)));
+    console.log(res);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error en el GET de productos!!");
+  }
 });
+
+
 
 
 // GET -> Seleccionar todos los productos de una determinada categoria

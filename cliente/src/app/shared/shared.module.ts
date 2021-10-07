@@ -12,6 +12,9 @@ import { CategoriesItemComponent } from './categories-item/categories-item.compo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './search/search.component';
 
+// import { FilterProductosComponent } from './filter-productos/filter-productos.component';
+
+
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { SearchComponent } from './search/search.component';
     CarouselComponent,
     CategoriesItemComponent,
     SearchComponent
+    // FilterProductosComponent
 
     
   ],
@@ -29,6 +33,7 @@ import { SearchComponent } from './search/search.component';
     HttpClientModule,
     RouterModule,
     InfiniteScrollModule,
+    // FilterProductosComponent,
     NgbModule
     
   ],
@@ -37,6 +42,7 @@ import { SearchComponent } from './search/search.component';
     CarouselComponent,
     CategoriesComponent,
     ListProductosComponent,
+    // FilterProductosComponent,
     CommonModule,
     HttpClientModule,
     RouterModule,

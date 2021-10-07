@@ -87,19 +87,20 @@ ProductoSchema.methods.slugify = function() {
 
 //toJsonFor para cambiar estructuras
 
- //ArticleSchema.methods.toJSONFor = function(user){
- //  return {
- //  slug: this.slug,
- // title: this.title,
- // description: this.description,
- // body: this.body,
- // createdAt: this.createdAt,
- //updatedAt: this.updatedAt,
- // tagList: this.tagList,
- // favorited: user ? user.isFavorite(this._id) : false,
- // favoritesCount: this.favoritesCount,
- // author: this.author.toProfileJSONFor(user)
- //  };
- // };
+//  ProductoSchema.methods.toJSONFor = function(){
+//   return {
+//     slug: this.slug,
+//     nombre: this.nombre,
+//     tipo: this.tipo,
+//     marca: this.marca,
+//     modelo: this.modelo,
+//     estado: this.estado,
+//     precio: this.precio,
+//     descripcion: this.descripcion,
+//     imagen: this.imagen,
+//     ubicacion: this.ubicacion,
+//     fecha_alta: this.fecha_alta,
+//   };
+// };
 
 module.exports = mongoose.model('Producto', ProductoSchema);
