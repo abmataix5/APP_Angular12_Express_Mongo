@@ -12,7 +12,7 @@ export class SearchComponent implements OnInit {
 
 
     keyword :any;
-    busca : any;
+
 
   constructor(
     private router : Router

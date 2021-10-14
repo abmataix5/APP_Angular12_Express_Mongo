@@ -64,7 +64,7 @@ router.get("/categoria/:tipo/", async (req, res) => {
 });
 
 
-// GET -> Seleccionar todos los productos de una determinada categoria
+// GET -> Seleccionar productos dependiendo del search
 
 router.get("/search/:search/", async (req, res) => {
 
