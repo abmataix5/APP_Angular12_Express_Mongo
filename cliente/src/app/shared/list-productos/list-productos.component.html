@@ -1,16 +1,25 @@
+<hr>
+<div id="show">
+    <div id="titulo"> 
+        <h1 style="text-align: center;" >Estos son nuestros productos</h1>
+    </div>
+   
+    <div id="prods">
+        <div *ngIf="listProductos.length > 0">
 
-<div id="titulo"> 
-    <h1 style="text-align: center;" >Estos son nuestros productos</h1>
+            <app-list-item-productos *ngFor="let producto of listProductos  | paginate: { itemsPerPage: limit, currentPage: page, totalItems: count }" [producto] = "producto" class="container"> </app-list-item-productos> 
+          <!--   
+            // Nested Component. Para todos los producto lo encapsulamos en un nuevo componente.
+            // [producto] = "producto" + @input en el list-item-productos.component.ts, recogemos los valores para inyectarlos en la vista. -->
+            <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+            
+        </div>
+    </div>
+    <div id="pag">
+        <pagination-controls (pageChange)= "handlePageChange($event)"></pagination-controls>
+    </div>    
+
+      <h3 *ngIf="listProductos.length == 0">Lo sentimos, pero no tenemos ningun dispositivo disponible</h3>
+    <!--  -->
 </div>
-
-<div *ngIf="listProductos.length > 0">
-
-    <app-list-item-productos *ngFor="let producto of listProductos" [producto] = "producto" class="container"> </app-list-item-productos> 
-  <!--   
-    // Nested Component. Para todos los producto lo encapsulamos en un nuevo componente.
-    // [producto] = "producto" + @input en el list-item-productos.component.ts, recogemos los valores para inyectarlos en la vista. -->
-  
-  </div>
-
-  <h3 *ngIf="listProductos.length == 0">Lo sentimos, pero no tenemos ningun dispositivo disponible</h3>
-<!--  -->
+<hr>

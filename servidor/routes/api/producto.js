@@ -24,19 +24,22 @@ const Producto = require("../../models/producto");
 router.get("/", async (req, res) => {
 
 var query = {};
-var limit = req.query.limit !== 'undefined' ? req.query.limit : 3;
+var limit = req.query.limit !== 'undefined' ? req.query.limit : 2;
+
 var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
 
 
   try {
-
+    console.log(req.query);
+    
     const products = await Producto.find(query)
     .limit(Number(limit))
-    .skip(Number(offset))
-    .exec()
-    Producto.count(query).exec();
+    .skip(Number(offset));
 
-    res.json(products );
+    const totalProductos = await Producto.find(query).countDocuments();
+    // const totalProductos = totalProducto/limit;
+
+    res.json({products,totalProductos});
     // res.json(products : productos.map(funtion (articulo)));
     console.log(res);
 
