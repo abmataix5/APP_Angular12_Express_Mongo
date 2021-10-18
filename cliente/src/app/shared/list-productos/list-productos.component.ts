@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductoService,Producto } from '../../core';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-list-productos',
@@ -13,6 +14,14 @@ export class ListProductosComponent implements OnInit {
   listProductos: Producto[] = [];
   id_catego : string | null ;
   id_search : string | null;
+
+  page = 1;     // por defecto nos situamos en la primera pagina.
+  limit = 2;    //numero de produtos que mostramos
+  offset = 0;   // offset por defecto, nos muestra los primeros productos.
+
+  count = 0;
+  // pageSize = 2;
+ 
 
   constructor( 
     private aRouter: ActivatedRoute,
@@ -30,9 +39,34 @@ export class ListProductosComponent implements OnInit {
     this.getProductos();
   }
 
+  getRequestParams(limit: number, offset: number, page:number): any {
+    let params: any = {};
+    if(page){
+      offset=(page-1)*limit;        //definimos valor offser respecto pagina en la que nos encontramos.
+    }
+
+    if (offset) {
+      params[`limit`] = limit;
+    }
+
+    if (offset) {
+      params[`offset`] = offset;
+    }
+
+    console.log(params[`offset`]);
+    console.log(params[`limit`]);
+
+  
+    return params;
+  }
+
+
   getProductos() {
 
 //Si tenemos categoria, busca los productos filtrandolos por categoria.
+
+const params = this.getRequestParams(this.limit, this.offset, this.page);
+
 
     if(this.id_catego  !== null){
      
@@ -66,21 +100,37 @@ export class ListProductosComponent implements OnInit {
       
 
     }else{
+      // if(params != ""){
 
-      this._productoService.getProductos().subscribe(
-        (data) => {
-          console.log(data);
-          this.listProductos =data;
-        },
-        (error) => {
-        
-          console.log(error);
-        }
-      );
-      
-    }
-     
+      // }else{
+          this._productoService.getProductos(params).subscribe(
+            (data) => {
+
+              console.log("entra getproductos");
+              console.log(data.products);
+              console.log(data.totalProductos);
+
+              this.listProductos = data.products; //array de productos
+              this.count=data.totalProductos;     // numero paginaciones
+            },
+            (error) => {
+            
+              console.log(error);
+            }
+          );
+      // }
+  }
     
+  }
+
+  //cada vez que se ejecute el evento changePage lanza getProductos.
+
+  handlePageChange(event:number):void{
+    this.page = event;
+    console.log("valor event"+ event);
+    this.getProductos();
+
+
   }
 
 }

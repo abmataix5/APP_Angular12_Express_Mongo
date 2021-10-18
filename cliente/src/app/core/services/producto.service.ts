@@ -10,9 +10,13 @@ export class ProductoService {
 
   constructor(private http:HttpClient) { }
 
-  getProductos(): Observable<any> {
+  getProductos(params:any): Observable<any> {
     console.log('inHome');
-    return this.http.get<Producto[]>(environment.url + '/producto');
+
+    let query  = "?limit="+params[`limit`]+"&offset="+params[`offset`];
+
+    // console.log(this.http.get<Producto[]>(environment.url + '/producto'+ query));
+    return this.http.get<Producto[]>(environment.url + '/producto'+ query);
   }
   getProducto(slug: string | null):Observable<Producto> {
     console.log('inSingle');
