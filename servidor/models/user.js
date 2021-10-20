@@ -10,8 +10,7 @@ const UserSchema =  mongoose.Schema({
     username:{
         type: String, 
         lowercase: true, 
-        unique: true, 
-        match: [/^[a-zA-Z0-9]+$/, 'is invalid']
+        unique: true
     },
     email:{
         type:String,
