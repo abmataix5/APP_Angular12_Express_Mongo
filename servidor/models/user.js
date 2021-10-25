@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 var uniqueValidator = require("mongoose-unique-validator");
-
+var crypto = require("crypto");
 var jwt = require('jsonwebtoken'); // -> npm install jsonwebtoken
-
+var secret = require("../config").secret;
 
 
 const UserSchema =  mongoose.Schema({
@@ -10,27 +10,24 @@ const UserSchema =  mongoose.Schema({
     username:{
         type: String, 
         lowercase: true, 
-        unique: true, 
-        match: [/^[a-zA-Z0-9]+$/, 'is invalid']
+        unique: true
     },
     email:{
         type:String,
         required:true,
         match: [/\S+@\S+\.\S+/, 'is invalid']
     },
-    hash:{
-        type:String,
-        required:true
-   
-    },
+    hash:String,
+    salt:String,
     image:{
         type:String
-    }
+    },
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
      
-    
 
-
-});
+},
+{timestamps:true});
 
 
 // Nos valida el esquema
@@ -38,11 +35,16 @@ const UserSchema =  mongoose.Schema({
 UserSchema.plugin(uniqueValidator, {message: 'no se cumple el esquema!'}); // instalar -> npm install --save mongoose-unique-validator
 
 
-UserSchema.methods.validPassword = function(password) {
-    var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
-    return this.hash === hash;
-  };
 
+UserSchema.methods.validPassword = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+  return this.hash === hash;
+};
+
+UserSchema.methods.setPassword = function(password){
+  this.salt = crypto.randomBytes(16).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+};
 
 UserSchema.methods.generateJWT = function() {
     var today = new Date();
@@ -64,6 +66,55 @@ UserSchema.methods.toAuthJSON = function(){
       token: this.generateJWT(),
       image: this.image
     };
+  };
+
+  UserSchema.methods.toProfileJSONFor = function(user){
+    return {
+      username: this.username,
+      image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
+      following: user ? user.isFollowing(this._id) : false
+    };
+  };
+
+  UserSchema.methods.favorite = function(id){
+    if(this.favorites.indexOf(id) === -1){
+      this.favorites.push(id);
+    }
+  
+    return this.save();
+  };
+
+
+  UserSchema.methods.unfavorite = function(id){
+    this.favorites.remove(id);
+    return this.save();
+  };
+
+
+
+  UserSchema.methods.isFavorite = function(id){
+    return this.favorites.some(function(favoriteId){
+      return favoriteId.toString() === id.toString();
+    });
+  };
+  
+  UserSchema.methods.follow = function(id){
+    if(this.following.indexOf(id) === -1){
+      this.following.push(id);
+    }
+  
+    return this.save();
+  };
+  
+  UserSchema.methods.unfollow = function(id){
+    this.following.remove(id);
+    return this.save();
+  };
+  
+  UserSchema.methods.isFollowing = function(id){
+    return this.following.some(function(followId){
+      return followId.toString() === id.toString();
+    });
   };
 
 module.exports = mongoose.model('User', UserSchema);

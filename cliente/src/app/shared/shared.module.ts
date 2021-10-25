@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ListProductosComponent } from './list-productos/list-productos.component';
@@ -14,7 +15,8 @@ import { SearchComponent } from './search/search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterProductosComponent } from './filter-productos/filter-productos.component';
 import { FormsModule } from '@angular/forms';
-
+import { ShowAuthedDirective } from './show-authed.directive';
+// import { FilterProductosComponent } from './filter-productos/filter-productos.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     CarouselComponent,
     CategoriesItemComponent,
     SearchComponent,
-    FilterProductosComponent
+    FilterProductosComponent,
+    ShowAuthedDirective
 
   ],
   imports: [
@@ -48,7 +51,8 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     NgbModule,
     SearchComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ShowAuthedDirective
 ]
 })
 

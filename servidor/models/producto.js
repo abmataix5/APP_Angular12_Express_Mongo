@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var uniqueValidator = require("mongoose-unique-validator");
 var slug = require("slug");
-
+const User = require("./user");
 
 
 const ProductoSchema =  mongoose.Schema({
@@ -59,7 +59,10 @@ const ProductoSchema =  mongoose.Schema({
     fecha_alta: {
         type: Date,
         default:Date.now()
-    }
+    },
+    favoritesCount: {type: Number, default: 0},
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }]
 });
 
 
@@ -84,23 +87,37 @@ ProductoSchema.methods.slugify = function() {
     this.slug = slug(this.nombre) + '-' + (Math.random() * Math.pow(36, 6) | 0).toString(36); // instala slug -> npm install slug -> npm update
  };
 
+//Actualiza el contador de favoritos
+
+ProductoSchema.methods.updateFavoriteCount = function() {
+    var producto = this;
+  
+    return User.count({favorites: {$in: [producto._id]}}).then(function(count){
+        producto.favoritesCount = count;
+  
+      return producto.save();
+    });
+  };
 
 //toJsonFor para cambiar estructuras
 
-//  ProductoSchema.methods.toJSONFor = function(){
-//   return {
-//     slug: this.slug,
-//     nombre: this.nombre,
-//     tipo: this.tipo,
-//     marca: this.marca,
-//     modelo: this.modelo,
-//     estado: this.estado,
-//     precio: this.precio,
-//     descripcion: this.descripcion,
-//     imagen: this.imagen,
-//     ubicacion: this.ubicacion,
-//     fecha_alta: this.fecha_alta,
-//   };
-// };
+  ProductoSchema.methods.toJSONFor = function(user){
+   return {
+     slug: this.slug,
+     nombre: this.nombre,
+     tipo: this.tipo,
+     marca: this.marca,
+     modelo: this.modelo,
+     estado: this.estado,
+     precio: this.precio,
+     descripcion: this.descripcion,
+     imagen: this.imagen,
+     ubicacion: this.ubicacion,
+     fecha_alta: this.fecha_alta,
+     favorited: user ? user.isFavorite(this._id) : false,
+     favoritesCount: this.favoritesCount,
+     author: this.author.toProfileJSONFor(user)
+   };
+ };
 
 module.exports = mongoose.model('Producto', ProductoSchema);

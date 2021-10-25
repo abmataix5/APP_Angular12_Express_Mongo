@@ -5,3 +5,6 @@ export * from './list-productos/list-productos.component';
 export * from './categories';
 export * from './carousel';
 export * from './filter-productos/filter-productos.component';
+export * from './show-authed.directive';
+// export * from './filter-productos';
+

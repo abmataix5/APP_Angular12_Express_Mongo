@@ -4,31 +4,41 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+//Paginación
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormsModule } from '@angular/forms';
+//Reactive forms
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//Header component
+import {HeaderComponent,SharedModule} from './shared';
+//Toastr
+import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import{ToastrModule} from 'ngx-toastr';
 
-import {
-
-  HeaderComponent
-  
-} from './shared';
-
-
-
+import { AuthModule } from './auth/auth.module';
+import { ProfileComponent } from './profile/profile.component';
+import { CoreModule } from './core';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent
- 
+    
   ],
   imports: [
+    SharedModule,
+    CoreModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    AuthModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
