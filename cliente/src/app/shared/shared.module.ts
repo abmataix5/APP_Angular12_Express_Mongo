@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ListProductosComponent } from './list-productos/list-productos.component';
@@ -12,7 +13,7 @@ import { CategoriesItemComponent } from './categories-item/categories-item.compo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './search/search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { ShowAuthedDirective } from './show-authed.directive';
 // import { FilterProductosComponent } from './filter-productos/filter-productos.component';
 
 
@@ -25,6 +26,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CarouselComponent,
     CategoriesItemComponent,
     SearchComponent,
+    ShowAuthedDirective
     // FilterProductosComponent
 
     
@@ -50,7 +52,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RouterModule,
     NgbModule,
     SearchComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ShowAuthedDirective
 ]
 })
 

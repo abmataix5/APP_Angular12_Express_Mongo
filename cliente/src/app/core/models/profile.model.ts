@@ -1,7 +1,7 @@
-export interface User {
-    email: string;
-    token: string;
-    username: string;
-    image: string;
+export interface Profile {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
   }
   

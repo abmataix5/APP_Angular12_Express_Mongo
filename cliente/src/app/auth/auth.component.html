@@ -7,9 +7,9 @@
                     <form id="loginform" [formGroup]="authForm" (ngSubmit)="submitForm()">
                         <input formControlName = "username" *ngIf="authType == '/register'" type="text" name="usuario" placeholder="Usuario" required>
                         <input formControlName = "email" type="text" name="email" placeholder="usuario@gmail.com" required>
-                        <input formControlName = "password" type="password" placeholder="Contraseña" name="password" required>
+                        <input  formControlName = "password" type="password" placeholder="Contraseña" name="password" required>
                         
-                        <button type="submit" title="Ingresar" name="Ingresar" >{{title}}</button>
+                        <button  [disabled]="!authForm.valid" type="submit" title="Ingresar" name="Ingresar" >{{title}}</button>
                     </form>
                     <div class="pie-form">
                         <a routerLink="/register" *ngIf="authType == '/login'"  routerLinkActive="active">>¿No tienes Cuenta? Registrate</a>           

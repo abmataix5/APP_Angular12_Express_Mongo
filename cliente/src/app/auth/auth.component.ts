@@ -34,36 +34,33 @@ export class AuthComponent implements OnInit {
 
   ngOnInit() {
 
-      console.log(this.router.url)
+ 
+      this.authType = this.router.url; // Cojemos la url(/login o /register) 
     
-      this.authType = this.router.url;
-      // Set a title for the page accordingly
-      this.title = (this.authType === '/login') ? 'Iniciar Sesión' : 'Registrar-se';
-      // add form control for username if this is the register page
+      this.title = (this.authType === '/login') ? 'Iniciar Sesión' : 'Registrar-se'; // Comprovamos
      
       if (this.authType === '/register') {
         console.log('oalal');
-        this.authForm.addControl('username', new FormControl());
+        this.authForm.addControl('username', new FormControl()); // Añadimos username para el register
       }
       this.cd.markForCheck();
  
   }
 
    submitForm() {
+
      this.isSubmitting = true;
 
-
     const credentials = this.authForm.value;
-console.log(credentials);
-    this.userService
-    .attemptAuth(this.authType, credentials)
-    .subscribe(
-      data => {
-        this.router.navigateByUrl('/'); 
-        this.info.Succes('Iniciando sesión...','Usuario correcto');
+    
+    this.userService.attemptAuth(this.authType, credentials).subscribe( data => {
+
+      this.router.navigateByUrl('/'); 
+      this.info.Succes('Iniciando sesión...','Usuario correcto');
+
       },
       err => {
-        this.info.Error('Error en el login','Error');
+        this.info.Error('Campos incorrectos','Error');
         this.isSubmitting = false;
         this.cd.markForCheck();
       } 

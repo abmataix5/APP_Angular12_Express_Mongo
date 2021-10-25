@@ -6,10 +6,22 @@
 	
 
 	<nav>
-		<ul>
+
+		<!-- no Logueado -->
+		<ul  *appShowAuthed="false">
 			<li><a  routerLink="/home">Inicio</a></li>
 			<li><a  routerLink="/shop">Shop</a></li>
-			<li><a routerLink="/login" routerLinkActive="active">Iniciar Sesión</a></li>
+			<li><a [routerLink]="['/login']"routerLinkActive="active">Iniciar Sesión</a></li>
+		
+		</ul>
+
+		
+		<!--  logueado -->
+		<ul *appShowAuthed="true" >
+			<li><a  routerLink="/home">Inicio</a></li>
+			<li><a  [routerLink]="['/shop']">Shop</a></li>
+
+			<li><a [routerLink]="['/profile', username]" >Perfil</a></li>
 		</ul>
 	</nav>
 

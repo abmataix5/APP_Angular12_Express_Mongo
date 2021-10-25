@@ -5,7 +5,7 @@ import { ApiService } from './api.service';
 import { JwtService } from './jwt.service';
 import { User } from '../models';
 import { map ,  distinctUntilChanged } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,7 @@ export class UserService {
   }
 
   setAuth(user: User) {
+    console.log(user);
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.token);
     // Set current user data into observable
