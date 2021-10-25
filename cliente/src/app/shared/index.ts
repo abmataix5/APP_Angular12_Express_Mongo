@@ -4,4 +4,4 @@ export * from './list-productos';
 export * from './list-productos/list-productos.component';
 export * from './categories';
 export * from './carousel';
-// export * from './filter-productos';
+export * from './filter-productos/filter-productos.component';

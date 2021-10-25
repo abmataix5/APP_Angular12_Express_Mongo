@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.dev';
 import { Producto } from '../models/producto.model';
+import { Filter } from '..';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,11 +12,10 @@ export class ProductoService {
   constructor(private http:HttpClient) { }
 
   getProductos(params:any): Observable<any> {
-    console.log('inHome');
+    console.log('inShopPaginated');
 
     let query  = "?limit="+params[`limit`]+"&offset="+params[`offset`];
-
-    // console.log(this.http.get<Producto[]>(environment.url + '/producto'+ query));
+    
     return this.http.get<Producto[]>(environment.url + '/producto'+ query);
   }
   getProducto(slug: string | null):Observable<Producto> {
@@ -31,6 +31,16 @@ export class ProductoService {
   getProducto_search(search: string | null):Observable<any> {
     console.log('inSearch');
     return this.http.get<Producto>(environment.url + '/producto/search/'+ search );
+  }
+  getProducto_filter(filters: Filter | null):Observable<any> {
+    console.log('inFilters');
+    console.log(filters);
+  
+    let query=JSON.stringify(filters);
+   
+    console.log(query);
+    
+    return this.http.get<Producto>(environment.url + '/producto/filter/'+ query);
   }
 
 }

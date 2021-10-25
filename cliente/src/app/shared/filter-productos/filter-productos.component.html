@@ -1,1 +1,29 @@
-<p>filter-productos works!</p>
+<hr>    
+        <label> Categorias </label>
+        <select name="categorias" id="categorias" [(ngModel)]="categoriaSeleccionada" (change)="changeEvent()"> 
+            <option value = 0> </option>
+            <option *ngFor="let categoria of listCategorias">
+
+                {{categoria.nombre_catego}}
+            </option>
+        </select>
+        <label> Estado Producto </label>
+        
+        <select name="estados" id="estados" [(ngModel)]="estadoSeleccionado" (change)="changeEvent()"> 
+            <option value=0> </option>
+            <option *ngFor="let estado of listEstados">
+
+                {{estado}}
+            </option>
+        </select>
+        <label> Ubicación </label>
+        
+        <select name="ubicacion" id="ubicacion" [(ngModel)]="ubicacionSeleccionada" (change)="changeEvent()"> 
+            <option value = 0> </option>
+            <option *ngFor="let ubicacion of listUbicacion">
+
+                {{ubicacion}}
+            </option>
+        </select>
+        
+<hr>

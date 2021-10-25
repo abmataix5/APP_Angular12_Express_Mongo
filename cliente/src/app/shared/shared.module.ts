@@ -12,9 +12,8 @@ import { CategoriesItemComponent } from './categories-item/categories-item.compo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SearchComponent } from './search/search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-
-// import { FilterProductosComponent } from './filter-productos/filter-productos.component';
-
+import { FilterProductosComponent } from './filter-productos/filter-productos.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,18 +24,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CarouselComponent,
     CategoriesItemComponent,
     SearchComponent,
-    // FilterProductosComponent
+    FilterProductosComponent
 
-    
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
     InfiniteScrollModule,
-    // FilterProductosComponent,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
     
   ],
 
@@ -44,7 +42,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CarouselComponent,
     CategoriesComponent,
     ListProductosComponent,
-    // FilterProductosComponent,
+    FilterProductosComponent,
     CommonModule,
     HttpClientModule,
     RouterModule,
