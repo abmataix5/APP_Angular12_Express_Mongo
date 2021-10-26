@@ -1,15 +1,16 @@
 <!-- <p>list-item-productos works!</p> -->
-<a [routerLink]="['/details', producto.slug]" class="preview-link">
+
     <div class="item">
   
-      <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
+      <a [routerLink]="['/details', producto.slug]" class="preview-link"> 
+        <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img"> </a>
       
       <div class="item-text">
         <h3>{{ producto.nombre }}</h3>
   
         <p>{{ producto.precio }} $</p>
+      
       </div>
-
+      <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)">{{producto.favorites}}</app-favorite-button>
     </div>
   
- </a>

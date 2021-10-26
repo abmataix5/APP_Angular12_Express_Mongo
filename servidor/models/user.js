@@ -22,7 +22,7 @@ const UserSchema =  mongoose.Schema({
     image:{
         type:String
     },
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }],
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
      
 

@@ -242,15 +242,16 @@ router.delete("/:id", async (req, res) => {
 
 
 // Favorite an article
-router.post('/:article/favorite', auth.required, function(req, res, next) {
-  var articleId = req.article._id;
-
+router.post('/:slug/favorite', auth.required, function(req, res, next) {
+/*     console.log(res);  */
+  var productoId = req.producto._id;
+console.log(auth.required);
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
-    return user.favorite(articleId).then(function(){
-      return req.article.updateFavoriteCount().then(function(article){
-        return res.json({article: article.toJSONFor(user)});
+    return user.favorite(productoId).then(function(){
+      return req.producto.updateFavoriteCount().then(function(producto){
+        return res.json({producto: producto.toJSONFor(user)});
       });
     });
   }).catch(next);
@@ -258,7 +259,7 @@ router.post('/:article/favorite', auth.required, function(req, res, next) {
 
 
 // Unfavorite an article
-router.delete('/:article/favorite', auth.required, function(req, res, next) {
+router.delete('/:producto/favorite', auth.required, function(req, res, next) {
   var articleId = req.article._id;
 
   User.findById(req.payload.id).then(function (user){
@@ -275,7 +276,7 @@ router.delete('/:article/favorite', auth.required, function(req, res, next) {
 
 
 // return an article's comments
-router.get('/:article/comments', auth.optional, function(req, res, next){
+router.get('/:producto/comments', auth.optional, function(req, res, next){
   Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
     return req.article.populate({
       path: 'comments',
@@ -298,7 +299,7 @@ router.get('/:article/comments', auth.optional, function(req, res, next){
 
 
 // create a new comment
-router.post('/:article/comments', auth.required, function(req, res, next) {
+router.post('/:producto/comments', auth.required, function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
@@ -317,7 +318,7 @@ router.post('/:article/comments', auth.required, function(req, res, next) {
 });
 
 
-router.delete('/:article/comments/:comment', auth.required, function(req, res, next) {
+router.delete('/:producto/comments/:comment', auth.required, function(req, res, next) {
   if(req.comment.author.toString() === req.payload.id.toString()){
     req.article.comments.remove(req.comment._id);
     req.article.save()
@@ -329,4 +330,6 @@ router.delete('/:article/comments/:comment', auth.required, function(req, res, n
     res.sendStatus(403);
   }
 });
+
+
   module.exports = router;

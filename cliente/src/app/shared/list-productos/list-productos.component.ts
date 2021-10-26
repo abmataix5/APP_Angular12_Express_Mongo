@@ -22,7 +22,7 @@ export class ListProductosComponent implements OnInit {
   filters : Filter = new Filter;
 
   page :number = 1;     // por defecto nos situamos en la primera pagina.
-  limit :number = 2;    //numero de produtos que mostramos
+  limit :number = 4;    //numero de produtos que mostramos
   offset:number = 0;   // offset por defecto, nos muestra los primeros productos.
   count = 0;
 
