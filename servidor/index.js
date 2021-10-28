@@ -3,6 +3,7 @@ const conectarDB = require('./config/db');
 const cors = require("cors");
 const passport = require('passport');
 
+
 // ruuting modulos
 const productoRounting = require('./routes/api/producto')
 const categoriaRounting = require('./routes/api/categoria')

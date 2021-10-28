@@ -53,6 +53,7 @@ export class ProductoService {
   // favorite, unfavorite
 
   favorite(slug:any): Observable<Producto> {
+    console.log(slug);
     return this.apiService.post('/producto/' + slug + '/favorite');
   }
 

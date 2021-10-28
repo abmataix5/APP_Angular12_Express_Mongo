@@ -79,7 +79,7 @@ export class UserService {
   // Update the user on the server (email, pass, etc)
    update(user : any): Observable<User> {
     return this.apiService
-    .put('/user', { user })
+    .put('/user/user', { user })
     .pipe(map(data => {
       // Update the currentUser observable
       this.currentUserSubject.next(data.user);

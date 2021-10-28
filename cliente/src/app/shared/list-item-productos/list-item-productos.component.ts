@@ -16,22 +16,23 @@ export class ListItemProductosComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+console.log(this.producto.favorited);
   }
 
 
   onToggleFavorite(favorited: boolean) {
+
     this.producto.favorited = favorited;
-    console.log(this.producto.favorited);
-    if (favorited) {
-      if (typeof this.producto.favorites === 'number') {
-        this.producto.favorites++;
-      }
-    } else {
-      if (typeof this.producto.favorites === 'number') {
-        this.producto.favorites--;
-      }
+
+    /* Si es like, suma +1 */
+    if (favorited && typeof this.producto.favoritesCount === 'number') {
+      this.producto.favoritesCount++;
     }
+
+    /* Si el dislike, resta -1 al total de likes */
+    if (!favorited && typeof this.producto.favoritesCount === 'number') {
+      this.producto.favoritesCount--;
+    } 
   }
 
 }

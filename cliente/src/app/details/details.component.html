@@ -4,20 +4,20 @@
 
   
         <div class="item">
-            <a>
-          <img src="{{ 'assets/images/' + detail.imagen + '.jpg'}}" alt="" class="item-img">
+          
+          <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
           
           <div class="item-text">
-            <h3>{{detail.nombre}}</h3><br>
-            <p>Marca :  {{ detail.marca }}</p>
-            <p>Modelo: {{ detail.modelo }}</p>
-            <p>Estado :{{ detail.estado }}</p>
-            <p>Descripcion : {{ detail.descripcion }}</p>
-            <p>Precio : {{ detail.precio }} $</p>
-            <p>Ubicacion vendedor: {{ detail.ubicacion }}</p>
+            <h3>{{producto.nombre}}</h3><br>
+            <p>Marca :  {{ producto.marca }}</p>
+            <p>Modelo: {{ producto.modelo }}</p>
+            <p>Estado :{{ producto.estado }}</p>
+            <p>Descripcion : {{ producto.descripcion }}</p>
+            <p>Precio : {{ producto.precio }} $</p>
+            <p>Ubicacion vendedor: {{ producto.ubicacion }}</p>
           </div>
-        </a>
+       
         </div>
-      
+        <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
     
   <!-- </div> -->

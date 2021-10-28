@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileArticlesComponent } from './profile-articles.component';
 
 //Components favoritos,profile,productos
 import { ProfileFavoritesComponent } from './profile-favorites.component';
@@ -18,6 +19,9 @@ const routes: Routes = [
       {
         path: 'favorites',
         component: ProfileFavoritesComponent
+      },{
+        path:'',
+        component: ProfileArticlesComponent
       }
     ] 
   }

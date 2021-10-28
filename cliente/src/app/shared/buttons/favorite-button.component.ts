@@ -9,6 +9,7 @@ import { concatMap ,  tap } from 'rxjs/operators';
 @Component({
   selector: 'app-favorite-button',
   templateUrl: './favorite-button.component.html',
+  styleUrls: ['./favorite-button.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteButtonComponent {
@@ -24,7 +25,13 @@ export class FavoriteButtonComponent {
   @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
-  
+  ngOnInit(): void {
+
+    console.log(this.producto.favorited);
+    
+  }
+
+
   toggleFavorite() {
     this.isSubmitting = true;
 
@@ -39,13 +46,18 @@ export class FavoriteButtonComponent {
 
         // Favorite the article if it isn't favorited yet
         if (!this.producto.favorited) {
+     
           return this.productService.favorite(this.producto.slug)
           .pipe(tap(
             data => {
+              console.log(data);
               this.isSubmitting = false;
               this.toggle.emit(true);
             },
-            err => this.isSubmitting = false
+            err => {
+              console.log(err);
+              this.isSubmitting = false
+            }
           ));
 
         // Otherwise, unfavorite the article

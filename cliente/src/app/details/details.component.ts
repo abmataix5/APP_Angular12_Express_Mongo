@@ -12,8 +12,8 @@ import { Producto, ProductoService } from '../core';
 
 export class DetailsComponent implements OnInit {
 
+  producto!: Producto;
 
-  detail: any;
 
   constructor(
     private route: ActivatedRoute, 
@@ -30,14 +30,30 @@ export class DetailsComponent implements OnInit {
     this.route.data.subscribe(
       (data) => {
       
-        this.detail = data.details;
-        console.log(this.detail);
+        this.producto = data.details;
+        console.log(this.producto);
       },
       (error) => {
       
         console.log(error);
       });
   
+  }
+
+
+  onToggleFavorite(favorited: boolean) {
+
+    this.producto.favorited = favorited;
+
+    /* Si es like, suma +1 */
+    if (favorited && typeof this.producto.favoritesCount === 'number') {
+      this.producto.favoritesCount++;
+    }
+    
+    /* Si el dislike, resta -1 al total de likes */
+    if (!favorited && typeof this.producto.favoritesCount === 'number') {
+      this.producto.favoritesCount--;
+    } 
   }
 
 }

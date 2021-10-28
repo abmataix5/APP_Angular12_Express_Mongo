@@ -18,13 +18,13 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     };
 
     const token = this.jwtService.getToken();
-    console.log(token);
+
     if (token) {
       headersConfig['Authorization'] = `Token ${token}`;
     }
 
     const request = req.clone({ setHeaders: headersConfig });
-    console.log(request);
+
     return next.handle(request);
   }
 }

@@ -205,9 +205,7 @@ export class ListProductosComponent implements OnInit {
     this.page = event;
     console.log("valor event"+ event);
     this.getProductos();
-    
-
-
+  
   }
 
 }
