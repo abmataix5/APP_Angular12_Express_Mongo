@@ -5,6 +5,7 @@ export * from './user.service';
 export * from './jwt.service';
 export * from './notification.service';
 export * from './profiles.service';
+export * from './auth-guard.services';
 
 
 

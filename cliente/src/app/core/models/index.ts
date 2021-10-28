@@ -5,3 +5,5 @@ export * from './filter.model';
 export * from './carousel.model';
 export * from './user.model';
 export * from './profile.model';
+export * from './comment.model';
+export * from './article-list-config.model';

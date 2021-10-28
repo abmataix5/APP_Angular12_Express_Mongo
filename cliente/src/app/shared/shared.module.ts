@@ -16,6 +16,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterProductosComponent } from './filter-productos/filter-productos.component';
 import { FormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
+import { FavoriteButtonComponent } from './buttons/favorite-button.component';
 // import { FilterProductosComponent } from './filter-productos/filter-productos.component';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ShowAuthedDirective } from './show-authed.directive';
     CategoriesItemComponent,
     SearchComponent,
     FilterProductosComponent,
-    ShowAuthedDirective
+    ShowAuthedDirective,
+    FavoriteButtonComponent
 
   ],
   imports: [
@@ -52,7 +54,8 @@ import { ShowAuthedDirective } from './show-authed.directive';
     NgbModule,
     SearchComponent,
     NgxPaginationModule,
-    ShowAuthedDirective
+    ShowAuthedDirective,
+    FavoriteButtonComponent
 ]
 })
 

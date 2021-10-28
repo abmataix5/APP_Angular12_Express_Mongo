@@ -19,4 +19,19 @@ export class ListItemProductosComponent implements OnInit {
 
   }
 
+
+  onToggleFavorite(favorited: boolean) {
+    this.producto.favorited = favorited;
+    console.log(this.producto.favorited);
+    if (favorited) {
+      if (typeof this.producto.favorites === 'number') {
+        this.producto.favorites++;
+      }
+    } else {
+      if (typeof this.producto.favorites === 'number') {
+        this.producto.favorites--;
+      }
+    }
+  }
+
 }
