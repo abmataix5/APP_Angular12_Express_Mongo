@@ -8,6 +8,9 @@ const User = require("../../models/user");
 var auth = require('../auth');
 
 
+
+
+
 router.param('comment', function(req, res, next, id) {
 
   Comment.findById(id).then(function(comment){
@@ -258,7 +261,7 @@ router.delete('/:slug/favorite', auth.required, function(req, res, next) {
 // return an article's comments
 router.get('/:producto/comments', auth.optional, function(req, res, next){
   Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
-    return req.article.populate({
+    return req.producto.populate({
       path: 'comments',
       populate: {
         path: 'author'
@@ -268,8 +271,8 @@ router.get('/:producto/comments', auth.optional, function(req, res, next){
           createdAt: 'desc'
         }
       }
-    }).execPopulate().then(function(article) {
-      return res.json({comments: req.article.comments.map(function(comment){
+    }).execPopulate().then(function(producto) {
+      return res.json({comments: req.producto.comments.map(function(comment){
         return comment.toJSONFor(user);
       })});
     });
@@ -284,13 +287,15 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
     if(!user){ return res.sendStatus(401); }
 
     var comment = new Comment(req.body.comment);
-    comment.article = req.article;
+    comment.producto = req.producto;
     comment.author = user;
 
     return comment.save().then(function(){
-      req.article.comments.push(comment);
+      console.log("return save");
+      console.log(req.producto.comments);
+      req.producto.comments.push(comment);
 
-      return req.article.save().then(function(article) {
+      return req.producto.save().then(function(producto) {
         res.json({comment: comment.toJSONFor(user)});
       });
     });
@@ -300,8 +305,8 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
 
 router.delete('/:producto/comments/:comment', auth.required, function(req, res, next) {
   if(req.comment.author.toString() === req.payload.id.toString()){
-    req.article.comments.remove(req.comment._id);
-    req.article.save()
+    req.producto.comments.remove(req.comment._id);
+    req.producto.save()
       .then(Comment.find({_id: req.comment._id}).remove().exec())
       .then(function(){
         res.sendStatus(204);
