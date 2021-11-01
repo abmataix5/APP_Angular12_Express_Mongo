@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ArticleListConfig, Profile } from '../core';
+import { ArticleListConfig, Filter, Profile } from '../core';
 
 @Component({
   selector: 'app-profile-favorites',
@@ -17,15 +17,14 @@ export class ProfileFavoritesComponent implements OnInit {
 
   username: any;
   profile?: Profile;
-  favoritesConfig: ArticleListConfig = {
-    type: 'all',
-    filters: {}
+  favoritesConfig: Filter = {
+      favorited: ''
   };
 
   ngOnInit() {
 
     this.username = this.router.url.split("/")[2];
-    this.favoritesConfig.filters.favorited = this.username;
+    this.favoritesConfig.favorited = this.username;
     console.log(this.favoritesConfig);
     this.cd.markForCheck();
   /*   console.log('LLega');

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ArticleListConfig, Profile } from '../core';
+import { Filter, Profile } from '../core';
 
 @Component({
   selector: 'app-profile-articles',
@@ -15,13 +15,17 @@ export class ProfileArticlesComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
+
+  username: any;
   profile?: Profile;
-  articlesConfig: ArticleListConfig = {
-    type: 'all',
-    filters: {}
+  articlesConfig: Filter = {
+      author: ''
   };
 
   ngOnInit() {
+    this.username = this.router.url.split("/")[2];
+    this.articlesConfig.favorited = this.username;
+    this.cd.markForCheck();
   /*   this.route.parent.data.subscribe(
       (data: {profile: Profile}) => {
         this.profile = data.profile;

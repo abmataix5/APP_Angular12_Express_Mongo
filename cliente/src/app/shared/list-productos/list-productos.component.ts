@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductoService,Producto,Filter,Categoria} from '../../core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -16,18 +16,6 @@ import { filter } from 'rxjs/operators';
 
 export class ListProductosComponent implements OnInit {
 
-  listProductos: Producto[] = [];
-  id_catego : any;
-  id_search : string | null;
-  filters : Filter = new Filter;
-
-  page :number = 1;     // por defecto nos situamos en la primera pagina.
-  limit :number = 4;    //numero de produtos que mostramos
-  offset:number = 0;   // offset por defecto, nos muestra los primeros productos.
-  count = 0;
-
- 
-
   constructor( 
     private aRouter: ActivatedRoute,
     private _productoService: ProductoService,
@@ -38,6 +26,27 @@ export class ListProductosComponent implements OnInit {
       this.id_catego = this.aRouter.snapshot.paramMap.get('nombre_catego'); // cogemos la categora de la URL
       
     }
+
+    @Input() 
+    set config (config : Filter){
+      if(config){
+        this.filters = config;
+      }
+    }
+
+  listProductos: Producto[] = [];
+  id_catego : any;
+  id_search : string | null;
+  filters : Filter = new Filter;
+    
+  page :number = 1;     // por defecto nos situamos en la primera pagina.
+  limit :number = 4;    //numero de produtos que mostramos
+  offset:number = 0;   // offset por defecto, nos muestra los primeros productos.
+  count = 0;
+
+ 
+
+ 
 
 
   ngOnInit(): void {

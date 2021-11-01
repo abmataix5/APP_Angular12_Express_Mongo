@@ -1,6 +1,10 @@
+import { Profile } from ".";
+
 export class Producto {
+  
     _id?: number;
     nombre: string;
+
     tipo: string;
     marca: string;
     modelo: string;
@@ -10,15 +14,17 @@ export class Producto {
     imagen: string;
     ubicacion: string;
     fecha_alta: Date;
+    author:Profile;
     slug?:string;
     favorited?: boolean;
     favoritesCount?:number;
 
 
 
+
     constructor( _id:number,nombre: string , tipo: string, marca: string, modelo: string 
         , estado: string, precio: Number, descripcion: string, imagen: string
-        , ubicacion: string, fecha_alta: Date,slug?:string,favorited?: boolean, favoritesCount?:number){
+        , ubicacion: string, fecha_alta: Date ,author:Profile,slug?:string,favorited?: boolean, favoritesCount?:number){
 
         this.nombre = nombre;
         this.tipo = tipo;
@@ -30,8 +36,10 @@ export class Producto {
         this.imagen = imagen;
         this.ubicacion = ubicacion;
         this.fecha_alta = fecha_alta;
+        this.author = author;
         this.slug = slug;
         this.favorited = favorited ? favorited : false;
         this.favoritesCount = favoritesCount ? favoritesCount : 0;
+       
     }
 }

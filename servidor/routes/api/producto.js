@@ -113,13 +113,11 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
     let estado = ((value.estado != undefined) && (value.estado != 0)) ? new RegExp(value.estado) : "";
     let ubicacion = ((value.ubicacion != undefined) && (value.ubicacion != 0))? new RegExp(value.ubicacion) : "";
    
-    let precioMin = value.precioMin;
-    let precioMax = value.precioMax;
 
     var query = {}; //query para mongo.
     
     query={ nombre:{$regex : search},tipo:{$regex : categoria}, estado:{$regex : estado}, ubicacion:{$regex : ubicacion} };
- /*    console.log(query); */
+
 
   try {
 

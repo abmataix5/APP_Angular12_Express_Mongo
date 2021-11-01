@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { NotificationService } from '../core';
 import { User, UserService } from '../core';
 
 @Component({
@@ -16,6 +16,7 @@ export class SettingsComponent implements OnInit {
   isSubmitting = false;
 
   constructor(
+    private info : NotificationService,
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
@@ -38,10 +39,7 @@ export class SettingsComponent implements OnInit {
     this.settingsForm.patchValue(this.user);
   }
 
-  logout() {
-    this.userService.purgeAuth();
-    this.router.navigateByUrl('/');
-  }
+
 
   submitForm() {
     this.isSubmitting = true;

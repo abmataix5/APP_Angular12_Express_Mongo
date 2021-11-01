@@ -16,6 +16,8 @@ import { SharedModule } from '../shared';
   ],
   declarations: [
     ProfileComponent,
+    ProfileArticlesComponent,
+    ProfileFavoritesComponent
     
     
 ],
