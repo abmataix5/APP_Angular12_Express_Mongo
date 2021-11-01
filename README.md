@@ -29,6 +29,9 @@ $ docker network create --driver bridge APP
 
 ## DOCKERFILE CLIENTE
 
+file:///home/abel/Im%C3%A1genes/Captura%20de%20pantalla%20de%202021-11-01%2021-25-42.png![imagen](https://user-images.githubusercontent.com/62066419/139729443-35e054c1-b4ee-4531-b85e-493b8636d7aa.png)
+
+
 
 
 ## CREAMOS SCRIPT PARA ARRANCAR LOS CONTENEDORES
