@@ -20,11 +20,11 @@ $ git checkout main_dockerfile
 $ docker network create --driver bridge APP
 
 ## DOCKERFILE SERVIDOR
-
+![Alt text](imagenes/dockerfile_servidor.png?raw=true "Title")
 
 
 ## DOCKERFILE MONGODB
-
+![Alt text](imagenes/dockerfile_mongo.png?raw=true "Title")
 
 
 ## DOCKERFILE CLIENTE
@@ -34,3 +34,5 @@ $ docker network create --driver bridge APP
 
 
 ## CREAMOS SCRIPT PARA ARRANCAR LOS CONTENEDORES
+
+![Alt text](imagenes/dockerfile_script.png?raw=true "Title")
