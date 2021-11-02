@@ -80,18 +80,24 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
 
 // GET ONE -> Seleccionamos solo un producto lo haremos seleccionandolo por -> slug
 
-router.get("/:slug", async (req, res) => {
+router.get("/:slug", auth.optional ,async (req, res) => {
 
   try {
 
-    let producto;
-    producto = await Producto.findOne({slug : req.params.slug}); // buscamos por slug
+    return await Promise.all([
+      req.payload ? User.findById(req.payload.id) : null ,
+        Producto.findOne({ slug : req.params.slug }).exec()     /* Devuelve usuairo registrado(en caso de estarlo) */
+    
+    ]).then(function(results){
+  
+        var producto = results[1];
+        var user = results[0];
 
-    if(producto){
-      res.json(producto);
-    }else{
-      res.status(500).send("No existe el producto con ese slug!!");
-    }
+        return res.json({
+          producto: producto.toJSONFor(user)     /* Producto */                                   
+        });
+  
+    });
   
   } catch (error) {
     console.log(error);
@@ -121,20 +127,30 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
 
   try {
 
-    let producto;
-    producto = await Producto.find(query)
-    .limit(Number(limit))
-    .skip(Number(offset));
+    return Promise.all([
+      Producto.find(query)
+        .limit(Number(limit))
+        .skip(Number(offset))
+        .exec(),
+        Producto.count(query).exec(),    /* Contamos productos */
+        req.payload ? User.findById(req.payload.id) : null /* Devuelve usuairo registrado(en caso de estarlo) */
+    ]).then(function(results){
 
-    const totalProductos = await Producto.find(query).countDocuments();
 
-    if(producto){
-      console.log("******** RESPUESTA SERVER FILTER ********** ");
+        var productos = results[0];
+        var totalProductos = results[1];
+        var user = results[2];
 
-      res.json({producto,totalProductos,value}); //value es el valor de los filtros del Front.
-    }else{
-      res.status(500).send("No existe el producto con ese slug!!");
-    }
+
+        return res.json({
+          productos: productos.map(function(productos){          
+                    console.log(productos);
+                    return productos.toJSONFor(user);}),       /* Productos */                                   
+          totalProductos: totalProductos,                     /* Total de productos con esos filtros */
+          value: value                                        /* Valor de los filtros */
+        });
+
+    });
   
   } catch (error) {
     console.log(error);
@@ -142,7 +158,7 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
   }
 });
 
-////////MOSTRAR DESDE FILTRO OK. PAGINACION ONCHANGE FILTERS.
+
 
 //POST -> Crear nuevo producto
 

@@ -29,9 +29,8 @@ export class DetailsComponent implements OnInit {
 
     this.route.data.subscribe(
       (data) => {
-      
-        this.producto = data.details;
-        console.log(this.producto);
+
+        this.producto = data.details.producto;
       },
       (error) => {
       
