@@ -46,6 +46,7 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
   ],
 
   exports: [
+    ListItemProductosComponent,
     CarouselComponent,
     CategoriesComponent,
     ListProductosComponent,

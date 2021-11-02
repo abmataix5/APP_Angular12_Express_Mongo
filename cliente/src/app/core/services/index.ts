@@ -7,6 +7,7 @@ export * from './notification.service';
 export * from './profiles.service';
 export * from './auth-guard.services';
 export * from './comment.service';
+export * from './api.service';
 
 
 

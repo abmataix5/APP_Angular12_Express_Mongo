@@ -13,9 +13,9 @@ export class AppComponent implements OnInit {
   title = 'cliente';
 
 
-ngOnInit(){
-  this.UserServcie.populate();
-}
+  ngOnInit(){
+    this.UserServcie.populate();
+  }
 
 }
 

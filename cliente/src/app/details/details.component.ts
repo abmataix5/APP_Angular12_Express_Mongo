@@ -30,7 +30,7 @@ export class DetailsComponent implements OnInit {
   isSubmitting = false;
   isDeleting = false;
 
-  detail: any;
+
 
   constructor(
     private route: ActivatedRoute, 
@@ -51,10 +51,17 @@ export class DetailsComponent implements OnInit {
     // this.route.data.subscribe(
     //   (data) => {
       
+
     //     this.detail = data.details;
     //     console.log(this.detail);
     //   },
     //   (error) => {
+
+      //   this.producto = data.details;
+      //   console.log(this.producto);
+      // },
+      // (error) => {
+
       
     //     console.log(error);
     //   });
@@ -135,3 +142,20 @@ export class DetailsComponent implements OnInit {
       );
       }
 }//endEXPORT
+
+  onToggleFavorite(favorited: boolean) {
+
+    this.producto.favorited = favorited;
+
+    /* Si es like, suma +1 */
+    if (favorited && typeof this.producto.favoritesCount === 'number') {
+      this.producto.favoritesCount++;
+    }
+    
+    /* Si el dislike, resta -1 al total de likes */
+    if (!favorited && typeof this.producto.favoritesCount === 'number') {
+      this.producto.favoritesCount--;
+    } 
+  }
+
+}

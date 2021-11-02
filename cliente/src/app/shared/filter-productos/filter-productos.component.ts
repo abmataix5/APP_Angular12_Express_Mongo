@@ -46,7 +46,7 @@ export class FilterProductosComponent implements OnInit {
 
   public changeEvent() {
     
-    this.filters.limit = 2;
+    this.filters.limit = 4;
     this.filters.offset = 0;
     this.filters.stateFilter=true;
     

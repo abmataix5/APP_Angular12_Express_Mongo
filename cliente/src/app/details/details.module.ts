@@ -5,6 +5,7 @@ import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
 import { DetailsCommentComponent } from './details-comment.component';
 
+import { SharedModule } from '../shared';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { DetailsCommentComponent } from './details-comment.component';
   ],
   imports: [
     CommonModule,
-    DetailsRoutingModule
+    DetailsRoutingModule,
+    SharedModule
   ],
 })
 export class DetailsModule { }

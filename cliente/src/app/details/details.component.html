@@ -4,7 +4,6 @@
 
   
         <div class="item">
-            <a>
           <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
           
           <div class="item-text">
@@ -16,7 +15,7 @@
             <p>Precio : {{ producto.precio }} $</p>
             <p>Ubicacion vendedor: {{ producto.ubicacion }}</p>
           </div>
-        </a>
+       
         </div>
       <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
@@ -57,5 +56,6 @@
     </div>
         
       
+        <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
     
   <!-- </div> -->

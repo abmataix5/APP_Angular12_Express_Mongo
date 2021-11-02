@@ -115,8 +115,8 @@ ProductoSchema.methods.updateFavoriteCount = function() {
      ubicacion: this.ubicacion,
      fecha_alta: this.fecha_alta,
      favorited: user ? user.isFavorite(this._id) : false,
-     favoritesCount: this.favoritesCount,
-     author: this.author.toProfileJSONFor(user)
+     favoritesCount: this.favoritesCount/* ,
+     author: this.author.toProfileJSONFor(user) */
    };
  };
 

@@ -7,34 +7,12 @@ const Comment = require("../../models/comment");
 const User = require("../../models/user");
 var auth = require('../auth');
 
-// // GET -> Seleccionar todos los productos
 
-// router.get("/", async (req, res) => {
 
-//     try {
-//       const products = await Producto.find();
-//       console.log(res);
-//       res.json(products);
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send("Error en el GET de productos!!");
-//     }
-// });
 
-// Preload article objects on routes with ':article'
-router.param('producto', function(req, res, next, slug) {
-  Producto.findOne({ slug: slug})
-    .populate('author')
-    .then(function (producto) {
-      if (!producto) { return res.sendStatus(404); }
-
-      req.producto = producto;
-
-      return next();
-    }).catch(next);
-});
 
 router.param('comment', function(req, res, next, id) {
+
   Comment.findById(id).then(function(comment){
     if(!comment) { return res.sendStatus(404); }
 
@@ -44,9 +22,23 @@ router.param('comment', function(req, res, next, id) {
   }).catch(next);
 });
 
+
+router.param("slug", async (req, res, next, slug) => {
+
+  await Producto.findOne({ slug: slug })
+    .then(function (producto) {
+      if (!producto) {
+        return res.sendStatus(404);
+      }
+      req.producto = producto;
+      return next();
+    })
+    .catch(next);
+});
+
 // GET -> Seleccionar todos los productos
 
-router.get("/", async (req, res) => {
+router.get("/",auth.optional, async (req, res) => {
 
 var query = {};
 var limit = req.query.limit !== 'undefined' ? req.query.limit : 2;
@@ -55,18 +47,27 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
 
 
   try {
-    console.log(req.query);
-    
-    const productos = await Producto.find(query)
-    .limit(Number(limit))
-    .skip(Number(offset));
 
-    const totalProductos = await Producto.find(query).countDocuments();
-    // const totalProductos = totalProducto/limit;
+    return Promise.all([
+      Producto.find(query)
+        .limit(Number(limit))
+        .skip(Number(offset))
+        .exec(),
+        Producto.count(query).exec(),
+      req.payload ? User.findById(req.payload.id) : null
+    ]).then(function(results){
 
-    res.json({productos,totalProductos});
-    // res.json(products : productos.map(funtion (articulo)));
-    console.log(productos);
+      var productos = results[0];
+      var totalProductos = results[1];
+      var user = results[2];
+
+      return res.json({
+        productos: productos.map(function(productos){
+          return productos.toJSONFor(user);
+        }),
+        totalProductos: totalProductos
+      });
+    });
 
   } catch (error) {
     console.log(error);
@@ -76,38 +77,6 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
 
 
 
-// UNIFICADO FILTER
-// GET -> Seleccionar todos los productos de una determinada categoria
-
-router.get("/categoria/:tipo/", async (req, res) => {
-
-  try {
-    const products = await Producto.find({tipo : req.params.tipo});
-    console.log(res);
-    res.json(products);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error en el GET de productos!!");
-  }
-});
-
-//UNIFICADO FILTER
-// GET -> Seleccionar productos dependiendo del search
-
-router.get("/search/:search/", async (req, res) => {
-
-  let search = new RegExp(req.params.search); // parametro de búsqueda
-  console.log(search);
-
-  try {
-    const products = await Producto.find({nombre : {$regex : search}});
-    console.log(res);
-    res.json(products);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Error en el GET de productos!!");
-  }
-});
 
 // GET ONE -> Seleccionamos solo un producto lo haremos seleccionandolo por -> slug
 
@@ -132,7 +101,7 @@ router.get("/:slug", async (req, res) => {
 
 // GET FILTERS -> Seleccionamos los productos seleccionados en los filtros -> filter
 
-router.get("/filter/:filters", async (req, res) => {
+router.get("/filter/:filters",auth.optional, async (req, res) => {
 
     let value= JSON.parse((req.params.filters));
   
@@ -144,13 +113,11 @@ router.get("/filter/:filters", async (req, res) => {
     let estado = ((value.estado != undefined) && (value.estado != 0)) ? new RegExp(value.estado) : "";
     let ubicacion = ((value.ubicacion != undefined) && (value.ubicacion != 0))? new RegExp(value.ubicacion) : "";
    
-    let precioMin = value.precioMin;
-    let precioMax = value.precioMax;
 
     var query = {}; //query para mongo.
     
     query={ nombre:{$regex : search},tipo:{$regex : categoria}, estado:{$regex : estado}, ubicacion:{$regex : ubicacion} };
-    console.log(query);
+
 
   try {
 
@@ -252,11 +219,13 @@ router.delete("/:id", async (req, res) => {
 
 
 
-// Favorite an article
+// Favorite an producto
+
 router.post('/:slug/favorite', auth.required, function(req, res, next) {
-/*     console.log(res);  */
-  var productoId = req.producto._id;
-console.log(auth.required);
+    
+  console.log(req.producto);
+   var productoId = req.producto._id;
+
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
@@ -265,20 +234,21 @@ console.log(auth.required);
         return res.json({producto: producto.toJSONFor(user)});
       });
     });
-  }).catch(next);
+  }).catch(next); 
 });
 
 
-// Unfavorite an article
-router.delete('/:producto/favorite', auth.required, function(req, res, next) {
-  var articleId = req.article._id;
+// Unfavorite an producto
+
+router.delete('/:slug/favorite', auth.required, function(req, res, next) {
+  var productoId = req.producto._id;
 
   User.findById(req.payload.id).then(function (user){
     if (!user) { return res.sendStatus(401); }
 
-    return user.unfavorite(articleId).then(function(){
-      return req.article.updateFavoriteCount().then(function(article){
-        return res.json({article: article.toJSONFor(user)});
+    return user.unfavorite(productoId).then(function(){
+      return req.producto.updateFavoriteCount().then(function(producto){
+        return res.json({producto: producto.toJSONFor(user)});
       });
     });
   }).catch(next);

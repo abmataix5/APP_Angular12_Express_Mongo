@@ -1,0 +1,21 @@
+.like{
+    background-color: red;
+    border-color: red;
+    color: rgb(255, 255, 255) !important; 
+}
+
+.dislike{
+    background-color: rgb(255, 255, 255);
+    border-color: red;
+    color: rgb(0, 0, 0) !important; 
+}
+
+.btn-outline-primary{
+    border-color: red;
+    color: black;
+}
+
+.btn-outline-primary:hover{
+    background-color:red;
+    color: rgb(255, 255, 255) !important; 
+}

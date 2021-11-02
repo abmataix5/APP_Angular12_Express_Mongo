@@ -8,6 +8,8 @@ export class Filter {
     precioMax?: Number;
     estado?: string;
     ubicacion?: string;
+    author?: string;
+    favorited?: string;
 
 
     constructor( 
@@ -19,7 +21,9 @@ export class Filter {
         estado?: string, 
         precioMin?: Number, 
         precioMax?: Number, 
-        ubicacion?: string){
+        ubicacion?: string,
+        author?:string,
+        favorited?:string){
 
         this.stateFilter;
         this.search=search;
@@ -30,5 +34,7 @@ export class Filter {
         this.precioMax = precioMax;
         this.estado = estado;
         this.ubicacion = ubicacion;
+        this.author = author;
+        this.favorited = favorited;
     }
 }

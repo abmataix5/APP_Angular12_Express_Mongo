@@ -1,0 +1,47 @@
+<div class="wrapper bg-white mt-sm-5">
+
+    <h4 class="pb-4 border-bottom">Editar Perfil</h4>
+
+
+        <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
+
+            <div class="d-flex align-items-start py-3 border-bottom"> <img src="https://static.productionready.io/images/smiley-cyrus.jpg" class="img" alt="">
+                <div class="pl-sm-4 pl-2" id="img-section"> <b>Profile Photo</b>
+                    <p>Accepted file type .png. Less than 1MB</p> <button class="btn button border"><b>Upload</b></button>
+                </div>
+            </div>
+
+            <div class="py-2">
+
+                <div class="row py-2">
+                    <div class="col-md-6"> 
+                        <label for="firstname">Username</label> 
+                        <input type="text" class="bg-light form-control" placeholder="Ejemplo : Usuario1" formControlName="username"> 
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                    <div class="col-md-6"> 
+                        <label for="email">Email Address</label> 
+                        <input type="email" class="bg-light form-control" placeholder="user@email.com" formControlName="email"> 
+                    </div>
+                </div>
+
+                <div class="row py-2">
+
+                    <div class="col-md-6"> <label for="country">Ubicación</label> <select name="country" id="country" class="bg-light">
+                            <option value="india" selected>Valencia</option>
+                            <option value="usa">Ontinyient</option>
+                            <option value="uk">Alicante</option>
+                            <option value="uae">Barcelona</option>
+                        </select> </div>
+            
+                </div>
+                
+                <div class="py-3 pb-4 border-bottom"> <button type="submit" class="btn btn-primary mr-3">Guardar cambios</button> <button class="btn border button">Cancelar</button> </div>
+            
+            </div>
+
+        </form>
+    
+</div>
