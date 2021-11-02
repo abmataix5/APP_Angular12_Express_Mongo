@@ -181,6 +181,7 @@ Tener en cuenta que al realizar el docker Run, hay que añadir la network.
 ![Alt text](imagenes/dockerfile_script.png?raw=true "Title")
 
 <hr>
+<br>
 ## CAMBIOS REALIZADOS SOBRE EL CÓDIGO
 <p>
 Practicamente no se han realizado cambios sobre el código original del proyecto.
@@ -196,3 +197,41 @@ DB_MONGO= 'mongodb://cont_mongo:27017/appDB'
 
 siendo cont_mongo, el nombre del container.
 ```
+
+<hr>
+<br>
+
+## SUBIMOS NUESTRAS IMAGENES A DOCKER HUB
+
+### Primero de tenemos que crear una cuenta en docker hub para poder subir nuestras imagenes.
+
+![Alt text](imagenes/login.png?raw=true "Title")
+
+### Una vez creada nuestra cuenta, inciaremos sesion utilizando el siguiente comando: 
+
+```
+$ sudo docker login -u 'Username'
+```
+
+![Alt text](imagenes/login-u.png?raw=true "Title")
+
+### Subimos las imagenes con los siguientes comandos:
+```
+-Listamos las imagenes que tenemos con : $ sudo docker images
+
+-Para subir las imagenes ejecutamos los siguientes comandos:
+
+$ sudo docker tag img_server abmataix5/img_server
+
+$ sudo docker push abmataix5/img_server
+```
+
+![Alt text](imagenes/tag.png?raw=true "Title")
+
+
+
+### Por ultimo, comprobamos que se han subido correctamente :
+
+![Alt text](imagenes/end.png?raw=true "Title")
+
+
