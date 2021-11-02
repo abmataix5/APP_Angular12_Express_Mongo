@@ -17,7 +17,7 @@ import { FilterProductosComponent } from './filter-productos/filter-productos.co
 import { FormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { FavoriteButtonComponent } from './buttons/favorite-button.component';
-// import { FilterProductosComponent } from './filter-productos/filter-productos.component';
+// import { DetailsCommentComponent } from '../details/details-comment.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
     FilterProductosComponent,
     ShowAuthedDirective,
     FavoriteButtonComponent
+    // DetailsCommentComponent
 
   ],
   imports: [
@@ -40,6 +41,7 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
     NgbModule,
     NgxPaginationModule,
     FormsModule
+    // DetailsCommentComponent
     
   ],
 
@@ -56,6 +58,7 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
     NgxPaginationModule,
     ShowAuthedDirective,
     FavoriteButtonComponent
+    // DetailsCommentComponent
 ]
 })
 
