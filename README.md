@@ -45,6 +45,8 @@ $ docker network create --driver bridge APP
 
 ![Alt text](imagenes/login.png?raw=true "Title")
 
-### Una vez creada nuestra cuenta, inciaremos sesion utilizando el siguiente comando: sudo docker login -u 'Username'
+### Una vez creada nuestra cuenta, inciaremos sesion utilizando el siguiente comando: 
+
+$ sudo docker login -u 'Username'
 
 ![Alt text](imagenes/login-u.png?raw=true "Title")
