@@ -50,3 +50,22 @@ $ docker network create --driver bridge APP
 $ sudo docker login -u 'Username'
 
 ![Alt text](imagenes/login-u.png?raw=true "Title")
+
+### Subimos las imagenes con los siguientes comandos:
+
+-Listamos las imagenes que tenemos con : $ sudo docker images
+
+-Para subir las imagenes ejecutamos los siguientes comandos:
+
+$ sudo docker tag img_server abmataix5/img_server
+
+$ sudo docker push abmataix5/img_server
+
+
+![Alt text](imagenes/tag.png?raw=true "Title")
+
+
+
+### Por ultimo, comprobamos que se han subido correctamente :
+
+![Alt text](imagenes/end.png?raw=true "Title")
