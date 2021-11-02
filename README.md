@@ -41,6 +41,10 @@ $ docker network create --driver bridge APP
 
 ## SUBIMOS NUESTRAS IMAGENES A DOCKER HUB
 
-###Primero de tenemos que crear una cuenta en docker hub para poder subir nuestras imagenes.
+### Primero de tenemos que crear una cuenta en docker hub para poder subir nuestras imagenes.
 
 ![Alt text](imagenes/login.png?raw=true "Title")
+
+### Una vez creada nuestra cuenta, inciaremos sesion utilizando el siguiente comando: sudo docker login -u 'Username'
+
+![Alt text](imagenes/login-u.png?raw=true "Title")
