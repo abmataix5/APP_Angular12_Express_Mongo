@@ -36,3 +36,11 @@ $ docker network create --driver bridge APP
 ## CREAMOS SCRIPT PARA ARRANCAR LOS CONTENEDORES
 
 ![Alt text](imagenes/dockerfile_script.png?raw=true "Title")
+
+
+
+## SUBIMOS NUESTRAS IMAGENES A DOCKER HUB
+
+###Primero de tenemos que crear una cuenta en docker hub para poder subir nuestras imagenes.
+
+![Alt text](imagenes/login.png?raw=true "Title")
