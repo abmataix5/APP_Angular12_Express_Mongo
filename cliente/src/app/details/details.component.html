@@ -15,9 +15,20 @@
             <p>Descripcion : {{ producto.descripcion }}</p>
             <p>Precio : {{ producto.precio }} $</p>
             <p>Ubicacion vendedor: {{ producto.ubicacion }}</p>
+            <p>Vendedor: {{ producto.author }}</p>
           </div>
        
         </div>
-        <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
+
+        <div style="text-align: center;">
+
+        <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button>  <p>{{producto.favoritesCount}}</p>
     
+       
+        <app-rating></app-rating>
+      
+        </div>
+  
+   
+        
   <!-- </div> -->

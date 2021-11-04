@@ -25,18 +25,9 @@ export class ProfileFavoritesComponent implements OnInit {
 
     this.username = this.router.url.split("/")[2];
     this.favoritesConfig.favorited = this.username;
+
     console.log(this.favoritesConfig);
     this.cd.markForCheck();
-  /*   console.log('LLega');
- 
-      this.route.parent.data.subscribe(
-      (data: {profile: Profile}) => {
-        this.profile = data.profile;
-        this.favoritesConfig = {...this.favoritesConfig};
-        this.favoritesConfig.filters.favorited = this.profile.username;
-        this.cd.markForCheck();
-      }
-    );    */
 
   }
 

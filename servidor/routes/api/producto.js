@@ -118,7 +118,8 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
     let categoria = ((value.categoria != undefined) && (value.categoria != 0)) ? new RegExp(value.categoria) : "";
     let estado = ((value.estado != undefined) && (value.estado != 0)) ? new RegExp(value.estado) : "";
     let ubicacion = ((value.ubicacion != undefined) && (value.ubicacion != 0))? new RegExp(value.ubicacion) : "";
-   
+    let favorited = ((value.favorited != undefined) && (value.favorited != 0))? new RegExp(value.favorited) : "";
+    let author = ((value.author != undefined) && (value.author != 0))? new RegExp(value.author) : "";
 
     var query = {}; //query para mongo.
     
@@ -127,7 +128,24 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
 
   try {
 
-    return Promise.all([
+    /* Para obtener solo los productos favoritos de un usuario */
+
+    if (favorited) {
+      const favoriter = await User.findOne({ username: favorited });
+      query._id = { $in: favoriter.favorites };
+    }
+
+   /* Para obtener los productos de un usuario */
+
+    if(author){
+      const owner = await User.findOne({ username: author });
+      query.author = owner._id;
+
+    }
+
+    /* Consulta */
+
+    return  Promise.all([
       Producto.find(query)
         .limit(Number(limit))
         .skip(Number(offset))
@@ -154,7 +172,7 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
   
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error en el GET de producto!!");
+    res.status(500).send("Error en el GET de productoS!!");
   }
 });
 
@@ -206,7 +224,7 @@ router.delete("/:id", async (req, res) => {
  router.put("/:id", async (req, res) => {
 
   try {
-    const {nombre,tipo,marca,modelo,estado,precio,descripcion,imagen,ubicacion} = req.body;
+    const {nombre,tipo,marca,modelo,estado,precio,descripcion,imagen,ubicacion,author} = req.body;
     let producto = await Producto.findById(req.params.id);
 
     if(!producto) {
@@ -222,6 +240,7 @@ router.delete("/:id", async (req, res) => {
     producto.descripcion = descripcion;
     producto.imagen = imagen;
     producto.ubicacion = ubicacion;
+    producto.author = author;
 
     producto = await Producto.findOneAndUpdate({ _id:req.params.id},producto, { new:true })
     res.json(producto)
@@ -232,6 +251,28 @@ router.delete("/:id", async (req, res) => {
 }
 
 });
+
+
+// Rating a un producto
+
+router.post('/:slug/rating', auth.required, function(req, res, next) {
+    
+  console.log(req.producto._id);
+   var productoId = req.producto._id;
+
+ /*  User.findById(req.payload.id).then(function(user){
+    if (!user) { return res.sendStatus(401); }
+
+    return user.favorite(productoId).then(function(){
+      return req.producto.updateFavoriteCount().then(function(producto){
+        return res.json({producto: producto.toJSONFor(user)});
+      });
+    });
+  }).catch(next);   */
+
+ 
+});
+
 
 
 

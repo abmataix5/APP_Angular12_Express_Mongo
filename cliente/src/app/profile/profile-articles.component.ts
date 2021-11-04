@@ -24,19 +24,8 @@ export class ProfileArticlesComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.router.url.split("/")[2];
-    this.articlesConfig.favorited = this.username;
+    this.articlesConfig.author = this.username;
     this.cd.markForCheck();
-  /*   this.route.parent.data.subscribe(
-      (data: {profile: Profile}) => {
-        this.profile = data.profile;
-        this.articlesConfig = {
-          type: 'all',
-          filters: {}
-        }; // Only method I found to refresh article load on swap
-        this.articlesConfig.filters.author = this.profile.username;
-        this.cd.markForCheck();
-      }
-    ); */
   }
 
 }

@@ -73,7 +73,8 @@ UserSchema.methods.toAuthJSON = function(){
       username: this.username,
       image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
       following: user ? user.isFollowing(this._id) : false,
-      email: this.email
+      email: this.email,
+      favorites: this.favorites
     };
   };
 

@@ -2,7 +2,7 @@
     <div class="item">
   
       <a [routerLink]="['/details', producto.slug]" class="preview-link"> 
-        <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img"> </a>
+        <img src="{{ 'assets/images/smarttv.jpg'}}" alt="" class="item-img"> </a>
       
       <div class="item-text">
         <h3>{{ producto.nombre }}</h3>
@@ -10,6 +10,6 @@
         <p>{{ producto.precio }} $</p>
       
       </div>
-      <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
+      <app-rating [producto]="producto" ></app-rating><app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
     </div>
   

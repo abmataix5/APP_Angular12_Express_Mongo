@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from '../core';
-import { User, UserService } from '../core';
+import { User, UserService ,Profile} from '../core';
 
 @Component({
   selector: 'app-settings',
@@ -14,7 +14,7 @@ export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
   errors: Object = {};
   isSubmitting = false;
-
+  profile!: Profile;
   constructor(
     private info : NotificationService,
     private router: Router,

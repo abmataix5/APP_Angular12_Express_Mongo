@@ -18,13 +18,14 @@ export class Producto {
     slug?:string;
     favorited?: boolean;
     favoritesCount?:number;
+    rating?:number;
 
 
 
 
     constructor( _id:number,nombre: string , tipo: string, marca: string, modelo: string 
         , estado: string, precio: Number, descripcion: string, imagen: string
-        , ubicacion: string, fecha_alta: Date ,author:Profile,slug?:string,favorited?: boolean, favoritesCount?:number){
+        , ubicacion: string, fecha_alta: Date ,author:Profile,slug?:string,favorited?: boolean, favoritesCount?:number,rating?:number){
 
         this.nombre = nombre;
         this.tipo = tipo;
@@ -40,6 +41,7 @@ export class Producto {
         this.slug = slug;
         this.favorited = favorited ? favorited : false;
         this.favoritesCount = favoritesCount ? favoritesCount : 0;
+        this.rating = rating ? rating : 0;
        
     }
 }

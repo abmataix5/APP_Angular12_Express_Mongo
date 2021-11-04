@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { NgRatingBarModule } from 'ng-rating-bar';
 //Paginación
 import { NgxPaginationModule } from 'ngx-pagination';
 //Reactive forms
@@ -37,7 +39,8 @@ import { CoreModule } from './core';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgRatingBarModule
     
   ],
   providers: [],
