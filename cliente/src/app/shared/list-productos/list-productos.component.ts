@@ -196,7 +196,7 @@ export class ListProductosComponent implements OnInit {
             this.filters.search = data.value.search;
           }
 
-          this.listProductos = data.producto; //array de productos filtrados.
+          this.listProductos = data.productos; //array de productos filtrados.
           this.count=data.totalProductos;     // numero paginaciones
         
       },

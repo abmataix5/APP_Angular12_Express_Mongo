@@ -48,28 +48,22 @@ export class DetailsComponent implements OnInit {
 
     // https://www.joshuacolvin.net/angular-subscribe-to-route-params-and-data/
 
+
+
     // this.route.data.subscribe(
     //   (data) => {
-      
 
-    //     this.detail = data.details;
-    //     console.log(this.detail);
+    //     this.producto = data.details.producto;
     //   },
     //   (error) => {
 
-      //   this.producto = data.details;
-      //   console.log(this.producto);
-      // },
-      // (error) => {
-
       
-    //     console.log(error);
-    //   });
+
 
       this.route.data.subscribe(
         (data) => {
-        
-          this.producto = data.details;
+          // this.producto = data.details;
+          this.producto = data.details.producto;
           console.log(this.producto);
           this.populateComments();
           this.cd.markForCheck();
@@ -141,21 +135,27 @@ export class DetailsComponent implements OnInit {
         }
       );
       }
+
+      onToggleFavorite(favorited: boolean) {
+
+        this.producto.favorited = favorited;
+    
+        /* Si es like, suma +1 */
+        if (favorited && typeof this.producto.favoritesCount === 'number') {
+          this.producto.favoritesCount++;
+        }
+        
+        /* Si el dislike, resta -1 al total de likes */
+        if (!favorited && typeof this.producto.favoritesCount === 'number') {
+          this.producto.favoritesCount--;
+        } 
+      }
+
+
+
+
 }//endEXPORT
 
-  onToggleFavorite(favorited: boolean) {
+ 
 
-    this.producto.favorited = favorited;
 
-    /* Si es like, suma +1 */
-    if (favorited && typeof this.producto.favoritesCount === 'number') {
-      this.producto.favoritesCount++;
-    }
-    
-    /* Si el dislike, resta -1 al total de likes */
-    if (!favorited && typeof this.producto.favoritesCount === 'number') {
-      this.producto.favoritesCount--;
-    } 
-  }
-
-}
