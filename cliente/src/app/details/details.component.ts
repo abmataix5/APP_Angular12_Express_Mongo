@@ -13,7 +13,7 @@ import { Producto, ProductoService } from '../core';
 export class DetailsComponent implements OnInit {
 
   producto!: Producto;
-
+  propietario_venta : any;
 
   constructor(
     private route: ActivatedRoute, 
@@ -29,8 +29,9 @@ export class DetailsComponent implements OnInit {
 
     this.route.data.subscribe(
       (data) => {
-
+console.log(data.details.owner);
         this.producto = data.details.producto;
+        this.propietario_venta = data.details.owner;
       },
       (error) => {
       

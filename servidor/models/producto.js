@@ -61,14 +61,11 @@ const ProductoSchema =  mongoose.Schema({
         default:Date.now()
     },
     favoritesCount: {type: Number, default: 0},
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }/* ,
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
-    rating: [{
-        type: Number,
-        min: 0,
-        max: 5,
-        default:0
-    }]
+    rating: [
+        { user_id: String, Valoration: String }
+      ] */
 });
 
 
@@ -124,7 +121,8 @@ ProductoSchema.methods.updateFavoriteCount = function() {
      favorited: user ? user.isFavorite(this._id) : false,
      favoritesCount: this.favoritesCount,
      rating:this.rating ,
-     author: this.author
+     author: this.author/* ,
+     rating:this.rating */
    };
  };
 

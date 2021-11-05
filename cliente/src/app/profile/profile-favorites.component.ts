@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { ArticleListConfig, Filter, Profile } from '../core';
+import { Filter, Profile } from '../core';
 
 @Component({
   selector: 'app-profile-favorites',
@@ -23,10 +23,10 @@ export class ProfileFavoritesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.username = this.router.url.split("/")[2];
-    this.favoritesConfig.favorited = this.username;
+    this.username = this.router.url.split("/")[2];   /* Cojemos nombre de usuario de la URL */
+    this.favoritesConfig.favorited = this.username;  /* Lo podemos en favoritesConfig */
 
-    console.log(this.favoritesConfig);
+
     this.cd.markForCheck();
 
   }

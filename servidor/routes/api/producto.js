@@ -52,6 +52,7 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
       Producto.find(query)
         .limit(Number(limit))
         .skip(Number(offset))
+        .populate('author')
         .exec(),
         Producto.count(query).exec(),
       req.payload ? User.findById(req.payload.id) : null
@@ -84,17 +85,21 @@ router.get("/:slug", auth.optional ,async (req, res) => {
 
   try {
 
-    return await Promise.all([
+    return  Promise.all([
       req.payload ? User.findById(req.payload.id) : null ,
-        Producto.findOne({ slug : req.params.slug }).exec()     /* Devuelve usuairo registrado(en caso de estarlo) */
+      Producto.findOne({ slug : req.params.slug })           /* Devuelve usaurio registrado(en caso de estarlo) */
+      .populate('author').exec()                         
     
     ]).then(function(results){
-  
+
         var producto = results[1];
         var user = results[0];
+        var owner = results[1].author.username;  /* Obtenemos el usuario propietario del producto */
+      
 
         return res.json({
-          producto: producto.toJSONFor(user)     /* Producto */                                   
+          producto: producto.toJSONFor(user),  /* Producto */   
+          owner                                /* Propietario del producto en venta */
         });
   
     });
@@ -103,6 +108,8 @@ router.get("/:slug", auth.optional ,async (req, res) => {
     console.log(error);
     res.status(500).send("Error en el GET de producto!!");
   }
+
+
 });
 
 // GET FILTERS -> Seleccionamos los productos seleccionados en los filtros -> filter
@@ -162,7 +169,7 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
 
         return res.json({
           productos: productos.map(function(productos){          
-                    console.log(productos);
+                    console.log(productos.author + 'filters');
                     return productos.toJSONFor(user);}),       /* Productos */                                   
           totalProductos: totalProductos,                     /* Total de productos con esos filtros */
           value: value                                        /* Valor de los filtros */
@@ -255,22 +262,30 @@ router.delete("/:id", async (req, res) => {
 
 // Rating a un producto
 
-router.post('/:slug/rating', auth.required, function(req, res, next) {
+router.post('/rating/:valoration', auth.required, async function(req, res, next) {
     
-  console.log(req.producto._id);
-   var productoId = req.producto._id;
 
- /*  User.findById(req.payload.id).then(function(user){
-    if (!user) { return res.sendStatus(401); }
+  
+  let value= JSON.parse((req.params.valoration));
+  let slug = value.slug;
+  let rating = value.value;
 
-    return user.favorite(productoId).then(function(){
-      return req.producto.updateFavoriteCount().then(function(producto){
-        return res.json({producto: producto.toJSONFor(user)});
-      });
-    });
-  }).catch(next);   */
+  const user = await User.findOne({ _id: req.payload.id });
+  console.log(user._id + ' iid useer ');
 
- 
+  let producto = await Producto.findOne({ slug: slug });
+  producto.rating.user_id = user._id;
+  producto.rating.valoration = rating;
+  console.log(producto);
+
+  let update = {
+
+}
+   
+   producto = await Producto.findOneAndUpdate({ _id:producto._id},producto, { new:true })
+    res.json(producto) 
+    console.log(producto); 
+    
 });
 
 

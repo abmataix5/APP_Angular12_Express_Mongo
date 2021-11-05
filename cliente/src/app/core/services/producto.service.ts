@@ -65,8 +65,15 @@ export class ProductoService {
   /* Rating productos */
 
   rating(slug:any,value:any): Observable<Producto> {
-/*     console.log(slug,value); */
-    return this.apiService.post('/producto/' + slug + '/rating');
+
+  let data = {
+    slug,
+    value
+  }
+
+ var valoration=JSON.stringify(data);
+
+    return this.apiService.post('/producto/rating/' + valoration);
   }
 
 }

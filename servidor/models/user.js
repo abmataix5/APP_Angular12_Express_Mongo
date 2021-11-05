@@ -17,6 +17,10 @@ const UserSchema =  mongoose.Schema({
         required:true,
         match: [/\S+@\S+\.\S+/, 'is invalid']
     },
+    location:{
+      type:String,
+      default :'Valencia'
+    },
     hash:String,
     salt:String,
     image:{
@@ -64,7 +68,8 @@ UserSchema.methods.toAuthJSON = function(){
       username: this.username,
       email: this.email,
       token: this.generateJWT(),
-      image: this.image
+      image: this.image,
+      location:this.location
     };
   };
 
@@ -74,7 +79,8 @@ UserSchema.methods.toAuthJSON = function(){
       image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
       following: user ? user.isFollowing(this._id) : false,
       email: this.email,
-      favorites: this.favorites
+      favorites: this.favorites,
+      location:this.location
     };
   };
 

@@ -1,5 +1,9 @@
 <hr>
+
 <div id="show">
+
+
+
     <div id="titulo"> 
         <h1 style="text-align: center;" *ngIf="user_active == undefined">Estos son nuestros productos</h1>
  
@@ -15,7 +19,7 @@
         </div>
     </div>
     <div id="pag">
-        <pagination-controls (pageChange)= "handlePageChange($event)"></pagination-controls>
+        <pagination-controls (pageChange)= handlePageChange($event)></pagination-controls>
     </div>    
 
       <h3 *ngIf="listProductos.length == 0">Lo sentimos, pero no tenemos ningun dispositivo disponible</h3>

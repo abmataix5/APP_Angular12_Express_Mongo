@@ -33,12 +33,13 @@ export class ListProductosComponent implements OnInit {
         this.filters = config;
         console.log(config);
         this.user_active = true;
-        this.getFilteredProducts(this.filters);
+        this.getProductsFavsAuthor(this.filters);
       }
     }
 
     
   listProductos: Producto[] = [];
+  listProductos2: Producto[] = [];
   id_catego : any;
   id_search : string | null;
   filters : Filter = new Filter;
@@ -226,6 +227,28 @@ export class ListProductosComponent implements OnInit {
       
         console.log(error);
       }
+    );
+
+  }
+
+  getProductsFavsAuthor(filters:Filter){
+
+    this._productoService.getProducto_filter(filters).subscribe(
+
+      (data) => {
+        console.log("**** RESPUESTA SERVER  aUTHOR*************");
+       console.log(data); 
+
+         this.listProductos2 = data.productos; //array de productos filtrados.
+         console.log(this.listProductos2);
+   // numero paginaciones
+       
+     },
+     (error) => {
+     
+       console.log(error);
+     }
+
     );
 
   }
