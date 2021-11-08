@@ -66,7 +66,9 @@
         <!-- Product Pricing -->
         <div class="product-price">
           <span>{{producto.precio}} $</span>
-          <a href="#" class="cart-btn">Add to cart</a>
+          <a href="#" class="cart-btn">Add to cart</a> 
+          &nbsp;
+          &nbsp; 
           <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button> <span>   {{producto.favoritesCount}}</span><br>
          
         </div>

@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { FavoriteButtonComponent } from './buttons/favorite-button.component';
 import { RatingComponent } from './rating/rating.component';
+import { FollowComponent } from './buttons/follow.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { RatingComponent } from './rating/rating.component';
     FilterProductosComponent,
     ShowAuthedDirective,
     FavoriteButtonComponent,
-    RatingComponent
+    RatingComponent,
+    FollowComponent
 
   ],
   imports: [
@@ -60,7 +62,8 @@ import { RatingComponent } from './rating/rating.component';
     NgxPaginationModule,
     ShowAuthedDirective,
     FavoriteButtonComponent,
-    RatingComponent
+    RatingComponent,
+    FollowComponent
 ]
 })
 
