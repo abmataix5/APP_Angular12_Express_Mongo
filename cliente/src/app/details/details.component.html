@@ -70,6 +70,14 @@
           <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button> <span>   {{producto.favoritesCount}}</span><br>
          
         </div>
+
+
+      </div>
+
+    </main>
+
+    <br>
+    <br>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
 
@@ -78,7 +86,7 @@
             <fieldset [disabled]="isSubmitting">
               <!-- <div class="card-block"> -->
                 <textarea class="form-control"
-                  placeholder="Write a comment..."
+                  placeholder="Escribe un comentario..."
                   rows="3" [formControl]="commentControl">
                 </textarea>
               <!-- </div> -->
@@ -106,9 +114,7 @@
         <!-- <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p> -->
     
   <!-- </div> -->
-      </div>
-
-    </main>
+   
 
 
 

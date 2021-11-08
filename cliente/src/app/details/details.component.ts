@@ -76,15 +76,13 @@ export class DetailsComponent implements OnInit {
         });
 
 
-
-  
       // Load the current user's data
       this.userService.currentUser.subscribe(
         (userData: User) => {
           this.currentUser = userData;
-          console.log(this.currentUser);
-          console.log(this.producto);
-          // this.canModify = (this.currentUser.username === this.producto.author);
+          console.log(this.currentUser.username);
+          console.log(this.producto.author.username);
+          this.canModify = (this.currentUser.username === this.producto.author.username);
           this.cd.markForCheck();
         }
       );
@@ -113,7 +111,7 @@ export class DetailsComponent implements OnInit {
     this.commentsService.getAll(this.producto.slug)
       .subscribe(comment => {
         console.log("Vuelve");
-        console.log(comment);
+        console.log(comment[1].author.image);
         this.comments = comment;
         
         console.log(this.comments);

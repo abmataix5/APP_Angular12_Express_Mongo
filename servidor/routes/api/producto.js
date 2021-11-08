@@ -341,6 +341,8 @@ router.get('/:producto/comments', auth.optional, function(req, res, next){
   Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
     console.log("valor req.producto");
     console.log(req.params.producto);
+
+
     return  Producto.findOne({ slug: req.params.producto }).populate({
       path: 'comments',
       populate: {
@@ -352,6 +354,8 @@ router.get('/:producto/comments', auth.optional, function(req, res, next){
         }
       }
     }).then(function(producto) {
+      console.log("valor producto");
+      console.log(producto);
       return res.json({comment: producto.comments.map(function(comment){
         return comment.toJSONFor(user);
       })});
