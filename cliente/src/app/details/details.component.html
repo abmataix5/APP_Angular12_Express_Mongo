@@ -72,9 +72,51 @@
           <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button> <span>   {{producto.favoritesCount}}</span><br>
          
         </div>
+
+
       </div>
 
     </main>
+
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+
+        <div *appShowAuthed="true">
+          <form (ngSubmit)="addComment()">
+            <fieldset [disabled]="isSubmitting">
+              <!-- <div class="card-block"> -->
+                <textarea class="form-control"
+                  placeholder="Escribe un comentario..."
+                  rows="3" [formControl]="commentControl">
+                </textarea>
+              <!-- </div> -->
+               <div class="card-footer">
+                <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="user image" class="comment-author-img" />
+                <button class="btn btn-sm btn-primary" type="submit">Publicar Comentario</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <div *appShowAuthed="false">
+          <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this article.
+        </div>
+        <app-details-comment
+          *ngFor="let comment of comments"
+          [comment]="comment"
+          (deleteComment)="onDeleteComment(comment)">
+        </app-details-comment>
+
+      </div>
+    </div>
+        
+      
+        <!-- <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p> -->
+    
+  <!-- </div> -->
+   
 
 
 

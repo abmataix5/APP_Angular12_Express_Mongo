@@ -34,7 +34,7 @@ import { CoreModule } from './core';
     AppRoutingModule,
     NgbModule,
     NgxPaginationModule,
-    FormsModule,
+    // FormsModule,
     AuthModule,
     FormsModule,
     ReactiveFormsModule,

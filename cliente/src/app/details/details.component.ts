@@ -1,6 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy,ChangeDetectorRef  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Producto, ProductoService } from '../core';
+import { FormControl} from '@angular/forms';
+import { 
+    Producto,
+    ProductoService,
+    Comment,
+    CommentService,
+    User,
+    UserService
+  
+  } from '../core';
 
 
 @Component({
@@ -12,12 +21,23 @@ import { Producto, ProductoService } from '../core';
 
 export class DetailsComponent implements OnInit {
 
-  producto!: Producto;
+  producto! : Producto;
+  currentUser! : User;
+  canModify! : boolean;
+  comments! : Comment[];
+  commentControl = new FormControl();
+  commentFormErrors = {};
+  isSubmitting = false;
+  isDeleting = false;
   propietario_venta : any;
 
   constructor(
     private route: ActivatedRoute, 
-    private _productoService: ProductoService
+    private router: Router,
+    private productoService: ProductoService,
+    private userService: UserService,
+    private commentsService: CommentService,
+    private cd: ChangeDetectorRef
   ){ 
     
   }
@@ -27,33 +47,136 @@ export class DetailsComponent implements OnInit {
 
     // https://www.joshuacolvin.net/angular-subscribe-to-route-params-and-data/
 
-    this.route.data.subscribe(
-      (data) => {
-console.log(data.details.owner);
-        this.producto = data.details.producto;
-        this.propietario_venta = data.details.owner;
-      },
-      (error) => {
+
+
+    // this.route.data.subscribe(
+    //   (data) => {
+
+    //     this.producto = data.details.producto;
+    //   },
+    //   (error) => {
+
+
+      this.route.data.subscribe(
+        (data) => {
+
+          console.log(data.details.owner);
+          console.log(this.producto);
+          // this.producto = data.details;
+          this.producto = data.details.producto;
+          this.propietario_venta = data.details.owner;
+         
+          this.populateComments();
+          this.cd.markForCheck();
+
+        },
+        (error) => {
+        
+          console.log(error);
+        });
+
+
+      // Load the current user's data
+      this.userService.currentUser.subscribe(
+        (userData: User) => {
+          this.currentUser = userData;
+          console.log(this.currentUser.username);
+          console.log(this.producto.author.username);
+          this.canModify = (this.currentUser.username === this.producto.author.username);
+          this.cd.markForCheck();
+        }
+      );
+
+//     this.route.data.subscribe(
+//       (data) => {
+// console.log(data.details.owner);
+//         this.producto = data.details.producto;
+//         this.propietario_venta = data.details.owner;
+//       },
+//       (error) => {});
       
-        console.log(error);
-      });
+
+  }//endNgoninit
+
   
+  
+  trackByFn(index:any, item:any) {
+    return index;
   }
-
-
-  onToggleFavorite(favorited: boolean) {
-
-    this.producto.favorited = favorited;
-
-    /* Si es like, suma +1 */
-    if (favorited && typeof this.producto.favoritesCount === 'number') {
-      this.producto.favoritesCount++;
-    }
+  // ObjectId("6176e42d5e94b5235d608c53")
+  populateComments() {
+    console.log("Entra populate coments");
+    console.log(this.producto.slug);
     
-    /* Si el dislike, resta -1 al total de likes */
-    if (!favorited && typeof this.producto.favoritesCount === 'number') {
-      this.producto.favoritesCount--;
-    } 
+    this.commentsService.getAll(this.producto.slug)
+      .subscribe(comment => {
+        console.log("Vuelve");
+        console.log(comment[1].author.image);
+        this.comments = comment;
+        
+        console.log(this.comments);
+        this.cd.markForCheck();
+      });
   }
 
-}
+  addComment() {
+    console.log("ENTRA ADD COMENT");
+    this.isSubmitting = true;
+    this.commentFormErrors = {};
+
+    const commentBody = this.commentControl.value;
+
+    this.commentsService
+      .add(this.producto.slug, commentBody)
+      .subscribe(
+        comment => {
+          this.comments.unshift(comment);
+          this.commentControl.reset('');
+          this.isSubmitting = false;
+          this.cd.markForCheck();
+        },
+        errors => {
+          this.isSubmitting = false;
+          this.commentFormErrors = errors;
+          this.cd.markForCheck();
+        }
+      );
+  }
+
+  onDeleteComment(comment:any) {
+    console.log("valor ondelete");
+    console.log(comment.id);
+    console.log(this.producto);
+    this.commentsService.destroy(comment.id, this.producto.slug)
+      .subscribe(
+        success => {
+          console.log("VALOR RETORNO DELETE en server");
+          this.comments = this.comments.filter((item) => item !== comment);
+          this.cd.markForCheck();
+        }
+      );
+      }
+
+      onToggleFavorite(favorited: boolean) {
+
+        this.producto.favorited = favorited;
+    
+        /* Si es like, suma +1 */
+        if (favorited && typeof this.producto.favoritesCount === 'number') {
+          this.producto.favoritesCount++;
+        }
+        
+        /* Si el dislike, resta -1 al total de likes */
+        if (!favorited && typeof this.producto.favoritesCount === 'number') {
+          this.producto.favoritesCount--;
+        } 
+      }
+
+
+
+
+}//endEXPORT
+
+ 
+
+
