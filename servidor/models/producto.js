@@ -61,8 +61,11 @@ const ProductoSchema =  mongoose.Schema({
         default:Date.now()
     },
     favoritesCount: {type: Number, default: 0},
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }]
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }/* ,
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    rating: [
+        { user_id: String, Valoration: String }
+      ] */
 });
 
 
@@ -103,6 +106,7 @@ ProductoSchema.methods.updateFavoriteCount = function() {
 
   ProductoSchema.methods.toJSONFor = function(user){
    return {
+       _id:this._id,
      slug: this.slug,
      nombre: this.nombre,
      tipo: this.tipo,
@@ -117,6 +121,9 @@ ProductoSchema.methods.updateFavoriteCount = function() {
      favorited: user ? user.isFavorite(this._id) : false,
      favoritesCount: this.favoritesCount,
     //  author: this.author.toProfileJSONFor(user) 
+     rating:this.rating ,
+     author: this.author/* ,
+     rating:this.rating */
    };
  };
 

@@ -1,22 +1,74 @@
 
 
-<!-- <div *ngFor="let detail of details" class="container"> -->
+ 
+    <main class="container">
 
+      <!-- Imagen producto-->
+      <div class="left-column">
+   
+        <img data-image="red" class="active"src="{{ 'assets/images/smarttv.jpg'}}">
+      </div>
+
+
+      <!-- Right Column -->
+      <div class="right-column">
+
+        <!-- Product Description -->
+        <div class="product-description">
+          <a [routerLink]="['/profile',propietario_venta]"><span>Producto vendido por :<strong>{{propietario_venta}}</strong></span></a>
+          <h1>{{producto.nombre}}</h1>
+          <p>{{producto.descripcion}}</p>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-configuration">
+
+            <div class="product-color">
+              <span>Modelo</span>
   
-        <div class="item">
-          
-          <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
-          
-          <div class="item-text">
-            <h3>{{producto.nombre}}</h3><br>
-            <p>Marca :  {{ producto.marca }}</p>
-            <p>Modelo: {{ producto.modelo }}</p>
-            <p>Estado :{{ producto.estado }}</p>
-            <p>Descripcion : {{ producto.descripcion }}</p>
-            <p>Precio : {{ producto.precio }} $</p>
-            <p>Ubicacion vendedor: {{ producto.ubicacion }}</p>
+              <div class="color-choose">
+                <p>{{producto.marca}} {{producto.modelo}}</p>
+              </div>
+  
+            </div>
+
+            <div class="product-color">
+              <span>Estado del producto</span>
+  
+              <div class="color-choose">
+                <p>{{producto.estado}}</p>
+              </div>
+  
+            </div>
+
+            <div class="product-color">
+              <span>Ubicacion</span>
+  
+              <div class="color-choose">
+                <p>{{producto.ubicacion}}</p>
+              </div>
+  
+            </div>
+
+          <!-- Rating -->
+          <div class="product-color">
+            <span>Valora este producto</span>
+
+            <div class="color-choose">
+              <app-rating></app-rating>
+            </div>
+
           </div>
-       
+
+      
+        </div><br>
+
+        <!-- Product Pricing -->
+        <div class="product-price">
+          <span>{{producto.precio}} $</span>
+          <a href="#" class="cart-btn">Add to cart</a>
+          <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button> <span>   {{producto.favoritesCount}}</span><br>
+         
         </div>
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
@@ -51,6 +103,12 @@
     </div>
         
       
-        <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
+        <!-- <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p> -->
     
   <!-- </div> -->
+      </div>
+
+    </main>
+
+
+

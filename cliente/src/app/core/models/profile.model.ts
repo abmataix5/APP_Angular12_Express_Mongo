@@ -3,5 +3,6 @@ export interface Profile {
   email: string;
   image: string;
   following: boolean;
+  location: string;
   }
   

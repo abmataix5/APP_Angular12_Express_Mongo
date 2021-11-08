@@ -88,20 +88,20 @@ router.get("/:slug", auth.optional ,async (req, res) => {
 
   try {
 
-    return await Promise.all([
+    return  Promise.all([
       req.payload ? User.findById(req.payload.id) : null ,
-        Producto.findOne({ slug : req.params.slug }).exec()     /* Devuelve usuairo registrado(en caso de estarlo) */
+      Producto.findOne({ slug : req.params.slug })           /* Devuelve usaurio registrado(en caso de estarlo) */
+      .populate('author').exec()                         
     
     ]).then(function(results){
-  
+
         var producto = results[1];
         var user = results[0];
-        console.log("valor user");
-        console.log(user);
+        var owner = results[1].author.username;  /* Obtenemos el usuario propietario del producto */
 
         return res.json({
-          producto: producto.toJSONFor(user)     /* Producto */                                   
-          // producto
+          producto: producto.toJSONFor(user),  /* Producto */   
+          owner                                /* Propietario del producto en venta */
         });
   
     });
@@ -110,6 +110,8 @@ router.get("/:slug", auth.optional ,async (req, res) => {
     console.log(error);
     res.status(500).send("Error en el GET de producto!!");
   }
+
+
 });
 
 // GET FILTERS -> Seleccionamos los productos seleccionados en los filtros -> filter
@@ -125,7 +127,8 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
     let categoria = ((value.categoria != undefined) && (value.categoria != 0)) ? new RegExp(value.categoria) : "";
     let estado = ((value.estado != undefined) && (value.estado != 0)) ? new RegExp(value.estado) : "";
     let ubicacion = ((value.ubicacion != undefined) && (value.ubicacion != 0))? new RegExp(value.ubicacion) : "";
-   
+    let favorited = ((value.favorited != undefined) && (value.favorited != 0))? new RegExp(value.favorited) : "";
+    let author = ((value.author != undefined) && (value.author != 0))? new RegExp(value.author) : "";
 
     var query = {}; //query para mongo.
     
@@ -134,7 +137,24 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
 
   try {
 
-    return Promise.all([
+    /* Para obtener solo los productos favoritos de un usuario */
+
+    if (favorited) {
+      const favoriter = await User.findOne({ username: favorited });
+      query._id = { $in: favoriter.favorites };
+    }
+
+   /* Para obtener los productos de un usuario */
+
+    if(author){
+      const owner = await User.findOne({ username: author });
+      query.author = owner._id;
+
+    }
+
+    /* Consulta */
+
+    return  Promise.all([
       Producto.find(query)
         .limit(Number(limit))
         .skip(Number(offset))
@@ -155,8 +175,10 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
                     console.log(productos);
                     console.log("valor user");
                     console.log(user);
-                    return productos.toJSONFor(user);}), 
+                    // return productos.toJSONFor(user);}), 
                                  // return productos}),       /* Productos */                                   
+                    console.log(productos.author + 'filters');
+                    return productos.toJSONFor(user);}),       /* Productos */                                   
           totalProductos: totalProductos,                     /* Total de productos con esos filtros */
           value: value                                        /* Valor de los filtros */
         });
@@ -165,7 +187,7 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
   
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error en el GET de producto!!");
+    res.status(500).send("Error en el GET de productoS!!");
   }
 });
 
@@ -217,7 +239,7 @@ router.delete("/:id", async (req, res) => {
  router.put("/:id", async (req, res) => {
 
   try {
-    const {nombre,tipo,marca,modelo,estado,precio,descripcion,imagen,ubicacion} = req.body;
+    const {nombre,tipo,marca,modelo,estado,precio,descripcion,imagen,ubicacion,author} = req.body;
     let producto = await Producto.findById(req.params.id);
 
     if(!producto) {
@@ -233,6 +255,7 @@ router.delete("/:id", async (req, res) => {
     producto.descripcion = descripcion;
     producto.imagen = imagen;
     producto.ubicacion = ubicacion;
+    producto.author = author;
 
     producto = await Producto.findOneAndUpdate({ _id:req.params.id},producto, { new:true })
     res.json(producto)
@@ -243,6 +266,36 @@ router.delete("/:id", async (req, res) => {
 }
 
 });
+
+
+// Rating a un producto
+
+router.post('/rating/:valoration', auth.required, async function(req, res, next) {
+    
+
+  
+  let value= JSON.parse((req.params.valoration));
+  let slug = value.slug;
+  let rating = value.value;
+
+  const user = await User.findOne({ _id: req.payload.id });
+  console.log(user._id + ' iid useer ');
+
+  let producto = await Producto.findOne({ slug: slug });
+  producto.rating.user_id = user._id;
+  producto.rating.valoration = rating;
+  console.log(producto);
+
+  let update = {
+
+}
+   
+   producto = await Producto.findOneAndUpdate({ _id:producto._id},producto, { new:true })
+    res.json(producto) 
+    console.log(producto); 
+    
+});
+
 
 
 

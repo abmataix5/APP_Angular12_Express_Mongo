@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { NgRatingBarModule } from 'ng-rating-bar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ListProductosComponent } from './list-productos/list-productos.component';
@@ -17,7 +17,8 @@ import { FilterProductosComponent } from './filter-productos/filter-productos.co
 import { FormsModule } from '@angular/forms';
 import { ShowAuthedDirective } from './show-authed.directive';
 import { FavoriteButtonComponent } from './buttons/favorite-button.component';
-// import { DetailsCommentComponent } from '../details/details-comment.component';
+import { RatingComponent } from './rating/rating.component';
+
 
 @NgModule({
   declarations: [
@@ -29,8 +30,8 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
     SearchComponent,
     FilterProductosComponent,
     ShowAuthedDirective,
-    FavoriteButtonComponent
-    // DetailsCommentComponent
+    FavoriteButtonComponent,
+    RatingComponent
 
   ],
   imports: [
@@ -40,8 +41,8 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
     InfiniteScrollModule,
     NgbModule,
     NgxPaginationModule,
-    FormsModule
-    // DetailsCommentComponent
+    FormsModule,
+    NgRatingBarModule
     
   ],
 
@@ -58,8 +59,8 @@ import { FavoriteButtonComponent } from './buttons/favorite-button.component';
     SearchComponent,
     NgxPaginationModule,
     ShowAuthedDirective,
-    FavoriteButtonComponent
-    // DetailsCommentComponent
+    FavoriteButtonComponent,
+    RatingComponent
 ]
 })
 

@@ -6,6 +6,7 @@ export * from './categories';
 export * from './carousel';
 export * from './filter-productos/filter-productos.component';
 export * from './show-authed.directive';
-export * from './buttons/favorite-button.component'
+export * from './buttons/favorite-button.component';
+export * from './rating/rating.component';
 
 

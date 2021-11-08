@@ -22,6 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "bootstrap": "^5.1.1",
     "hammerjs": "^2.0.8",
+    "ng-rating-bar": "^1.0.2",
     "ngx-hammerjs-carousel": "^1.0.4",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-pagination": "^5.1.1",

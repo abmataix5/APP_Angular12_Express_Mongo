@@ -41,11 +41,11 @@ export class ProductoService {
 
   getProducto_filter(filters: Filter | null):Observable<any> {
     /* console.log('inFilters'); */
-    console.log(filters);
+  /*   console.log(filters); */
   
     let query=JSON.stringify(filters);
    
-    console.log(query);
+/*     console.log(query); */
     
     return this.http.get<Producto>(environment.url + '/producto/filter/'+ query);
   }
@@ -53,12 +53,27 @@ export class ProductoService {
   // favorite, unfavorite
 
   favorite(slug:any): Observable<Producto> {
-    console.log(slug);
+
     return this.apiService.post('/producto/' + slug + '/favorite');
   }
 
   unfavorite(slug:any): Observable<Producto> {
     return this.apiService.delete('/producto/' + slug + '/favorite');
+  }
+
+
+  /* Rating productos */
+
+  rating(slug:any,value:any): Observable<Producto> {
+
+  let data = {
+    slug,
+    value
+  }
+
+ var valoration=JSON.stringify(data);
+
+    return this.apiService.post('/producto/rating/' + valoration);
   }
 
 }

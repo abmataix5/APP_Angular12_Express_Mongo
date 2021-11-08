@@ -27,8 +27,6 @@ export class FavoriteButtonComponent {
 
   ngOnInit(): void {
 
-    console.log(this.producto.favorited);
-    
   }
 
 

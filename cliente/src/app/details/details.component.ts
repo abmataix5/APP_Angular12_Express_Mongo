@@ -29,9 +29,7 @@ export class DetailsComponent implements OnInit {
   commentFormErrors = {};
   isSubmitting = false;
   isDeleting = false;
-
-
-  
+  propietario_venta : any;
 
   constructor(
     private route: ActivatedRoute, 
@@ -61,10 +59,13 @@ export class DetailsComponent implements OnInit {
 
       this.route.data.subscribe(
         (data) => {
-         
+
+          console.log(data.details.owner);
+          console.log(this.producto);
           // this.producto = data.details;
           this.producto = data.details.producto;
-          console.log(this.producto);
+          this.propietario_venta = data.details.owner;
+         
           this.populateComments();
           this.cd.markForCheck();
 
@@ -87,6 +88,14 @@ export class DetailsComponent implements OnInit {
           this.cd.markForCheck();
         }
       );
+
+//     this.route.data.subscribe(
+//       (data) => {
+// console.log(data.details.owner);
+//         this.producto = data.details.producto;
+//         this.propietario_venta = data.details.owner;
+//       },
+//       (error) => {});
       
 
   }//endNgoninit

@@ -31,14 +31,19 @@ export class ListProductosComponent implements OnInit {
     set config (config : Filter){
       if(config){
         this.filters = config;
+        console.log(config);
+        this.user_active = true;
+        this.getProductsFavsAuthor(this.filters);
       }
     }
 
+    
   listProductos: Producto[] = [];
+  listProductos2: Producto[] = [];
   id_catego : any;
   id_search : string | null;
   filters : Filter = new Filter;
-    
+  user_active : any;
   page :number = 1;     // por defecto nos situamos en la primera pagina.
   limit :number = 4;    //numero de produtos que mostramos
   offset:number = 0;   // offset por defecto, nos muestra los primeros productos.
@@ -56,7 +61,7 @@ export class ListProductosComponent implements OnInit {
   getRequestParams(limit: number, offset: number, page:number): any {
     let params: any = {};
     if(page){
-      offset=(page-1)*limit;        //definimos valor offser respecto pagina en la que nos encontramos.
+      offset=(page-1)*limit;        //definimos valor offset respecto pagina en la que nos encontramos.
       this.filters.offset=offset;
     }else{
       this.filters.offset=0;
@@ -81,20 +86,20 @@ export class ListProductosComponent implements OnInit {
 
         if(this.id_catego){ // categoria desde home por paramMap.
           
-          console.log("entra categoria");
+       
           this.filters.categoria = this.id_catego;
           this._location.replaceState('/shop/'+this.id_catego);
           this.getFilteredProducts(this.filters);
           
         }else if(this.id_search){ // search desde el header por paramMap.
 
-          console.log("entra search");
+        
           this.filters.search = this.id_search;
           this._location.replaceState('/shop/'+this.id_search);
           this.getFilteredProducts(this.filters);
           
           //FILTROS GENERAL
-        }else if(this.filters.categoria || this.filters.estado || this.filters.ubicacion){ 
+        }else if(this.filters.categoria || this.filters.estado || this.filters.ubicacion || this.filters.favorited || this.filters.author){ 
 
           this.getFilteredProducts(this.filters);
 
@@ -121,7 +126,7 @@ export class ListProductosComponent implements OnInit {
 
     this._productoService.getProducto_catego(this.id_catego).subscribe(
       (data2) => {
-        console.log(data2);
+      
         this.listProductos = data2; 
       },
       (error) => {
@@ -136,7 +141,7 @@ export class ListProductosComponent implements OnInit {
 
     this._productoService.getProducto_search(this.id_search).subscribe(
       (data) => {
-        console.log(data);
+
         this.listProductos =data;
       },
       (error) => {
@@ -149,8 +154,8 @@ export class ListProductosComponent implements OnInit {
 
   getFilteredProducts(filters:Filter){
 
-    console.log("**** FILTROS ********************");
-    console.log(filters);
+/*     console.log("**** FILTROS ********************");
+    console.log(filters); */
 
     if(this.id_catego){
       filters.categoria = this.id_catego;
@@ -169,12 +174,24 @@ export class ListProductosComponent implements OnInit {
     if((this.id_search == undefined)&&(filters.search !== undefined)){
       this.filters.search = filters.search;
     }
+     if((this.id_search == undefined)&&(filters.search !== undefined)){
+      this.filters.search = filters.search;
+    }
+
+    if((this.filters.favorited == undefined)&&(filters.favorited !== undefined)){
+      this.filters.favorited = filters.favorited;
+    }
+
+    if((this.filters.author == undefined)&&(filters.author !== undefined)){
+      this.filters.author = filters.author;
+    }
+
 
       
     this._productoService. getProducto_filter(filters).subscribe(
       (data) => {
-        console.log("**** RESPUESTA SERVER FILTROS *************");
-        console.log(data);
+         console.log("**** RESPUESTA SERVER FILTROS *************");
+        console.log(data); 
 
           if(data.value.stateFilter === true){
             this.page = 1;
@@ -195,6 +212,12 @@ export class ListProductosComponent implements OnInit {
           if(data.value.search != undefined){
             this.filters.search = data.value.search;
           }
+          if(data.value.favorited != undefined){
+            this.filters.favorited = data.value.favorited;
+          }
+          if(data.value.author != undefined){
+            this.filters.author = data.value.author;
+          }
 
           this.listProductos = data.productos; //array de productos filtrados.
           this.count=data.totalProductos;     // numero paginaciones
@@ -204,6 +227,28 @@ export class ListProductosComponent implements OnInit {
       
         console.log(error);
       }
+    );
+
+  }
+
+  getProductsFavsAuthor(filters:Filter){
+
+    this._productoService.getProducto_filter(filters).subscribe(
+
+      (data) => {
+        console.log("**** RESPUESTA SERVER  aUTHOR*************");
+       console.log(data); 
+
+         this.listProductos2 = data.productos; //array de productos filtrados.
+         console.log(this.listProductos2);
+   // numero paginaciones
+       
+     },
+     (error) => {
+     
+       console.log(error);
+     }
+
     );
 
   }

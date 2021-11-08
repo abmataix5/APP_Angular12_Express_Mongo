@@ -1,13 +1,14 @@
 <div class="wrapper bg-white mt-sm-5">
 
-    <h4 class="pb-4 border-bottom">Editar Perfil</h4>
+    <h4 class="pb-4 border-bottom">Hola <strong>{{user.username}}</strong>, aqui puedes editar tus datos</h4>
 
 
         <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
 
-            <div class="d-flex align-items-start py-3 border-bottom"> <img src="https://static.productionready.io/images/smiley-cyrus.jpg" class="img" alt="">
-                <div class="pl-sm-4 pl-2" id="img-section"> <b>Profile Photo</b>
-                    <p>Accepted file type .png. Less than 1MB</p> <button class="btn button border"><b>Upload</b></button>
+            <div class="d-flex align-items-start py-3 border-bottom"> <img src="{{ 'https://robohash.org/' + user.username + '.png'}}"class="img" alt="">
+                <div class="pl-sm-4 pl-2" id="img-section"> 
+                    <b>Profile Photo</b>
+                    <p style="font-size: larger;">Hola, <strong>{{user.username}}!</strong>  Dime, que dato quieres cambiar?</p>
                 </div>
             </div>
 
