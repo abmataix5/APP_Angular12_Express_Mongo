@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { DetailsRoutingModule } from './details-routing.module';
 import { DetailsComponent } from './details.component';
 import { DetailsCommentComponent } from './details-comment.component';
-
 import { SharedModule } from '../shared';
-
+import { importType } from '@angular/compiler/src/output/output_ast';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     DetailsComponent, 
@@ -15,7 +15,9 @@ import { SharedModule } from '../shared';
   imports: [
     CommonModule,
     DetailsRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class DetailsModule { }

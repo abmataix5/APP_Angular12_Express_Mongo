@@ -23,8 +23,9 @@ export class CommentService {
   }
 
   getAll(slug:string | undefined): Observable<Comment[]> {
+    console.log(slug);
     return this.apiService.get(`/producto/${slug}/comments`)
-      .pipe(map(data => data.comments));
+      .pipe(map(data => data.comment));
   }
 
   destroy(commentId:any, productoSlug:any) {

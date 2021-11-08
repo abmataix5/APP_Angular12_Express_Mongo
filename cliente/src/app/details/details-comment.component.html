@@ -16,7 +16,7 @@
         {{ comment.createdAt | date: 'longDate' }}
       </span>
       <span class="mod-options" [hidden]="!canModify">
-        <i class="ion-trash-a" (click)="deleteClicked()"></i>
+        <button class="fa fa-trash" (click)="deleteClicked()">Eliminar</button>
       </span>
     </div>
   </div>

@@ -4,6 +4,7 @@
 
   
         <div class="item">
+          
           <img src="{{ 'assets/images/' + producto.imagen + '.jpg'}}" alt="" class="item-img">
           
           <div class="item-text">
@@ -17,39 +18,34 @@
           </div>
        
         </div>
-      <div class="row">
+    <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
 
-        <!-- <div *appShowAuthed="true"> -->
+        <div *appShowAuthed="true">
           <!-- <app-list-errors [errors]="commentFormErrors"></app-list-errors> -->
-          <form class="card comment-form" (ngSubmit)="addComment()">
+          <form (ngSubmit)="addComment()">
             <fieldset [disabled]="isSubmitting">
-              <div class="card-block">
-                <!-- <textarea class="form-control"
+              <!-- <div class="card-block"> -->
+                <textarea class="form-control"
                   placeholder="Write a comment..."
-                  rows="3"
-                  [formControl]="commentControl"
-                ></textarea> -->
-              </div>
-              <!-- <div class="card-footer">
+                  rows="3" [formControl]="commentControl">
+                </textarea>
+              <!-- </div> -->
+               <div class="card-footer">
                 <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="user image" class="comment-author-img" />
-                <button class="btn btn-sm btn-primary" type="submit">
-                 Post Comment
-                </button>
-              </div> -->
+                <button class="btn btn-sm btn-primary" type="submit">Publicar Comentario</button>
+              </div>
             </fieldset>
           </form>
-        <!-- </div> -->
-<!-- 
+        </div>
+
         <div *appShowAuthed="false">
           <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this article.
-        </div> -->
+        </div>
         <app-details-comment
           *ngFor="let comment of comments"
-          [comment]="comment"> <!--
-          (deleteComment)="onDeleteComment(comment)"> -->
-          <!-- <app-details-comment> -->
-       
+          [comment]="comment"
+          (deleteComment)="onDeleteComment(comment)">
         </app-details-comment>
 
       </div>

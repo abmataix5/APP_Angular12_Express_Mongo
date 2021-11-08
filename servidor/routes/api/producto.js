@@ -6,6 +6,7 @@ const Producto = require("../../models/producto");
 const Comment = require("../../models/comment");
 const User = require("../../models/user");
 var auth = require('../auth');
+const producto = require('../../models/producto');
 
 
 
@@ -22,10 +23,11 @@ router.param('comment', function(req, res, next, id) {
   }).catch(next);
 });
 
-
 router.param("slug", async (req, res, next, slug) => {
+// router.param("slug",auth.required ,async (req, res, next, slug) => {
 
   await Producto.findOne({ slug: slug })
+    .populate('author')
     .then(function (producto) {
       if (!producto) {
         return res.sendStatus(404);
@@ -52,6 +54,7 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
       Producto.find(query)
         .limit(Number(limit))
         .skip(Number(offset))
+        .populate('author')
         .exec(),
         Producto.count(query).exec(),
       req.payload ? User.findById(req.payload.id) : null
@@ -60,7 +63,8 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
       var productos = results[0];
       var totalProductos = results[1];
       var user = results[2];
-
+      console.log("Valor User");
+      console.log(user);
       return res.json({
         productos: productos.map(function(productos){
           return productos.toJSONFor(user);
@@ -92,9 +96,12 @@ router.get("/:slug", auth.optional ,async (req, res) => {
   
         var producto = results[1];
         var user = results[0];
+        console.log("valor user");
+        console.log(user);
 
         return res.json({
           producto: producto.toJSONFor(user)     /* Producto */                                   
+          // producto
         });
   
     });
@@ -131,6 +138,7 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
       Producto.find(query)
         .limit(Number(limit))
         .skip(Number(offset))
+        .populate('author')
         .exec(),
         Producto.count(query).exec(),    /* Contamos productos */
         req.payload ? User.findById(req.payload.id) : null /* Devuelve usuairo registrado(en caso de estarlo) */
@@ -145,7 +153,10 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
         return res.json({
           productos: productos.map(function(productos){          
                     console.log(productos);
-                    return productos.toJSONFor(user);}),       /* Productos */                                   
+                    console.log("valor user");
+                    console.log(user);
+                    return productos.toJSONFor(user);}), 
+                                 // return productos}),       /* Productos */                                   
           totalProductos: totalProductos,                     /* Total de productos con esos filtros */
           value: value                                        /* Valor de los filtros */
         });
@@ -275,7 +286,9 @@ router.delete('/:slug/favorite', auth.required, function(req, res, next) {
 // return an article's comments
 router.get('/:producto/comments', auth.optional, function(req, res, next){
   Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
-    return req.producto.populate({
+    console.log("valor req.producto");
+    console.log(req.params.producto);
+    return  Producto.findOne({ slug: req.params.producto }).populate({
       path: 'comments',
       populate: {
         path: 'author'
@@ -285,8 +298,8 @@ router.get('/:producto/comments', auth.optional, function(req, res, next){
           createdAt: 'desc'
         }
       }
-    }).execPopulate().then(function(producto) {
-      return res.json({comments: req.producto.comments.map(function(comment){
+    }).then(function(producto) {
+      return res.json({comment: producto.comments.map(function(comment){
         return comment.toJSONFor(user);
       })});
     });
@@ -299,35 +312,66 @@ router.get('/:producto/comments', auth.optional, function(req, res, next){
 router.post('/:producto/comments', auth.required, function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
-
+  
     var comment = new Comment(req.body.comment);
-    comment.producto = req.producto;
-    comment.author = user;
+   
+    Producto.findOne({ slug : req.params.producto }).then(function (producto) { //buscamos el producto que al que vamos a añadir el comentario.
+      if(!producto){ return res.sendStatus(401); }
+      comment.producto = req.params.producto;
+      comment.author = user;
 
     return comment.save().then(function(){
-      console.log("return save");
-      console.log(req.producto.comments);
-      req.producto.comments.push(comment);
-
-      return req.producto.save().then(function(producto) {
+      producto.comments.push(comment);
+      
+      return producto.save().then(function(producto) {
         res.json({comment: comment.toJSONFor(user)});
       });
+    });
     });
   }).catch(next);
 });
 
 
-router.delete('/:producto/comments/:comment', auth.required, function(req, res, next) {
-  if(req.comment.author.toString() === req.payload.id.toString()){
-    req.producto.comments.remove(req.comment._id);
-    req.producto.save()
-      .then(Comment.find({_id: req.comment._id}).remove().exec())
-      .then(function(){
-        res.sendStatus(204);
+router.delete('/:producto/comments/:comment', auth.required, async function(req, res, next) {
+  console.log("ENTRA DELETE COMMENTS");
+  
+  console.log(req.params.comment);
+  console.log(req.params.producto);
+
+  await Comment.findById(req.params.comment).then(function (comment) {
+    
+    console.log("valor comment");
+    console.log(comment);
+    console.log("valor usuario");
+    console.log(req.payload.id);
+
+      if(comment.author.toString() === req.payload.id.toString()){
+
+        console.log("ENTRAAA");
+        Producto.findOne({ slug : req.params.producto }).then(function (producto) { //buscamos el producto que al que vamos a añadir el comentario.
+          if(!producto){ return res.sendStatus(401); }
+            console.log("valor comentarios producto");
+            console.log(producto);
+            // console.log(producto.comments);
+            producto.comments.remove(comment._id);
+            producto.save()
+                .then(Comment.find({_id: comment._id}).remove().exec())
+                .then(function(){
+                  res.sendStatus(204);
+                });
+       
+      //   req.producto.comments.remove(req.comment._id);
+      //   req.producto.save()
+      //     .then(Comment.find({_id: req.comment._id}).remove().exec())
+      //     .then(function(){
+      //       res.sendStatus(204);
+      //     });
       });
-  } else {
-    res.sendStatus(403);
-  }
+      } else {
+        res.sendStatus(403);
+      }
+
+}); //end comment.find
 });
 
 

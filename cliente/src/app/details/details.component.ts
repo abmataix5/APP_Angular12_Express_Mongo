@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy,ChangeDetectorRef  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { FormControl} from '@angular/forms';
 import { 
     Producto,
     ProductoService,
@@ -31,6 +31,7 @@ export class DetailsComponent implements OnInit {
   isDeleting = false;
 
 
+  
 
   constructor(
     private route: ActivatedRoute, 
@@ -57,16 +58,16 @@ export class DetailsComponent implements OnInit {
     //   },
     //   (error) => {
 
-      
-
 
       this.route.data.subscribe(
         (data) => {
+         
           // this.producto = data.details;
           this.producto = data.details.producto;
           console.log(this.producto);
           this.populateComments();
           this.cd.markForCheck();
+
         },
         (error) => {
         
@@ -80,35 +81,44 @@ export class DetailsComponent implements OnInit {
       this.userService.currentUser.subscribe(
         (userData: User) => {
           this.currentUser = userData;
-          console.log(this.currentUser.username);
-          console.log(this.producto.author.username);
+          console.log(this.currentUser);
+          console.log(this.producto);
           // this.canModify = (this.currentUser.username === this.producto.author);
-          // this.cd.markForCheck();
+          this.cd.markForCheck();
         }
       );
       
 
   }//endNgoninit
+
+  
   
   trackByFn(index:any, item:any) {
     return index;
   }
-
+  // ObjectId("6176e42d5e94b5235d608c53")
   populateComments() {
     console.log("Entra populate coments");
+    console.log(this.producto.slug);
+    
     this.commentsService.getAll(this.producto.slug)
-      .subscribe(comments => {
-        this.comments = comments;
+      .subscribe(comment => {
+        console.log("Vuelve");
+        console.log(comment);
+        this.comments = comment;
+        
+        console.log(this.comments);
         this.cd.markForCheck();
       });
   }
 
   addComment() {
-
+    console.log("ENTRA ADD COMENT");
     this.isSubmitting = true;
     this.commentFormErrors = {};
 
     const commentBody = this.commentControl.value;
+
     this.commentsService
       .add(this.producto.slug, commentBody)
       .subscribe(
@@ -127,9 +137,13 @@ export class DetailsComponent implements OnInit {
   }
 
   onDeleteComment(comment:any) {
+    console.log("valor ondelete");
+    console.log(comment.id);
+    console.log(this.producto);
     this.commentsService.destroy(comment.id, this.producto.slug)
       .subscribe(
         success => {
+          console.log("VALOR RETORNO DELETE en server");
           this.comments = this.comments.filter((item) => item !== comment);
           this.cd.markForCheck();
         }
