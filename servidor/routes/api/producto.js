@@ -317,7 +317,7 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
    
     Producto.findOne({ slug : req.params.producto }).then(function (producto) { //buscamos el producto que al que vamos a añadir el comentario.
       if(!producto){ return res.sendStatus(401); }
-      comment.producto = req.params.producto;
+   
       comment.author = user;
 
     return comment.save().then(function(){
@@ -327,7 +327,7 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
         res.json({comment: comment.toJSONFor(user)});
       });
     });
-    });
+    }).catch(next);
   }).catch(next);
 });
 
@@ -338,20 +338,15 @@ router.delete('/:producto/comments/:comment', auth.required, async function(req,
   console.log(req.params.comment);
   console.log(req.params.producto);
 
-  await Comment.findById(req.params.comment).then(function (comment) {
+  await Comment.findById(req.params.comment).then(function (comment) { //buscamos comentario para conocer el author.
     
-    console.log("valor comment");
-    console.log(comment);
-    console.log("valor usuario");
-    console.log(req.payload.id);
 
-      if(comment.author.toString() === req.payload.id.toString()){
+      if(comment.author.toString() === req.payload.id.toString()){ //si author coincide con currentuser.
 
-        console.log("ENTRAAA");
+        // console.log("ENTRAAA");
         Producto.findOne({ slug : req.params.producto }).then(function (producto) { //buscamos el producto que al que vamos a añadir el comentario.
           if(!producto){ return res.sendStatus(401); }
-            console.log("valor comentarios producto");
-            console.log(producto);
+            // console.log("valor comentarios producto");
             // console.log(producto.comments);
             producto.comments.remove(comment._id);
             producto.save()
@@ -359,13 +354,6 @@ router.delete('/:producto/comments/:comment', auth.required, async function(req,
                 .then(function(){
                   res.sendStatus(204);
                 });
-       
-      //   req.producto.comments.remove(req.comment._id);
-      //   req.producto.save()
-      //     .then(Comment.find({_id: req.comment._id}).remove().exec())
-      //     .then(function(){
-      //       res.sendStatus(204);
-      //     });
       });
       } else {
         res.sendStatus(403);
