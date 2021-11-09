@@ -10,6 +10,6 @@
         <p>{{ producto.precio }} $</p>
       
       </div>
-      <app-rating [producto]="producto" ></app-rating><app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
+      <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button><p>{{producto.favoritesCount}}</p>
     </div>
   

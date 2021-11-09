@@ -19,14 +19,14 @@ export class Producto {
     favorited?: boolean;
     favorites?:number;
     favoritesCount?:number;
-    rating?:number;
+
 
 
 
 
     constructor( _id:number,nombre: string , tipo: string, marca: string, modelo: string 
         , estado: string, precio: Number, descripcion: string, imagen: string
-        , ubicacion: string, fecha_alta: Date, author:Profile, slug?:string, favorited?: boolean, favorites?:number,favoritesCount?:number,rating?:number){
+        , ubicacion: string, fecha_alta: Date, author:Profile, slug?:string, favorited?: boolean, favorites?:number,favoritesCount?:number){
 
 
 
@@ -46,7 +46,7 @@ export class Producto {
         this.favorited = favorited ? favorited : false;
         this.favorites = favorites ? favorites : 0;
         this.favoritesCount = favoritesCount ? favoritesCount : 0;
-        this.rating = rating ? rating : 0;
+
        
     }
 }

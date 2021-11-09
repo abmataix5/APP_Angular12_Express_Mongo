@@ -19,11 +19,26 @@ export class ProfilesService {
   }
 
   follow(username: string): Observable<Profile> {
+    console.log(username);
     return this.apiService.post('/profiles/' + username + '/follow');
   }
 
   unfollow(username: string): Observable<Profile> {
     return this.apiService.delete('/profiles/' + username + '/follow');
   }
+
+
+  rating(username: string,value:any): Observable<Profile> {
+
+    let values = {
+      username : username,
+      value : value
+    }
+
+    let query=JSON.stringify(values);
+    
+    return this.apiService.post('/profiles/rating/' + query);
+  }
+
 
 }

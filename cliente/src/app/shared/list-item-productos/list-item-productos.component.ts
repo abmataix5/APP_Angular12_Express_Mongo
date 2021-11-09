@@ -16,7 +16,7 @@ export class ListItemProductosComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-console.log(this.producto);
+
   }
 
 

@@ -268,33 +268,6 @@ router.delete("/:id", async (req, res) => {
 });
 
 
-// Rating a un producto
-
-router.post('/rating/:valoration', auth.required, async function(req, res, next) {
-    
-
-  
-  let value= JSON.parse((req.params.valoration));
-  let slug = value.slug;
-  let rating = value.value;
-
-  const user = await User.findOne({ _id: req.payload.id });
-  console.log(user._id + ' iid useer ');
-
-  let producto = await Producto.findOne({ slug: slug });
-  producto.rating.user_id = user._id;
-  producto.rating.valoration = rating;
-  console.log(producto);
-
-  let update = {
-
-}
-   
-   producto = await Producto.findOneAndUpdate({ _id:producto._id},producto, { new:true })
-    res.json(producto) 
-    console.log(producto); 
-    
-});
 
 
 
@@ -390,21 +363,16 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
 
 
 router.delete('/:producto/comments/:comment', auth.required, async function(req, res, next) {
-  console.log("ENTRA DELETE COMMENTS");
-  
-  console.log(req.params.comment);
-  console.log(req.params.producto);
 
   await Comment.findById(req.params.comment).then(function (comment) { //buscamos comentario para conocer el author.
     
 
       if(comment.author.toString() === req.payload.id.toString()){ //si author coincide con currentuser.
 
-        // console.log("ENTRAAA");
+
         Producto.findOne({ slug : req.params.producto }).then(function (producto) { //buscamos el producto que al que vamos a añadir el comentario.
           if(!producto){ return res.sendStatus(401); }
-            // console.log("valor comentarios producto");
-            // console.log(producto.comments);
+     
             producto.comments.remove(comment._id);
             producto.save()
                 .then(Comment.find({_id: comment._id}).remove().exec())

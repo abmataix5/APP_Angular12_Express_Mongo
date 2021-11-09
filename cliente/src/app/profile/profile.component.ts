@@ -28,8 +28,7 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log(    this.route.data
-      )
+  
     this.route.data
       .pipe(
         concatMap((data:any) => {
@@ -40,10 +39,10 @@ export class ProfileComponent implements OnInit {
           return this.userService.currentUser.pipe(
             tap((userData: User) => {
               this.currentUser = userData;
-              console.log(userData)
+     
 
               this.isUser = this.currentUser.username === this.profile.username;
-              console.log(this.isUser)
+   
             })
           );
         })
@@ -53,5 +52,9 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+
+  onToggleFollowing(following: boolean) {
+    this.profile.following = following;
+  }
 
 }

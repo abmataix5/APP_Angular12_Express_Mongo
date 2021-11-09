@@ -19,6 +19,7 @@ import { ShowAuthedDirective } from './show-authed.directive';
 import { FavoriteButtonComponent } from './buttons/favorite-button.component';
 import { RatingComponent } from './rating/rating.component';
 import { FollowComponent } from './buttons/follow.component';
+import { BuyComponent } from './buttons/buy.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { FollowComponent } from './buttons/follow.component';
     ShowAuthedDirective,
     FavoriteButtonComponent,
     RatingComponent,
-    FollowComponent
+    FollowComponent,
+    BuyComponent
 
   ],
   imports: [
@@ -63,7 +65,8 @@ import { FollowComponent } from './buttons/follow.component';
     ShowAuthedDirective,
     FavoriteButtonComponent,
     RatingComponent,
-    FollowComponent
+    FollowComponent,
+    BuyComponent
 ]
 })
 

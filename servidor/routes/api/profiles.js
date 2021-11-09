@@ -28,15 +28,18 @@ router.get('/:username', auth.optional, function(req, res, next){
 
 router.post('/:username/follow', auth.required, function(req, res, next){
   var profileId = req.profile._id;
-
+console.log(profileId);
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
     return user.follow(profileId).then(function(){
+      console.log('todo bien');
       return res.json({profile: req.profile.toProfileJSONFor(user)});
     });
   }).catch(next);
 });
+
+
 
 router.delete('/:username/follow', auth.required, function(req, res, next){
   var profileId = req.profile._id;
@@ -48,6 +51,31 @@ router.delete('/:username/follow', auth.required, function(req, res, next){
       return res.json({profile: req.profile.toProfileJSONFor(user)});
     });
   }).catch(next);
+});
+
+
+/* Rating users */
+
+router.post('/rating/:rating', auth.required, async  function(req, res, next){
+
+    let value= JSON.parse((req.params.rating));
+      console.log(value.username);
+      console.log(value.value);
+      console.log(req.payload.id + ' id user');
+
+      const usuario = await User.findOne({ username: value.username });
+
+
+
+  User.findById(req.payload.id).then(function(user){
+    if (!user) { return res.sendStatus(401); }
+
+    return user.rated(usuario._id,value.value).then(function(){
+      console.log('todo bien');
+      return res.json({profile: req.profile.toProfileJSONFor(user)});
+    });
+  }).catch(next);
+
 });
 
 module.exports = router;

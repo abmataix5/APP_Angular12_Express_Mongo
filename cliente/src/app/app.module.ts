@@ -39,8 +39,7 @@ import { CoreModule } from './core';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule,
-    NgRatingBarModule
+    BrowserAnimationsModule
     
   ],
   providers: [],

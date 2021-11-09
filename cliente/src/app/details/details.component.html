@@ -50,15 +50,7 @@
   
             </div>
 
-          <!-- Rating -->
-          <div class="product-color">
-            <span>Valora este producto</span>
-
-            <div class="color-choose">
-              <app-rating></app-rating>
-            </div>
-
-          </div>
+        
 
       
         </div><br>
@@ -66,7 +58,7 @@
         <!-- Product Pricing -->
         <div class="product-price">
           <span>{{producto.precio}} $</span>
-          <a href="#" class="cart-btn">Add to cart</a> 
+         <app-buy [producto]="producto"></app-buy>
           &nbsp;
           &nbsp; 
           <app-favorite-button [producto]="producto" (toggle)="onToggleFavorite($event)"></app-favorite-button> <span>   {{producto.favoritesCount}}</span><br>
@@ -99,7 +91,11 @@
             </fieldset>
           </form>
         </div>
-
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <div *appShowAuthed="false">
           <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this article.
         </div>

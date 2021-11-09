@@ -28,6 +28,13 @@ const UserSchema =  mongoose.Schema({
     },
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]/* ,
+    rating:[
+      {
+        author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true},
+        value :{type: Number}
+      }
+    ] */
      
 
 },
@@ -80,7 +87,8 @@ UserSchema.methods.toAuthJSON = function(){
       following: user ? user.isFollowing(this._id) : false,
       email: this.email,
       favorites: this.favorites,
-      location:this.location
+      location:this.location/* ,
+      rating : this.rating */
     };
   };
 
@@ -125,4 +133,17 @@ UserSchema.methods.toAuthJSON = function(){
     });
   };
 
+
+  UserSchema.methods.rated = function(id,value){
+
+    const up = {
+      author: id,
+      value : value
+    }
+    if(this.rating.indexOf(id) === -1){
+      this.rating.push(up);
+    }
+  
+    return this.save();
+  };
 module.exports = mongoose.model('User', UserSchema);

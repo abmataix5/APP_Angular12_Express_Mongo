@@ -4,5 +4,6 @@ export interface Profile {
   image: string;
   following: boolean;
   location: string;
+  rating: Object;
   }
   

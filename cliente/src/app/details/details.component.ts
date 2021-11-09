@@ -7,7 +7,8 @@ import {
     Comment,
     CommentService,
     User,
-    UserService
+    UserService,
+    NotificationService
   
   } from '../core';
 
@@ -32,6 +33,7 @@ export class DetailsComponent implements OnInit {
   propietario_venta : any;
 
   constructor(
+    private info : NotificationService,
     private route: ActivatedRoute, 
     private router: Router,
     private productoService: ProductoService,
@@ -111,7 +113,7 @@ export class DetailsComponent implements OnInit {
     this.commentsService.getAll(this.producto.slug)
       .subscribe(comment => {
         console.log("Vuelve");
-        console.log(comment[1].author.image);
+     /*    console.log(comment[1].author.image); */
         this.comments = comment;
         
         console.log(this.comments);
@@ -133,6 +135,7 @@ export class DetailsComponent implements OnInit {
           this.comments.unshift(comment);
           this.commentControl.reset('');
           this.isSubmitting = false;
+          this.info.Succes('Tu comentario se a publicado con éxito!','Comentario publicado!');
           this.cd.markForCheck();
         },
         errors => {
@@ -152,6 +155,7 @@ export class DetailsComponent implements OnInit {
         success => {
           console.log("VALOR RETORNO DELETE en server");
           this.comments = this.comments.filter((item) => item !== comment);
+          this.info.Error('Tu comentario se a borrado con éxito!','Comentario borrado!');
           this.cd.markForCheck();
         }
       );

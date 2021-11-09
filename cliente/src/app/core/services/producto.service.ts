@@ -17,7 +17,7 @@ export class ProductoService {
     ) { }
 
   getProductos(params:any): Observable<any> {
-  /*   console.log('inShopPaginated'); */
+
 
     let query  = "?limit="+params[`limit`]+"&offset="+params[`offset`];
     
@@ -25,27 +25,26 @@ export class ProductoService {
   }
 
   getProducto(slug: string | null):Observable<Producto> {
-/*     console.log('inSingle'); */
+
     return this.http.get<Producto>(environment.url + '/producto/'+slug );
   }
 
   getProducto_catego(tipo: string | null):Observable<any> {
-  /*   console.log('inCatego'); */
+
     return this.http.get<Producto>(environment.url + '/producto/categoria/'+ tipo );
   }
 
   getProducto_search(search: string | null):Observable<any> {
-  /*   console.log('inSearch'); */
+
     return this.http.get<Producto>(environment.url + '/producto/search/'+ search );
   }
 
   getProducto_filter(filters: Filter | null):Observable<any> {
-    /* console.log('inFilters'); */
-  /*   console.log(filters); */
+
   
     let query=JSON.stringify(filters);
    
-/*     console.log(query); */
+
     
     return this.http.get<Producto>(environment.url + '/producto/filter/'+ query);
   }
@@ -61,19 +60,19 @@ export class ProductoService {
     return this.apiService.delete('/producto/' + slug + '/favorite');
   }
 
+/* Buy */
 
-  /* Rating productos */
+  buy(slug:any): Observable<Producto> {
 
-  rating(slug:any,value:any): Observable<Producto> {
-
-  let data = {
-    slug,
-    value
+    return this.apiService.post('/order/' + slug + '/buy');
   }
 
- var valoration=JSON.stringify(data);
-
-    return this.apiService.post('/producto/rating/' + valoration);
+  delete_bought_prod(slug:any): Observable<Producto> {
+console.log('deeelte');
+    return this.apiService.delete('/order/' + slug + '/delete');
   }
+
+
+
 
 }
