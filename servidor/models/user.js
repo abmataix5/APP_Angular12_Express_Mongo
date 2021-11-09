@@ -28,14 +28,14 @@ const UserSchema =  mongoose.Schema({
     },
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]/* ,
-    rating:[
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  /*  rating:[
       {
         author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true},
         value :{type: Number}
       }
     ] */
-     
+    karma: {type: Number, default: 0},
 
 },
 {timestamps:true});
@@ -87,8 +87,9 @@ UserSchema.methods.toAuthJSON = function(){
       following: user ? user.isFollowing(this._id) : false,
       email: this.email,
       favorites: this.favorites,
-      location:this.location/* ,
-      rating : this.rating */
+      location:this.location,
+      /* rating : this.rating */
+      karma:this.karma
     };
   };
 
@@ -146,4 +147,21 @@ UserSchema.methods.toAuthJSON = function(){
   
     return this.save();
   };
+  
+  UserSchema.methods.incrementKarma = function(userKarma, qty) {
+    console.log("Dentro de karma");
+    // console.log("USER KARMA");
+    // console.log(userKarma);
+    console.log(qty);
+    userKarma.karma += qty;
+    return userKarma.save();
+  }
+
+  UserSchema.methods.decrementKarma = function(userKarma, qty) {
+    // console.log("Dentro de karma");
+    // console.log("USER KARMA");
+    console.log(qty);
+    userKarma.karma -= qty;
+    return userKarma.save();
+  }
 module.exports = mongoose.model('User', UserSchema);

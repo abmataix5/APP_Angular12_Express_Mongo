@@ -5,5 +5,6 @@ export interface Profile {
   following: boolean;
   location: string;
   rating: Object;
+  karma:number;
   }
   

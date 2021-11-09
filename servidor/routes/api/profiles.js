@@ -29,6 +29,11 @@ router.get('/:username', auth.optional, function(req, res, next){
 router.post('/:username/follow', auth.required, function(req, res, next){
   var profileId = req.profile._id;
 console.log(profileId);
+
+  User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+    user.incrementKarma(user,20);
+  });
+
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
@@ -43,7 +48,10 @@ console.log(profileId);
 
 router.delete('/:username/follow', auth.required, function(req, res, next){
   var profileId = req.profile._id;
-
+  
+  User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+    user.decrementKarma(user,10);
+  });
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 

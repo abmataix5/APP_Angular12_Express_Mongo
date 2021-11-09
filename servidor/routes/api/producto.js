@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 // Modelo de producto, proximamente importaremos los otros para -> populate
 const Producto = require("../../models/producto");
 const Comment = require("../../models/comment");
-const User = require("../../models/user");
+const User = require("../../models/user"); 
 var auth = require('../auth');
 const producto = require('../../models/producto');
 
@@ -277,11 +277,14 @@ router.delete("/:id", async (req, res) => {
 router.post('/:slug/favorite', auth.required, function(req, res, next) {
     
   console.log(req.producto);
-   var productoId = req.producto._id;
+  var productoId = req.producto._id;
 
+  console.log("*** KARMA ****");
+  User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+     user.incrementKarma(user,10);
+  });
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
-
     return user.favorite(productoId).then(function(){
       return req.producto.updateFavoriteCount().then(function(producto){
         return res.json({producto: producto.toJSONFor(user)});
@@ -296,6 +299,9 @@ router.post('/:slug/favorite', auth.required, function(req, res, next) {
 router.delete('/:slug/favorite', auth.required, function(req, res, next) {
   var productoId = req.producto._id;
 
+  User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+     user.decrementKarma(user,10);
+  });
   User.findById(req.payload.id).then(function (user){
     if (!user) { return res.sendStatus(401); }
 
@@ -352,7 +358,11 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
 
     return comment.save().then(function(){
       producto.comments.push(comment);
-      
+      console.log("***KARMA ****");
+      user.incrementKarma(user,10);
+      // User.findById(req.payload.id).then(function(user){
+      //   });
+
       return producto.save().then(function(producto) {
         res.json({comment: comment.toJSONFor(user)});
       });
@@ -369,6 +379,7 @@ router.delete('/:producto/comments/:comment', auth.required, async function(req,
 
       if(comment.author.toString() === req.payload.id.toString()){ //si author coincide con currentuser.
 
+        console.log("ENTRAAA");
 
         Producto.findOne({ slug : req.params.producto }).then(function (producto) { //buscamos el producto que al que vamos a añadir el comentario.
           if(!producto){ return res.sendStatus(401); }
@@ -379,7 +390,11 @@ router.delete('/:producto/comments/:comment', auth.required, async function(req,
                 .then(function(){
                   res.sendStatus(204);
                 });
-      });
+        });
+        console.log("*** KARMA ****");
+        User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+          user.decrementKarma(user,10);
+        });
       } else {
         res.sendStatus(403);
       }
