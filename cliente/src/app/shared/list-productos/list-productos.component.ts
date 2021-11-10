@@ -33,7 +33,7 @@ export class ListProductosComponent implements OnInit {
         this.filters = config;
         console.log(config);
         this.user_active = true;
-        this.getProductsFavsAuthor(this.filters);
+    
       }
     }
 
@@ -231,27 +231,7 @@ export class ListProductosComponent implements OnInit {
 
   }
 
-  getProductsFavsAuthor(filters:Filter){
 
-    this._productoService.getProducto_filter(filters).subscribe(
-
-      (data) => {
-        console.log("**** RESPUESTA SERVER  aUTHOR*************");
-       console.log(data); 
-
-         this.listProductos2 = data.productos; //array de productos filtrados.
-         console.log(this.listProductos2);
-   // numero paginaciones
-       
-     },
-     (error) => {
-     
-       console.log(error);
-     }
-
-    );
-
-  }
 
   //cada vez que se ejecute el evento changePage lanza getProductos.
 

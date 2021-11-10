@@ -8,6 +8,7 @@ export * from './profiles.service';
 export * from './auth-guard.services';
 export * from './comment.service';
 export * from './api.service';
+export * from './order.service';
 
 
 

@@ -4,8 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { NgRatingBarModule } from 'ng-rating-bar';
 //Paginación
 import { NgxPaginationModule } from 'ngx-pagination';
 //Reactive forms
@@ -17,8 +15,9 @@ import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import{ToastrModule} from 'ngx-toastr';
 
 import { AuthModule } from './auth/auth.module';
-import { ProfileComponent } from './profile/profile.component';
+
 import { CoreModule } from './core';
+
 
 @NgModule({
   declarations: [

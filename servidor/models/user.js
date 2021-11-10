@@ -89,7 +89,7 @@ UserSchema.methods.toAuthJSON = function(){
       favorites: this.favorites,
       location:this.location,
       /* rating : this.rating */
-      karma:this.karma
+      ola: this.karma
     };
   };
 
