@@ -26,6 +26,7 @@ const UserSchema =  mongoose.Schema({
     image:{
         type:String
     },
+    //AÑADIR is FOLLOWING para provar si retorna el Array de usuarios seguidos.
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -89,7 +90,18 @@ UserSchema.methods.toAuthJSON = function(){
       favorites: this.favorites,
       location:this.location,
       /* rating : this.rating */
-      karma:this.karma
+      karma:this.karma,
+      followers:this.followers,
+      followed:this.following
+    };
+  };
+
+
+
+  UserSchema.methods.toJSONFor = function(){
+    return {
+
+      followers:this.followers
     };
   };
 
@@ -149,19 +161,27 @@ UserSchema.methods.toAuthJSON = function(){
   };
   
   UserSchema.methods.incrementKarma = function(userKarma, qty) {
-    console.log("Dentro de karma");
-    // console.log("USER KARMA");
-    // console.log(userKarma);
-    console.log(qty);
     userKarma.karma += qty;
     return userKarma.save();
   }
 
   UserSchema.methods.decrementKarma = function(userKarma, qty) {
-    // console.log("Dentro de karma");
-    // console.log("USER KARMA");
-    console.log(qty);
     userKarma.karma -= qty;
     return userKarma.save();
   }
+
+  UserSchema.methods.addFollowers = function(id){
+    console.log("entra addFollowers");
+    console.log(id);
+    if(this.followers.indexOf(id) === -1){
+      this.followers.push(id);
+    }
+    return this.save();
+  };
+  UserSchema.methods.removeFollowers = function(id){
+    console.log("entra addFollowers");
+    console.log(id);
+    this.followers.remove(id);
+    return this.save();
+  };
 module.exports = mongoose.model('User', UserSchema);

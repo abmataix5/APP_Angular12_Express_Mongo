@@ -20,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProfileComponent } from './profile/profile.component';
 import { CoreModule } from './core';
 
+
 @NgModule({
   declarations: [
     AppComponent,

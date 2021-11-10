@@ -27,16 +27,6 @@ export class ListProductosComponent implements OnInit {
       
     }
 
-    @Input() 
-    set config (config : Filter){
-      if(config){
-        this.filters = config;
-        console.log(config);
-        this.user_active = true;
-        this.getProductsFavsAuthor(this.filters);
-      }
-    }
-
     
   listProductos: Producto[] = [];
   listProductos2: Producto[] = [];
@@ -49,7 +39,17 @@ export class ListProductosComponent implements OnInit {
   offset:number = 0;   // offset por defecto, nos muestra los primeros productos.
   count = 0;
 
- 
+  @Input() 
+  set config (config : Filter){
+    console.log("Input");
+
+    if(config){
+      this.filters = config;
+      console.log(config);
+      this.user_active = true;
+      this.getProductsFavsAuthor(this.filters);
+    }
+  }
 
  
 
@@ -193,7 +193,7 @@ export class ListProductosComponent implements OnInit {
          console.log("**** RESPUESTA SERVER FILTROS *************");
         console.log(data); 
 
-          if(data.value.stateFilter === true){
+          if(data.value.stateFilter == true){
             this.page = 1;
             this.filters.stateFilter=false; // desactivamos filtro nuevo y permite paginacion.
           }

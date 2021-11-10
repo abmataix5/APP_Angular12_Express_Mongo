@@ -10,6 +10,8 @@ export class Filter {
     ubicacion?: string;
     author?: string;
     favorited?: string;
+    followed?: string;
+
 
 
     constructor( 
@@ -23,7 +25,8 @@ export class Filter {
         precioMax?: Number, 
         ubicacion?: string,
         author?:string,
-        favorited?:string){
+        favorited?:string,
+        followed?:string){
 
         this.stateFilter;
         this.search=search;
@@ -36,5 +39,6 @@ export class Filter {
         this.ubicacion = ubicacion;
         this.author = author;
         this.favorited = favorited;
+        this.followed=followed;
     }
 }

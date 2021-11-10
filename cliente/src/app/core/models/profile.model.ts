@@ -6,5 +6,7 @@ export interface Profile {
   location: string;
   rating: Object;
   karma:number;
+  followers: any;
+  profile: any;
   }
   

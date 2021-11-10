@@ -1,0 +1,9 @@
+<h1 style="text-align: center;" >Seguidores</h1>
+<hr>
+    <div *ngFor = " let item of listFollowers" >
+        <div class="container">
+                <img class="editable img-responsive" alt=" Avatar" id="avatar2" src="{{ 'https://robohash.org/' + item.username + '.png'}}" class="img" >
+                <div>Nombre: {{item.username}}</div>
+                <div>Nivel: {{item.karma}}</div>
+        </div>
+</div>  

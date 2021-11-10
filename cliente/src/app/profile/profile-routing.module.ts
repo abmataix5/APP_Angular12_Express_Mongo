@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileArticlesComponent } from './profile-articles.component';
-
+import { ProfileFollowedComponent } from './profile-followed.component';
 //Components favoritos,profile,productos
 import { ProfileFavoritesComponent } from './profile-favorites.component';
 import { ProfileResolver } from './profile-resolver.service'; 
@@ -19,6 +20,9 @@ const routes: Routes = [
       {
         path: 'favorites',
         component: ProfileFavoritesComponent
+      },{
+        path:'followed',
+        component: ProfileFollowedComponent
       },{
         path:'',
         component: ProfileArticlesComponent
