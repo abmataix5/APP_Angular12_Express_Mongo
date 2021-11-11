@@ -14,15 +14,16 @@ Aplicacion web destinada a la venta online de productos de seguna mano, estilo W
 # INDICE 📌
 
 
-*  *Video APP en funcionamiento* 
+*  *Imagenes de la APP en funcionamiento* 
 *  *Tecnologias* 
 *  *Modulos* 
 *  *Funcionalidades*
 *  *Autores*
 
 
-## Video de la APP en funcionamiento ⌨️
+## Imagenes de la APP en funcionamiento ⌨️
 
+- Home![Captura de pantalla de 2021-11-11 18-55-58](https://user-images.githubusercontent.com/62066419/141346430-75fa0034-4a5c-4bd1-8afc-c960c6b50e54.png)
 
 
 
