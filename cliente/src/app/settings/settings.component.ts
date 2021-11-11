@@ -26,7 +26,8 @@ export class SettingsComponent implements OnInit {
     this.settingsForm = this.fb.group({
       image: '',
       username: '',
-      email: ''
+      email: '',
+      location: ''
     });
     // Optional: subscribe to changes on the form
     // this.settingsForm.valueChanges.subscribe(values => this.updateUser(values));

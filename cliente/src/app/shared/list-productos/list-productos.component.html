@@ -18,7 +18,8 @@
 
         </div>
     </div>
-    <div id="pag">
+    
+    <div id="pag" *ngIf="listProductos.length > 0">
         <pagination-controls (pageChange)= handlePageChange($event)></pagination-controls>
     </div>    
 

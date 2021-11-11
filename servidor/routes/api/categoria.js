@@ -11,10 +11,10 @@ router.get("/", async (req, res) => {
 
     try {
       const categoria = await Categoria.find();
-      console.log(res);
+
       res.json(categoria);
     } catch (error) {
-      console.log(error);
+    
       res.status(500).send("Error en el GET de productos!!");
     }
 });
@@ -37,7 +37,7 @@ router.get("/:nombre_catego", async (req, res) => {
     }
   
   } catch (error) {
-    console.log(error);
+
     res.status(500).send("Error en el GET de categoria!!");
   }
 });
@@ -76,7 +76,7 @@ router.delete("/:id", async (req, res) => {
       }
 
     } catch (error) {
-        console.log(error);
+       
         res.status(500).send('Error al borrar el producto');
     }
 
@@ -103,7 +103,7 @@ router.delete("/:id", async (req, res) => {
     res.json(categoria)
     
 } catch (error) {
-    console.log(error);
+   
     res.status(500).send('Hubo un error');
 }
 

@@ -15,10 +15,10 @@ router.get('/user', auth.required, function(req, res, next){
 });
 
 router.put('/user', auth.required, function(req, res, next){
+  console.log(req.body.user);
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
-    // only update fields that were actually passed...
     if(typeof req.body.user.username !== 'undefined'){
       user.username = req.body.user.username;
     }
@@ -30,6 +30,9 @@ router.put('/user', auth.required, function(req, res, next){
     }
     if(typeof req.body.user.password !== 'undefined'){
       user.setPassword(req.body.user.password);
+    }
+    if(typeof req.body.user.location !== 'undefined'){
+      user.location = req.body.user.location;
     }
 
     return user.save().then(function(){

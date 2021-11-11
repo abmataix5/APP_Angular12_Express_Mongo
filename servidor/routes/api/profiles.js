@@ -27,8 +27,8 @@ router.get('/:username', auth.optional, function(req, res, next){
 
 
       Order.aggregate([                                                               /* Para saber la valoraciones media de sus productos */
-        { $match: { user_venta: req.profile._id } },
-        { $group: { _id: req.profile.username, rating_media: { $avg: "$rating" } } },
+          { $match: { user_venta: req.profile._id } },
+          { $group: { _id: req.profile.username, rating_media: { $avg: "$rating" } } },
       ]).then(function (rating) {
             
         if(rating.length == 0){
@@ -44,8 +44,8 @@ router.get('/:username', auth.optional, function(req, res, next){
   } else {
 
     Order.aggregate([
-      { $match: { user_venta: req.profile._id } },
-      { $group: { _id: req.profile.username, rating_media: { $avg: "$rating" } } },
+        { $match: { user_venta: req.profile._id } },
+        { $group: { _id: req.profile.username, rating_media: { $avg: "$rating" } } },
     ]).then(function (rating) {
     
       if(rating[0].rating_media){
@@ -129,7 +129,7 @@ router.delete('/:username/follow', auth.required, async function(req, res, next)
 router.get('/followers/:username', auth.required, function(req, res, next){
   
   if(req.payload){
-    User.findById(req.payload.id).populate('followers').then(function(user){ // obtener los datos de los usuarios, seguidores del usuario.
+    User.findById(req.profile._id).populate('followers').then(function(user){ // obtener los datos de los usuarios, seguidores del usuario.
       return res.json({profile: user.toJSONFor(user)});
 
     });
@@ -141,9 +141,9 @@ router.get('/followers/:username', auth.required, function(req, res, next){
 /* Following List */
 
 router.get('/following/:username', auth.required, function(req, res, next){
-  
+
   if(req.payload){
-    User.findById(req.payload.id).populate('following').then(function(user){ // obtener los datos de los usuarios, seguidos por el usuario.
+    User.findById(req.profile._id).populate('following').then(function(user){ // obtener los datos de los usuarios, seguidos por el usuario.
       return res.json({profile: user.toJSONFor(user)});
     });
   } else {

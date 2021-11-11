@@ -2,7 +2,7 @@
 <hr>
     <div *ngFor = " let item of listFollowing" >
         <div class="container">
-                <img class="editable img-responsive" alt=" Avatar" id="avatar2" src="{{ 'https://robohash.org/' + item.username + '.png'}}" class="img" >
+               <a [routerLink]="['/profile', item.username]"> <img class="editable img-responsive" alt=" Avatar" id="avatar2" src="{{ 'https://robohash.org/' + item.username + '.png'}}" class="img" > </a> 
                 <div>Nombre: {{item.username}}</div>
                 <div>Nivel: {{item.karma}}</div>
         </div>

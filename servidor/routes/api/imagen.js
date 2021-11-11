@@ -11,10 +11,10 @@ router.get("/", async (req, res) => {
 
     try {
       const imagen = await Imagen.find();
-      console.log(res);
+
       res.json(imagen);
     } catch (error) {
-      console.log(error);
+    
       res.status(500).send("Error en el GET de imagenes!!");
     }
 });
@@ -37,7 +37,7 @@ router.get("/:slug", async (req, res) => {
     }
   
   } catch (error) {
-    console.log(error);
+ 
     res.status(500).send("Error en el GET de imagenes!!");
   }
 });
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
       res.send(imagen);
       
   } catch (error) {
-      console.log(error);
+     
       res.status(500).send('Error en crear nueva imagen!!');
   }
 });
@@ -76,7 +76,7 @@ router.delete("/:id", async (req, res) => {
       }
 
     } catch (error) {
-        console.log(error);
+      
         res.status(500).send('Error al borrar la imagen');
     }
 
