@@ -7,5 +7,6 @@ export interface Order {
     img: string;
     nombre_prod: string;
     precio_prod:Number;
+    rating : Number;
     }
     

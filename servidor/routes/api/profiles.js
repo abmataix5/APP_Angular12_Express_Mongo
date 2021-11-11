@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+const Order = require("../../models/order"); 
 var auth = require('../auth');
 
 // Preload user profile on routes with ':username'
@@ -14,17 +15,57 @@ router.param('username', function(req, res, next, username){
   }).catch(next);
 });
 
-router.get('/:username', auth.optional, function(req, res, next){
-  if(req.payload){
-    User.findById(req.payload.id).then(function(user){
-      if(!user){ return res.json({profile: req.profile.toProfileJSONFor(false)}); }
+/* Get Profile */
 
-      return res.json({profile: req.profile.toProfileJSONFor(user)});
+router.get('/:username', auth.optional, function(req, res, next){
+
+  if(req.payload){
+
+    User.findById(req.payload.id).then(function(user){
+
+      if(!user){ return res.json({profile: req.profile.toProfileJSONFor(false)}); }   /* Si no encuntra ningun user */
+
+
+      Order.aggregate([                                                               /* Para saber la valoraciones media de sus productos */
+        { $match: { user_venta: req.profile._id } },
+        { $group: { _id: req.profile.username, rating_media: { $avg: "$rating" } } },
+      ]).then(function (rating) {
+            
+        if(rating.length == 0){
+          return res.json({profile: req.profile.toProfileJSONFor(user,'Sin valoraciones')});
+        }else{
+          return res.json({profile: req.profile.toProfileJSONFor(user,rating[0].rating_media)});
+        }
+      
+      });
+
+ 
     });
   } else {
-    return res.json({profile: req.profile.toProfileJSONFor(false)});
+
+    Order.aggregate([
+      { $match: { user_venta: req.profile._id } },
+      { $group: { _id: req.profile.username, rating_media: { $avg: "$rating" } } },
+    ]).then(function (rating) {
+    
+      if(rating[0].rating_media){
+      
+        return res.json({profile: req.profile.toProfileJSONFor(false,rating[0].rating_media)});
+
+      }else{
+        return res.json({profile: req.profile.toProfileJSONFor(false,'Sin valoraciones')});
+      }
+  
+    });
+
+
   }
 });
+
+
+
+/* Follow */
+
 
 router.post('/:username/follow', auth.required, async function(req, res, next){
   var profileId = req.profile._id;
@@ -57,6 +98,7 @@ console.log(profileId);
 });
 
 
+/* Unfollow */
 
 router.delete('/:username/follow', auth.required, async function(req, res, next){
   var profileId = req.profile._id;
@@ -81,21 +123,6 @@ router.delete('/:username/follow', auth.required, async function(req, res, next)
 });
 
 
-/* Rating users */
-
-router.post('/rating/:rating', auth.required, async  function(req, res, next){
-
-    let value= JSON.parse((req.params.rating));
-    const usuario = await User.findOne({ username: value.username });
-
-  User.findById(req.payload.id).then(function(user){
-    if (!user) { return res.sendStatus(401); }
-    return user.rated(usuario._id,value.value).then(function(){
-      return res.json({profile: req.profile.toProfileJSONFor(user)});
-    });
-  }).catch(next);
-
-});
 
 /* Followers List */
 

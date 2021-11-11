@@ -31,6 +31,10 @@ const OrderSchema = mongoose.Schema({
     },
     precio_prod:{
         type : Number
+    },
+    rating:{
+        type:Number,
+        default:0
     }
 }, {
     timestamps: true
@@ -50,6 +54,7 @@ OrderSchema.methods.compraProducto = async function (order) {
      await  order.save();  
 
      return res.send(order);
+     
   };
 
  

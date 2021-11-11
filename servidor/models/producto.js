@@ -117,10 +117,9 @@ ProductoSchema.methods.updateFavoriteCount = function() {
      fecha_alta: this.fecha_alta,
      favorited: user ? user.isFavorite(this._id) : false,
      favoritesCount: this.favoritesCount,
-    //  author: this.author.toProfileJSONFor(user) 
-     rating:this.rating ,
-     author: this.author/* ,
-     rating:this.rating */
+     rating:this.rating,
+     author: this.author,
+     rating:this.rating
    };
  };
 

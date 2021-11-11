@@ -82,4 +82,45 @@ router.get("/", auth.required, async function (req, res) {
 
 
 
+/* Rating users */
+
+router.post('/rating/:rating', auth.required, async  function(req, res, next){
+
+  let value= JSON.parse((req.params.rating));
+    console.log(value.username);
+    console.log(value.value);
+    console.log(req.payload.id + ' id user');
+
+    const usuario = await User.findOne({ username: value.username });
+
+
+
+User.findById(req.payload.id).then(function(user){
+  if (!user) { return res.sendStatus(401); }
+
+  return user.rated(usuario._id,value.value).then(function(){
+    console.log('todo bien');
+    return res.json({profile: req.profile.toProfileJSONFor(user)});
+  });
+}).catch(next);
+
+});
+
+
+
+router.put('/:rating', auth.required, async  function(req, res, next){
+
+    let value= JSON.parse((req.params.rating));
+
+    let filter = {_id : value._id};
+    let update = {rating : value.rating}
+
+    await Order.findOneAndUpdate(filter,update).then(function(order_up){
+return res.json(order_up);
+    });
+
+});
+
+
+
   module.exports = router;
