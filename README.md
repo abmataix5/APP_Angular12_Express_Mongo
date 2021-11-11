@@ -36,14 +36,24 @@ Aplicacion web destinada a la venta online de productos de seguna mano, estilo W
 
         * Mongoose 
         * Express JWT
-        * Json Web Token
         * Passport
         * Slug
-
+        * middleware_auth
  
 * CLIENTE
 
     * [Angular 12](https://angular.io/)
+
+        * core 
+        * shared 
+        * interceptor 
+        * observable/suscribe/subjects
+        * ng Bootsrap
+        * ngx-toastr
+        * ngx-reactive forms
+        * ngx-pagination
+        * ng-rating bar
+        * ngx-infinite-scroll
 
 
 * BBDD
