@@ -14,16 +14,47 @@ Aplicacion web destinada a la venta online de productos de seguna mano, estilo W
 # INDICE 📌
 
 
-*  *Video APP en funcionamiento* 
+*  *Imagenes de la APP en funcionamiento* 
 *  *Tecnologias* 
 *  *Modulos* 
 *  *Funcionalidades*
 *  *Autores*
 
 
-## Video de la APP en funcionamiento ⌨️
+## Imagenes de la APP en funcionamiento ⌨️
+
+### Home
+<br><br>
+![Captura de pantalla de 2021-11-11 18-55-58](https://user-images.githubusercontent.com/62066419/141346430-75fa0034-4a5c-4bd1-8afc-c960c6b50e54.png)
+<br>
+### Shop
+<br><br>
+![Captura de pantalla de 2021-11-11 18-55-56](https://user-images.githubusercontent.com/62066419/141346592-c608c13a-c8fc-4dd3-bf8d-2e6a6a400aa2.png)
+<br>
+
+### Perfil
+<br><br>
+![Captura de pantalla de 2021-11-11 18-55-34](https://user-images.githubusercontent.com/62066419/141346614-617b34c8-6fed-4e8c-973e-e8a108f9a13a.png)
+<br>
+
+### Mis pedidos
+<br><br>
+![Captura de pantalla de 2021-11-11 18-55-48](https://user-images.githubusercontent.com/62066419/141346626-177541cd-cace-4a1e-9963-5903ce15d6ed.png)
+
+<br>
+
+### Login/Register
+<br><br>
+![Captura de pantalla de 2021-11-11 19-00-41](https://user-images.githubusercontent.com/62066419/141346734-da686fb5-6378-4689-95c0-ae41a96a8855.png)
+
+<br>
+
+### Settings
+
+![Captura de pantalla de 2021-11-11 18-55-53](https://user-images.githubusercontent.com/62066419/141346741-db4d09e5-c7ac-42fc-88d2-79ad9afbf84a.png)
 
 
+<br>
 
 
 
