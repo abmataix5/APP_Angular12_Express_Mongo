@@ -25,7 +25,7 @@ export class ProfileFavoritesComponent implements OnInit {
 
     this.username = this.router.url.split("/")[2];   /* Cojemos nombre de usuario de la URL */
     this.favoritesConfig.favorited = this.username;  /* Lo podemos en favoritesConfig */
-
+    this.favoritesConfig.stateFilter= true;
 
     this.cd.markForCheck();
 

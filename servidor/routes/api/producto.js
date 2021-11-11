@@ -1,16 +1,11 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 
-// Modelo de producto, proximamente importaremos los otros para -> populate
 const Producto = require("../../models/producto");
 const Comment = require("../../models/comment");
 const User = require("../../models/user"); 
 var auth = require('../auth');
 const producto = require('../../models/producto');
-
-
-
-
 
 router.param('comment', function(req, res, next, id) {
 
@@ -117,9 +112,9 @@ router.get("/:slug", auth.optional ,async (req, res) => {
 // GET FILTERS -> Seleccionamos los productos seleccionados en los filtros -> filter
 
 router.get("/filter/:filters",auth.optional, async (req, res) => {
-
+   
     let value= JSON.parse((req.params.filters));
-  
+
     let limit= value.limit;
     let offset= value.offset;
 
@@ -131,9 +126,8 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
     let author = ((value.author != undefined) && (value.author != 0))? new RegExp(value.author) : "";
 
     var query = {}; //query para mongo.
-    
-    query={ nombre:{$regex : search},tipo:{$regex : categoria}, estado:{$regex : estado}, ubicacion:{$regex : ubicacion} };
 
+    query={ nombre:{$regex : search},tipo:{$regex : categoria}, estado:{$regex : estado}, ubicacion:{$regex : ubicacion} };
 
   try {
 
@@ -360,8 +354,6 @@ router.post('/:producto/comments', auth.required, function(req, res, next) {
       producto.comments.push(comment);
       console.log("***KARMA ****");
       user.incrementKarma(user,10);
-      // User.findById(req.payload.id).then(function(user){
-      //   });
 
       return producto.save().then(function(producto) {
         res.json({comment: comment.toJSONFor(user)});
