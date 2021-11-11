@@ -24,7 +24,6 @@ Aplicacion destinada a la venta online.
 
 ### Video de la APP en funcionamiento ⌨️
 
-![ViniloShop - Google Chrome 2021-06-09 19-01-28](https://user-images.githubusercontent.com/62066419/121399498-c5553c00-c956-11eb-8838-e6aea446faa3.gif)
 
 
 
