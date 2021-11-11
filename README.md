@@ -75,4 +75,4 @@ Aplicacion destinada a la venta online.
 
 * *Abel Mataix * - [abmataix5](https://github.com/abmataix5/)
 
-* *Hugo Micó  * - [abmataix5](https://github.com/hachemico/)
+* *Hugo Micó  * - [hachemico](https://github.com/hachemico/)
