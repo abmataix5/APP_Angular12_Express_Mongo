@@ -15,7 +15,6 @@ router.param('username', function(req, res, next, username){
 });
 
 router.get('/:username', auth.optional, function(req, res, next){
-  console.log("ENtra! list NORMAL");
   if(req.payload){
     User.findById(req.payload.id).then(function(user){
       if(!user){ return res.json({profile: req.profile.toProfileJSONFor(false)}); }
@@ -87,19 +86,11 @@ router.delete('/:username/follow', auth.required, async function(req, res, next)
 router.post('/rating/:rating', auth.required, async  function(req, res, next){
 
     let value= JSON.parse((req.params.rating));
-      console.log(value.username);
-      console.log(value.value);
-      console.log(req.payload.id + ' id user');
-
-      const usuario = await User.findOne({ username: value.username });
-
-
+    const usuario = await User.findOne({ username: value.username });
 
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
-
     return user.rated(usuario._id,value.value).then(function(){
-      console.log('todo bien');
       return res.json({profile: req.profile.toProfileJSONFor(user)});
     });
   }).catch(next);
@@ -110,15 +101,26 @@ router.post('/rating/:rating', auth.required, async  function(req, res, next){
 
 router.get('/followers/:username', auth.required, function(req, res, next){
   
-
-  console.log("Entra! list Followed");
   if(req.payload){
-    User.findById(req.payload.id).populate('followers').then(function(user){
+    User.findById(req.payload.id).populate('followers').then(function(user){ // obtener los datos de los usuarios, seguidores del usuario.
       return res.json({profile: user.toJSONFor(user)});
-    console.log(user);
+
     });
   } else {
-    // return res.json({profile: req.profile.toProfileJSONFor(false)});
+    return res.json({profile: user.toJSONFor(false)});
+  }
+});
+
+/* Following List */
+
+router.get('/following/:username', auth.required, function(req, res, next){
+  
+  if(req.payload){
+    User.findById(req.payload.id).populate('following').then(function(user){ // obtener los datos de los usuarios, seguidos por el usuario.
+      return res.json({profile: user.toJSONFor(user)});
+    });
+  } else {
+    return res.json({profile: user.toJSONFor(false)});
   }
 });
 

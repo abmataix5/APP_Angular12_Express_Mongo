@@ -7,6 +7,7 @@ import { ProfileArticlesComponent } from './profile-articles.component';
 import { ProfileFavoritesComponent } from './profile-favorites.component';
 import { SharedModule } from '../shared';
 import { ProfileFollowedComponent } from './profile-followed.component';
+import { ProfileFollowingComponent } from './profile-following.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ProfileFollowedComponent } from './profile-followed.component';
     ProfileComponent,
     ProfileArticlesComponent,
     ProfileFavoritesComponent,
-    ProfileFollowedComponent
+    ProfileFollowedComponent,
+    ProfileFollowingComponent
     
     
 ],

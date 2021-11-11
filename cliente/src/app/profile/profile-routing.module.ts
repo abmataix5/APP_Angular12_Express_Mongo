@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileArticlesComponent } from './profile-articles.component';
 import { ProfileFollowedComponent } from './profile-followed.component';
+import { ProfileFollowingComponent } from './profile-following.component';
 //Components favoritos,profile,productos
 import { ProfileFavoritesComponent } from './profile-favorites.component';
 import { ProfileResolver } from './profile-resolver.service'; 
 import { ProfileComponent } from './profile.component';
+
 
 
 const routes: Routes = [
@@ -23,6 +25,9 @@ const routes: Routes = [
       },{
         path:'followed',
         component: ProfileFollowedComponent
+      },{
+        path:'following',
+        component: ProfileFollowingComponent
       },{
         path:'',
         component: ProfileArticlesComponent

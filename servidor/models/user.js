@@ -26,7 +26,6 @@ const UserSchema =  mongoose.Schema({
     image:{
         type:String
     },
-    //AÑADIR is FOLLOWING para provar si retorna el Array de usuarios seguidos.
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -96,12 +95,10 @@ UserSchema.methods.toAuthJSON = function(){
     };
   };
 
-
-
   UserSchema.methods.toJSONFor = function(){
     return {
-
-      followers:this.followers
+      followers:this.followers,
+      following:this.following
     };
   };
 
@@ -109,7 +106,6 @@ UserSchema.methods.toAuthJSON = function(){
     if(this.favorites.indexOf(id) === -1){
       this.favorites.push(id);
     }
-  
     return this.save();
   };
 
@@ -171,16 +167,12 @@ UserSchema.methods.toAuthJSON = function(){
   }
 
   UserSchema.methods.addFollowers = function(id){
-    console.log("entra addFollowers");
-    console.log(id);
     if(this.followers.indexOf(id) === -1){
       this.followers.push(id);
     }
     return this.save();
   };
   UserSchema.methods.removeFollowers = function(id){
-    console.log("entra addFollowers");
-    console.log(id);
     this.followers.remove(id);
     return this.save();
   };

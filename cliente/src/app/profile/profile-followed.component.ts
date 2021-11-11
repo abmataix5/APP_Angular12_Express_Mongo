@@ -41,8 +41,8 @@ export class ProfileFollowedComponent implements OnInit {
       (data) => {
         console.log("**** RESPUESTA FOLLOWED*************");
         console.log(data.profile.followers);
-        // console.log(data);
-        // this.profile = data.profile.followers;
+        console.log(data);
+        this.profile = data.profile.followers;
         /* console.log(this.profile.profile); */
         this.listFollowers= data.profile.followers;
         this.cd.markForCheck();
