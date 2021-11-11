@@ -5,10 +5,10 @@
 
 # APP WEB TWOHANDAPP 📋
 
-Aplicacion destinada a la venta online.
 
+Primer proyecto del curso 2n Desarrollo de aplicaciones web.
 
-
+Aplicacion web destinada a la venta online de productos de seguna mano, estilo Wallapop
 
 
 # INDICE 📌
@@ -18,27 +18,41 @@ Aplicacion destinada a la venta online.
 *  *Tecnologias* 
 *  *Modulos* 
 *  *Funcionalidades*
-*  *Próximas actualizaciones* 
 *  *Autores*
 
 
-### Video de la APP en funcionamiento ⌨️
+## Video de la APP en funcionamiento ⌨️
 
 
 
 
 
-### Construido con 🛠️
+## Construido con 🛠️
+
+
+ * SERVIDOR
+
+     * [Express 4.17.1](https://expressjs.com/es/) basado en NodeJS
+
+        * Mongoose 
+        * Express JWT
+        * Json Web Token
+        * Passport
+        * Slug
+
+ 
+* CLIENTE
+
+    * [Angular 12](https://angular.io/)
+
+
+* BBDD
+
+    * [MongoDB](https://www.mongodb.com/)
 
 
 
-
-
-    #### Librerias utilizadas🛠️
-
-
-
-    #### Tecnologias secundarias🛠️
+  
 
 
 
@@ -47,26 +61,74 @@ Aplicacion destinada a la venta online.
 
 * *Home* 
 * *Shop* 
-*  *Cart* 
-* *Contact* 
-* *Login/Register/Social login*
+* *Perfil* 
+* *Mis pedidos*
+* *Login/Register*
 
 
 ### Funcionalidad ⚙️
 
-|Modulo | Funcionaliad|
-| ------------- | ------------- |
-| Home  | Muestra OwlCarrousel con imagenes de la web, categorias de productos y grupos disponibles(laod more) |
-| Login | El módulo de login cuenta con login manual o con social login, mediante gmail o Git Hub, también cuenta con register y recover password |
-| Shop | Muestra todos los productos de la tienda con filtros,Pagination,Favoritos  |
-| Cart | Muestra lista de productos que el usuario logueado va a commprar, cuenta con triggers para el control del stock. |
-| Contact | Fomualario para que el cliente pueda contactar con nosotros + GMaps + InfoWeb  |
-| Disponible en toda la app | Search, Log Out  |
+<table>
+    <tr>
+        <th>Página</th>
+        <th>Características</th>
+    </tr>
+    <tr>
+        <td>Home</td>
+        <td>
+            <ul>
+                <li>Slider -->  Mostramos imagenes desde DB.</li>
+                <li>Categorias + Scroll >> Muestra las categorias, y carga categorias con un scroll.</li>
+                 <li>Componente search >> Nos permite buscar los productos mediante entradas parciales o totales por teclado.</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Shop</td>
+        <td>
+            <ul>
+                <li>Componente List_Productos >> Nos muestra los productos que aparecen en nuestra DB.</li>
+                <li>Componente Filtros >> Nos ayuda a visualiza productos a traves del filtrado de los productos. Nos muestra aquellas preferencias aplicadas.</li>
+                <li>Componente Favoritos >> Añade y quita los productos favoritos del cliente. Guarda sus preferencias en DB.</li>
+                <li>Paginación >> Nos ayuda a listar los productos por páginas.</li>
+                <li>Componente search >> Nos permite buscar los productos mediante entradas parciales o totales por teclado.</li>
+            </ul>
+        </td>
+    </tr> 
+      <tr>
+        <td>Login/Register/Auth</td>
+        <td>
+            <ul>
+                <li>Adquisicion datos para Register y Login introducidos por el usuario mediante el uso de Reactive-Forms con Validadores</li>
+                <li>Generamos un token_user encriptado que validamos contra un secret, que nos permite realizar operaciones autorizadas dentro de la aplicación.</li>
+                <li>Para la ejecución de cualquier acción por parte del cliente, se valida contra el server, si el usuario esta autorizado para realizar dicha acción</li>
+                <li>Componente search >> Nos permite buscar los productos mediante entradas parciales o totales por teclado</li>
+            </ul>
+        </td>
+    </tr> 
+        <tr>
+        <td>Mis pedidos</td>
+        <td>
+            <ul>
+                <li>Componente pedidos -> Nos muestra los productos comprados por el usuario</li>
+                <li>Componente rating -> Nos permite valorar la compra, esta valoracion irá destinada al usuario vendedor.</li>
+            </ul>
+        </td>
+    </tr> 
+       <tr>
+        <td>Perfil</td>
+        <td>
+            <ul>
+                <li>Componente perfil -->  Muestra la información del usuario.</li>
+                <li>Componente children list_articles --> Muestra los productos en venta de del usuario</li>
+                <li>Componente children list_favorites --> Muestra los productos favoritos del usuario.</li>
+                <li>Componente children followers --> Muestra los seguidores del usuario.</li>
+                  <li>Componente children following --> Muestra los usuarios que sigue el usuario.</li>
+            </ul>
+        </td>
+    </tr>
+</table>
 
-### Próximas actualizaciones: 🛠️
-
-
-* *...* 
 
 
 ## Autores ✒️
