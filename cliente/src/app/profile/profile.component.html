@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="profile-info-row">
-                                <div class="profile-info-name"> Karma </div>
+                                <div class="profile-info-name"> Nivel </div>
                                 
                                 <div class="profile-info-value">
                                     <span>{{ profile.karma }}</span>
@@ -113,7 +113,26 @@
                            Favoritos
                         </a>
                     </li>
-        
+                    
+                    <li>
+                        <a data-toggle="tab"    
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }" 
+                        [routerLink]="['/profile', profile.username, 'followed']">
+                            <i class="orange ace-icon fa fa-rss bigger-120"></i>
+                           Followers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a data-toggle="tab"    
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }" 
+                        [routerLink]="['/profile', profile.username, 'following']">
+                            <i class="orange ace-icon fa fa-rss bigger-120"></i>
+                           Following
+                        </a>
+                    </li>
         
                    
                 </ul>

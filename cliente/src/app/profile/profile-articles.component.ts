@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Filter, Profile } from '../core';
+import { Filter, Profile, UserService } from '../core';
 
 @Component({
   selector: 'app-profile-articles',
@@ -26,6 +26,8 @@ export class ProfileArticlesComponent implements OnInit {
     this.username = this.router.url.split("/")[2];
     this.articlesConfig.author = this.username;
     this.cd.markForCheck();
+
+    
   }
 
 }

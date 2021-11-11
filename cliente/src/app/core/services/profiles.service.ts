@@ -18,6 +18,16 @@ export class ProfilesService {
       .pipe(map((data: {profile: Profile}) => data.profile));
   }
 
+  getFollowers(username: string): Observable<Profile> {
+    console.log(username);
+    return this.apiService.get('/profiles/followers/' + username) 
+  }
+
+  getFollowing(username: string): Observable<Profile> {
+    console.log(username);
+    return this.apiService.get('/profiles/following/' + username)    
+  }
+
   follow(username: string): Observable<Profile> {
     console.log(username);
     return this.apiService.post('/profiles/' + username + '/follow');

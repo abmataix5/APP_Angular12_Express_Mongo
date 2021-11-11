@@ -66,15 +66,28 @@ router.get('/:username', auth.optional, function(req, res, next){
 
 /* Follow */
 
-router.post('/:username/follow', auth.required, function(req, res, next){
+
+router.post('/:username/follow', auth.required, async function(req, res, next){
   var profileId = req.profile._id;
+
 console.log(profileId);
 
-  User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+  await User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
     user.incrementKarma(user,20);
   });
+ 
+  await User.findById(req.profile._id).then(function(user){ //buscamos al usuario (toFollowUser)
+    user.incrementKarma(user,15);
+  });
+  console.log(req.payload.id);
+  console.log(req.profile._id);
 
-  User.findById(req.payload.id).then(function(user){
+  await User.findById(req.profile._id).then(function(user){ //Añadimos el usuario que ha hecho follow como seguidor (Follower).
+    user.addFollowers(req.payload.id);
+  });
+
+
+  await User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
     return user.follow(profileId).then(function(){
@@ -87,13 +100,20 @@ console.log(profileId);
 
 /* Unfollow */
 
-router.delete('/:username/follow', auth.required, function(req, res, next){
+router.delete('/:username/follow', auth.required, async function(req, res, next){
   var profileId = req.profile._id;
-  
-  User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
+  console.log("Entra unfollow");
+  await User.findById(req.payload.id).then(function(user){ //buscamos al usuario (currentUser payload)
     user.decrementKarma(user,10);
   });
-  User.findById(req.payload.id).then(function(user){
+  await User.findById(req.profile._id).then(function(user){ //buscamos al usuario (currentUser payload)
+    user.incrementKarma(user,15);
+  });
+
+  await User.findById(req.profile._id).then(function(user){ //Añadimos el usuario que ha hecho follow como seguidor (Follower).
+    user.removeFollowers(req.payload.id);
+  });
+  await User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
     return user.unfollow(profileId).then(function(){
@@ -104,5 +124,31 @@ router.delete('/:username/follow', auth.required, function(req, res, next){
 
 
 
+/* Followers List */
+
+router.get('/followers/:username', auth.required, function(req, res, next){
+  
+  if(req.payload){
+    User.findById(req.payload.id).populate('followers').then(function(user){ // obtener los datos de los usuarios, seguidores del usuario.
+      return res.json({profile: user.toJSONFor(user)});
+
+    });
+  } else {
+    return res.json({profile: user.toJSONFor(false)});
+  }
+});
+
+/* Following List */
+
+router.get('/following/:username', auth.required, function(req, res, next){
+  
+  if(req.payload){
+    User.findById(req.payload.id).populate('following').then(function(user){ // obtener los datos de los usuarios, seguidos por el usuario.
+      return res.json({profile: user.toJSONFor(user)});
+    });
+  } else {
+    return res.json({profile: user.toJSONFor(false)});
+  }
+});
 
 module.exports = router;

@@ -82,8 +82,19 @@ UserSchema.methods.toAuthJSON = function(){
       email: this.email,
       favorites: this.favorites,
       location:this.location,
-      rating : rating 
-     
+      rating : rating, 
+      karma:this.karma,
+      followers:this.followers,
+      followed:this.following
+    };
+  };
+
+  UserSchema.methods.toJSONFor = function(){
+    return {
+      followers:this.followers,
+      following:this.following
+  
+
     };
   };
 
@@ -91,7 +102,6 @@ UserSchema.methods.toAuthJSON = function(){
     if(this.favorites.indexOf(id) === -1){
       this.favorites.push(id);
     }
-  
     return this.save();
   };
 
@@ -156,4 +166,14 @@ UserSchema.methods.toAuthJSON = function(){
     return userKarma.save();
   }
 
+  UserSchema.methods.addFollowers = function(id){
+    if(this.followers.indexOf(id) === -1){
+      this.followers.push(id);
+    }
+    return this.save();
+  };
+  UserSchema.methods.removeFollowers = function(id){
+    this.followers.remove(id);
+    return this.save();
+  };
 module.exports = mongoose.model('User', UserSchema);
