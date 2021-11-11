@@ -1,0 +1,39 @@
+<hr>
+<h1 style="text-align: center;">Productos que has comprado</h1>
+<hr>
+
+
+
+
+
+    <div class="product-box" *ngFor="let order of order">
+
+      <div class="container">
+        <img src="{{ 'assets/images/smarttv.jpg'}}" alt="cookies" class="hero-image" />
+        
+   
+        
+        <div class="information">
+    
+          <div class="name">{{order.nombre_prod}}</div>
+          
+          <div class="store">Comprado el : {{order.fecha_compra}}</div>
+          <div class="store"><app-rating ></app-rating></div>
+          <a class="button">Valor esta compra!</a>
+          
+        </div> <!-- end information -->
+      </div> <!-- end container -->
+  </div> <!-- end product-box -->
+
+
+
+
+
+
+
+
+
+
+
+
+

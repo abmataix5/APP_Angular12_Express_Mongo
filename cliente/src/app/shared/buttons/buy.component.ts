@@ -2,8 +2,10 @@ import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, Change
 import { Producto } from 'src/app/core';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/core/services';
-import {  ProductoService
-  , UserService } from '../../core';
+import {  
+  ProductoService,
+   UserService,
+  OrderService } from '../../core';
 import { of } from 'rxjs';
 import { concatMap ,  tap } from 'rxjs/operators';
 @Component({
@@ -14,6 +16,7 @@ import { concatMap ,  tap } from 'rxjs/operators';
 export class BuyComponent {
 
   constructor(
+    private orderService : OrderService,
     private productService: ProductoService,
     private router: Router,
     private userService: UserService,
@@ -24,8 +27,7 @@ export class BuyComponent {
   @Input() producto!: Producto;
   @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
-delet_purchase?:any;
-product_bought?:any;
+
   ngOnInit(): void {
   }
 
@@ -47,18 +49,19 @@ product_bought?:any;
         // Buy product
         if (this.producto) {
      
-          return this.productService.buy(this.producto.slug)
+          return this.orderService.buy(this.producto.slug)
           .pipe(tap(
             data => {
-          
+              console.log(data);
               this.isSubmitting = false;
               this.toggle.emit(true);
-              this.product_bought= data;
+           
               this.info.Succes('Compra realizada con éxito!','Buena Compra!!');
-              this.router.navigateByUrl('/'); 
+               this.router.navigateByUrl('/pedidos');  
             },
             err => {
               console.log(err);
+              this.info.Error('No puedes comprar tu propio producto!','ERROR!!');
               this.isSubmitting = false
             }
           ));

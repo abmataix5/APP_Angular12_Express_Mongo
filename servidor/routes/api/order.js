@@ -9,7 +9,7 @@ const Order = require('../../models/order');
 
 
 router.param("slug", async (req, res, next, slug) => {
-// router.param("slug",auth.required ,async (req, res, next, slug) => {
+
 
   await Producto.findOne({ slug: slug })
     .populate('author')
@@ -26,7 +26,7 @@ router.param("slug", async (req, res, next, slug) => {
 
 //POST -> Crear nueva compra
 
-router.post("/:slug/buy", auth.required,async (req, res) => {
+router.post("/:slug/buy", auth.required, async (req, res) => {
 
   try {
 
@@ -34,17 +34,50 @@ router.post("/:slug/buy", auth.required,async (req, res) => {
 
       order.user =req.payload.id;
       order.id_producto =req.producto._id;
-
-      await order.save();                                         /* Guardamos la id del producto comprado, y la id del comprador en la tabla de compras */
-
-      await Producto.findOneAndRemove({ _id:req.producto._id})    /* Eliminamos el producto comprado */
-
-      res.json({ msg: 'Producto comprado y eliminado con éxito!' })
+      order.user_venta = req.producto.author._id;
+      order.nombre_prod = req.producto.nombre;
+      order.img = req.producto.imagen;
+      order.precio = req.producto.precio;
+  
+      if(String(req.payload.id )== String(req.producto.author._id)){             /* Si no lo convierto a String, no me deja compararlos */
+        res.status(500).send('No puedes comprar tu propio producto!!!');         /* Comparo el comprador con el vendedor, para que no puedas comprar tu prods */
+      }else{
+        res.json({ result: order.compraProducto(order) });                        /* Insertamos datos en compras y borramos el producto comprado */
+        await Producto.findOneAndRemove({ _id:req.producto._id}) 
+      }
       
   } catch (error) {
       console.log(error);
       res.status(500).send('Error en la compra del producto!!');
   }
+
+});
+
+
+/* Obtenemos los productos comprados por el usuario activo */
+
+router.get("/", auth.required, async function (req, res) {
+
+
+   try {
+
+       await Order.find({ user: req.payload.id })
+                  .populate("id_producto")
+                  .then(function (orders) {
+
+                      if (orders) {
+                        console.log(orders);
+                        return res.json(orders); 
+                        
+                      }else{
+                        console.log('Este user no ha comprado');
+                      }
+        
+        }); 
+   
+  } catch (error) {
+    res.status(500).send("Error");
+  } 
 });
 
 

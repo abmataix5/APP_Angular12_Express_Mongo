@@ -98,7 +98,8 @@ UserSchema.methods.toAuthJSON = function(){
   UserSchema.methods.toJSONFor = function(){
     return {
       followers:this.followers,
-      following:this.following
+      following:this.following,
+      ola: this.karma
     };
   };
 

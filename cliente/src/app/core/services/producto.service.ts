@@ -60,18 +60,8 @@ export class ProductoService {
     return this.apiService.delete('/producto/' + slug + '/favorite');
   }
 
-/* Buy */
 
-  buy(slug:any): Observable<Producto> {
-
-    return this.apiService.post('/order/' + slug + '/buy');
-  }
-
-  delete_bought_prod(slug:any): Observable<Producto> {
-console.log('deeelte');
-    return this.apiService.delete('/order/' + slug + '/delete');
-  }
-
+  
 
 
 
