@@ -42,11 +42,13 @@ Aplicacion web destinada a la venta online de productos de seguna mano, estilo W
 ![Captura de pantalla de 2021-11-11 18-55-48](https://user-images.githubusercontent.com/62066419/141346626-177541cd-cace-4a1e-9963-5903ce15d6ed.png)
 
 <br>
+
 ### Login/Register
 <br><br>
 ![Captura de pantalla de 2021-11-11 19-00-41](https://user-images.githubusercontent.com/62066419/141346734-da686fb5-6378-4689-95c0-ae41a96a8855.png)
 
 <br>
+
 ### Settings
 
 ![Captura de pantalla de 2021-11-11 18-55-53](https://user-images.githubusercontent.com/62066419/141346741-db4d09e5-c7ac-42fc-88d2-79ad9afbf84a.png)
