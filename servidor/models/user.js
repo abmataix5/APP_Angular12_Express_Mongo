@@ -28,14 +28,8 @@ const UserSchema =  mongoose.Schema({
     },
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Producto' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  /*  rating:[
-      {
-        author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', unique: true},
-        value :{type: Number}
-      }
-    ] */
-    karma: {type: Number, default: 0},
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] ,
+    karma: {type: Number, default: 0}
 
 },
 {timestamps:true});
@@ -80,7 +74,7 @@ UserSchema.methods.toAuthJSON = function(){
     };
   };
 
-  UserSchema.methods.toProfileJSONFor = function(user){
+  UserSchema.methods.toProfileJSONFor = function(user,rating){
     return {
       username: this.username,
       image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
@@ -88,8 +82,8 @@ UserSchema.methods.toAuthJSON = function(){
       email: this.email,
       favorites: this.favorites,
       location:this.location,
-      /* rating : this.rating */
-      ola: this.karma
+      rating : rating 
+     
     };
   };
 
@@ -149,19 +143,17 @@ UserSchema.methods.toAuthJSON = function(){
   };
   
   UserSchema.methods.incrementKarma = function(userKarma, qty) {
-    console.log("Dentro de karma");
-    // console.log("USER KARMA");
-    // console.log(userKarma);
+  
     console.log(qty);
     userKarma.karma += qty;
     return userKarma.save();
   }
 
   UserSchema.methods.decrementKarma = function(userKarma, qty) {
-    // console.log("Dentro de karma");
-    // console.log("USER KARMA");
+
     console.log(qty);
     userKarma.karma -= qty;
     return userKarma.save();
   }
+
 module.exports = mongoose.model('User', UserSchema);

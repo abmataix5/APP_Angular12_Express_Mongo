@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
+
 import { concatMap, tap } from 'rxjs/operators';
-import { Order, OrderService, Profile, User, UserService } from '../core';
+import { NotificationService, Order, OrderService, Profile, User, UserService } from '../core';
 
 
 @Component({
@@ -11,22 +12,25 @@ import { Order, OrderService, Profile, User, UserService } from '../core';
 })
 export class PedidosComponent implements OnInit {
 
+  
   constructor(
+    private info : NotificationService,
     private orderService : OrderService,
     private route: ActivatedRoute,
     private userService: UserService,
     private cd: ChangeDetectorRef
+
   ) { }
 
-
+  value: any;
   profile!: Profile;
   currentUser!: User;
   isUser!: boolean;
   order : Order[] = [];
+  id_vend : any;
+
 
   ngOnInit(): void {
-
-  
      this.getProductsBuyUser();
   }
 
@@ -37,12 +41,7 @@ export class PedidosComponent implements OnInit {
     this.orderService.get_my_prod().subscribe(
 
       (data) => {
-
-   console.log(data);
-         this.order = data;  
-
-
-       
+         this.order = data;      /* Obtenemos los productos comprados por el usuario activo */
      },
      (error) => {
      
@@ -52,6 +51,29 @@ export class PedidosComponent implements OnInit {
     );
 
   }
+
+  procesarRating(valor_order:Order){
+    console.log(valor_order);
+
+    
+    this.orderService.rating(valor_order).subscribe(
+
+      (data) => {
+         console.log(data);
+         this.info.Succes('Esto ayudara a augmentar tu karma!','Gracias por ayudar en el sistema de rating!');
+         this.cd.markForCheck();
+         
+     },
+     (error) => {
+     
+       console.log(error);
+     }
+
+    );
+  }
+
+ 
+
   
 
 }

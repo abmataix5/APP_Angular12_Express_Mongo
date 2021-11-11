@@ -18,8 +18,8 @@
           <div class="name">{{order.nombre_prod}}</div>
           
           <div class="store">Comprado el : {{order.fecha_compra}}</div>
-          <div class="store"><app-rating ></app-rating></div>
-          <a class="button">Valor esta compra!</a>
+          <div class="store"><app-rating [order]="order" (RatingValoration)="procesarRating($event)"></app-rating></div>
+          <a class="button">Valora tu compra!</a>
           
         </div> <!-- end information -->
       </div> <!-- end container -->

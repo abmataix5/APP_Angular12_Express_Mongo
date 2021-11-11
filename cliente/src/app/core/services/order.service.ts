@@ -35,4 +35,17 @@ export class OrderService {
     return this.http.get<Order[]>(environment.url + `/order/`);
   }
 
+
+  rating(value:object): Observable<Order> {
+
+   
+
+    let query=JSON.stringify(value);
+    console.log(query);
+    
+    return this.apiService.put('/order/' + query);
+  }
+
+
+
 }

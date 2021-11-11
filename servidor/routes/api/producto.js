@@ -63,8 +63,6 @@ var offset = req.query.offset !== 'undefined' ? req.query.offset : 0;
       var productos = results[0];
       var totalProductos = results[1];
       var user = results[2];
-      console.log("Valor User");
-      console.log(user);
       return res.json({
         productos: productos.map(function(productos){
           return productos.toJSONFor(user);
@@ -172,12 +170,7 @@ router.get("/filter/:filters",auth.optional, async (req, res) => {
 
         return res.json({
           productos: productos.map(function(productos){          
-                    console.log(productos);
-                    console.log("valor user");
-                    console.log(user);
-                    // return productos.toJSONFor(user);}), 
-                                 // return productos}),       /* Productos */                                   
-                    console.log(productos.author + 'filters');
+             
                     return productos.toJSONFor(user);}),       /* Productos */                                   
           totalProductos: totalProductos,                     /* Total de productos con esos filtros */
           value: value                                        /* Valor de los filtros */
