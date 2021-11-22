@@ -1,0 +1,37 @@
+
+version: "3"
+
+services:
+
+  angular:
+    container_name: cliente-twohand
+    build: ./cliente
+    ports:
+      - 4200:4200
+    networks:
+      - twohand
+
+  rest:
+    container_name: server-twohand
+    build: ./servidor
+    depends_on:
+      - mongo
+    ports:
+      - 4000:4000
+    environment:
+      - DB_MONGO=mongodb://mongo:27017/appDB 
+      - SECRET=ola123
+    networks:
+      - twohand
+
+  mongo:
+    container_name: twohand-mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - twohand
+
+networks:
+  twohand:
+    driver: bridge

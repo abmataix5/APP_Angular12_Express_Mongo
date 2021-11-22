@@ -2,9 +2,18 @@ const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require("cors");
 const passport = require('passport');
+const client = require('prom-client');
 
 
-// ruuting modulos
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics({ timeout: 5000 });
+
+server.get('/metrics', (req, res) => {
+    res.set('Content-Type', client.register.contentType);
+    res.end(client.register.metrics());
+ });
+
+// routing modulos
 const productoRounting = require('./routes/api/producto')
 const categoriaRounting = require('./routes/api/categoria')
 const imagenRounting = require('./routes/api/imagen')
