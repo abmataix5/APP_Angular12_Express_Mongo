@@ -10,43 +10,8 @@ La gran ventaja de usar Compose es que puede definir la pila de la aplicación e
 
 
 ### Creamos el docker-compose que levantara los contenedores del cliente,servidor y mongoDB
+![Captura de pantalla de 2021-11-23 00-30-14](https://user-images.githubusercontent.com/62066419/142950282-04c203be-2e30-4a81-8f72-701c3fef05be.png)
 
-version: "3"
-
-services:
-
-  angular:
-    container_name: cliente-twohand
-    build: ./cliente
-    ports:
-      - 4200:4200
-    networks:
-      - twohand
-
-  rest:
-    container_name: server-twohand
-    build: ./servidor
-    depends_on:
-      - mongo
-    ports:
-      - 4000:4000
-    environment:
-      - DB_MONGO=mongodb://mongo:27017/appDB 
-      - SECRET=ola123
-    networks:
-      - twohand
-
-  mongo:
-    container_name: twohand-mongo
-    image: mongo
-    ports:
-      - 27017:27017
-    networks:
-      - twohand
-
-networks:
-  twohand:
-    driver: bridge
 
 ### Prometheus y Grafana
 
