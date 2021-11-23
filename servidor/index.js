@@ -4,11 +4,13 @@ const cors = require("cors");
 const passport = require('passport');
 const client = require('prom-client');
 
+//Creamos un app object global
+var app = express();
 
 const collectDefaultMetrics = client.collectDefaultMetrics;
 collectDefaultMetrics({ timeout: 5000 });
 
-server.get('/metrics', (req, res) => {
+app.get('/metrics', (req, res) => {
     res.set('Content-Type', client.register.contentType);
     res.end(client.register.metrics());
  });
@@ -21,8 +23,6 @@ const userRounting = require('./routes/api/user')
 const perfilRounting = require('./routes/api/profiles')
 const orderRounting = require('./routes/api/order')
 
-//Creamos un app object global
-var app = express();
 
 
 // Conectamos a BBDD

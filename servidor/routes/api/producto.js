@@ -7,6 +7,14 @@ const User = require("../../models/user");
 var auth = require('../auth');
 const producto = require('../../models/producto');
 
+let client = require('prom-client');
+
+const contadorProductos = new client.Counter({
+  name: 'contadorProductos',
+  help: 'Numero total de requests'
+});
+
+
 router.param('comment', function(req, res, next, id) {
 
   Comment.findById(id).then(function(comment){
@@ -36,7 +44,7 @@ router.param("slug", async (req, res, next, slug) => {
 // GET -> Seleccionar todos los productos
 
 router.get("/",auth.optional, async (req, res) => {
-
+  contadorProductos.inc();
 var query = {};
 var limit = req.query.limit !== 'undefined' ? req.query.limit : 2;
 

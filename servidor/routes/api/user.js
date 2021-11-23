@@ -4,6 +4,13 @@ var passport = require("passport");
 const User = require("../../models/user");
 var auth = require('../auth');
 
+let client = require('prom-client');
+
+const contadorUsuarios = new client.Counter({
+  name: 'contadorUsuarios',
+  help: 'Numero total de requests'
+});
+
 
 
 router.get('/user', auth.required, function(req, res, next){
@@ -13,6 +20,8 @@ router.get('/user', auth.required, function(req, res, next){
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
+
+
 
 router.put('/user', auth.required, function(req, res, next){
   console.log(req.body.user);
@@ -42,7 +51,9 @@ router.put('/user', auth.required, function(req, res, next){
 });
 
 router.post('/login', function(req, res, next){
- 
+
+  contadorUsuarios.inc();
+
   if(!req.body.user.email){
     return res.status(422).json({errors: {email: "no puede quedar-se en blanco"}});
   }
@@ -64,7 +75,9 @@ router.post('/login', function(req, res, next){
 });
 
 router.post('/register', function(req, res, next){
- 
+
+  counterUsersEndpoint.inc();
+
    var user = new User();
 
   user.email = req.body.user.email;
