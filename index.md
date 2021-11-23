@@ -23,4 +23,12 @@ En este docker compose tendremos los siguientes servicios, todos ellos estaran c
 
 ### Prometheus y Grafana
 
+## Que es Prometheus?
+
+Prometheus es un sistema de monitoreo de código abierto basado en métricas. Recopila datos de servicios y hosts mediante el envío de solicitudes HTTP en puntos finales de métricas. Luego, almacena los resultados en una base de datos de series de tiempo y los pone a disposición para análisis y alertas.
+
+## Que es Grafana?
+
+Grafana es una herramienta de interfaz de usuario centralizada en la obtención de datos a partir de consultas, como también del almacenamiento de estos y su visualización. Es completamente de código abierto, y está respaldada por una gran comunidad entusiasta y dedicada.
+
 
