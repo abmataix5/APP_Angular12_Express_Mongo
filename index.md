@@ -64,6 +64,28 @@ docker-compose -f docker-compose.yml -f docker-compose1.yml up -d
 ![Captura de pantalla de 2021-11-23 11-33-57](https://user-images.githubusercontent.com/62066419/143009069-d73b85a3-d9ce-407d-98a3-c80b93e6e1da.png)
 
 
+#### Accedemos a http://0.0.0.0:4000/metrics para comprovar que podemos ver las métricas
+
+![Captura de pantalla de 2021-11-23 11-38-27](https://user-images.githubusercontent.com/62066419/143009562-a174aca1-e3fe-4558-bce2-9d5bb57cfacf.png)
+
+
+
+### Cambios necesarios en el codigo
+
+El primer cambio necesario sera instalar prom-client, en el package.json del server: 
+
+![Captura de pantalla de 2021-11-23 11-40-35](https://user-images.githubusercontent.com/62066419/143009899-487ea71c-9062-4537-a1f5-e6416a409db2.png)
+
+En index.js, añadiremos el siguiente codigo,para poder recoger las métricas:
+
+![Captura de pantalla de 2021-11-23 11-41-49](https://user-images.githubusercontent.com/62066419/143010110-cbf58022-70ce-4120-af22-e68667fe4251.png)
+
+Por ultimo añadiremos un contador y lo incrementaremos que haya una request a esa ruta, lo hemos añadido para usuarios y productos:
+
+![Captura de pantalla de 2021-11-23 11-43-52](https://user-images.githubusercontent.com/62066419/143010418-574844ff-dbe9-41ff-b0da-e455a7d6ccec.png)
+
+
+
 
 
 
