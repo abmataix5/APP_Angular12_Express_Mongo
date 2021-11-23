@@ -17,18 +17,53 @@ En este docker compose tendremos los siguientes servicios, todos ellos estaran c
   - Servidor en express.
   - La BBDD con MongoDB.
 
+![Captura de pantalla de 2021-11-23 11-22-12](https://user-images.githubusercontent.com/62066419/143007505-6e4fa466-56f0-42e5-98f5-c99902e889ca.png)
 
-![Captura de pantalla de 2021-11-23 00-30-14](https://user-images.githubusercontent.com/62066419/142950282-04c203be-2e30-4a81-8f72-701c3fef05be.png)
 
 
-### Prometheus y Grafana
 
-## Que es Prometheus?
+## Prometheus y Grafana
+
+### Que es Prometheus?
 
 Prometheus es un sistema de monitoreo de código abierto basado en métricas. Recopila datos de servicios y hosts mediante el envío de solicitudes HTTP en puntos finales de métricas. Luego, almacena los resultados en una base de datos de series de tiempo y los pone a disposición para análisis y alertas.
 
-## Que es Grafana?
+### Que es Grafana?
 
 Grafana es una herramienta de interfaz de usuario centralizada en la obtención de datos a partir de consultas, como también del almacenamiento de estos y su visualización. Es completamente de código abierto, y está respaldada por una gran comunidad entusiasta y dedicada.
+
+### Docker Compose para los servicios de Prometheus y Grafana
+
+En este docker compose tendremos los siguientes servicios, todos ellos estaran conectados mediante una network externa,que utilizaremos para conectarlos con,los servicios del otro docker compose:
+
+  - Prometheus.
+  - Grafana.
+  
+
+![Captura de pantalla de 2021-11-23 11-18-42](https://user-images.githubusercontent.com/62066419/143006977-e097f8c5-8682-40f3-be50-73c3a37d3a20.png)
+
+
+### Configuración Prometheus y Grafana.
+
+En el directorio Prometheus, en la cual tendremos el archivo prometheus.yml, que tendrá la ruta de acceso de los logs, quedará tal que así:
+
+![Captura de pantalla de 2021-11-23 11-26-40](https://user-images.githubusercontent.com/62066419/143008030-2f963bd3-e1ed-403f-86bc-09abd68032d7.png)
+
+En el directorio Grafana, tendremos el archivo datasources.yml, quedará tal que así:
+
+![Captura de pantalla de 2021-11-23 11-29-45](https://user-images.githubusercontent.com/62066419/143008418-44620056-1f0d-414e-939a-eee63f58f038.png)
+
+Ahora para levantar los dos docker compose utilizaremos el siguiente comando: 
+
+docker-compose -f docker-compose.yml -f docker-compose1.yml up -d
+
+### Comprobamos que funciona Prometheus y Grafana:
+
+![Captura de pantalla de 2021-11-23 11-33-26](https://user-images.githubusercontent.com/62066419/143009059-ee21b2f8-fdd5-4408-9e55-6bb1e99b9ad3.png)
+
+![Captura de pantalla de 2021-11-23 11-33-57](https://user-images.githubusercontent.com/62066419/143009069-d73b85a3-d9ce-407d-98a3-c80b93e6e1da.png)
+
+
+
 
 
