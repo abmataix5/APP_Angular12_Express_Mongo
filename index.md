@@ -17,9 +17,42 @@ En este docker compose tendremos los siguientes servicios, todos ellos estaran c
   - Servidor en express.
   - La BBDD con MongoDB.
 
-![Captura de pantalla de 2021-11-23 11-22-12](https://user-images.githubusercontent.com/62066419/143007505-6e4fa466-56f0-42e5-98f5-c99902e889ca.png)
+![Captura de pantalla de 2021-11-23 13-59-17](https://user-images.githubusercontent.com/62303274/143028432-f899c0eb-70a2-42cf-8d13-f122f20b2158.png)
 
+### Configurar variables de acceso
 
+Se ha configurado un archivo .env en el que se guardan los puertos de acceso de cada uno de los contenedores, así como las variables de entorno necesarias.
+
+![Captura de pantalla de 2021-11-23 14-02-17](https://user-images.githubusercontent.com/62303274/143028823-b70578d0-e746-4ab7-bf05-6c42606ded40.png)
+
+### Carga de datos Mongo
+Para generar una copia de la base de datos recurrimos al uso de MONGODUMP, por lo que:
+
+![Captura de pantalla de 2021-11-23 14-05-43](https://user-images.githubusercontent.com/62303274/143029422-9b92c110-d4d2-41e9-a7dd-b7c9792d1500.png)
+
+Este proceso nos genera una carpeta con el contenido de la base de datos seleccionada.
+
+![Captura de pantalla de 2021-11-23 14-07-15](https://user-images.githubusercontent.com/62303274/143029602-1b48ffea-0064-4fea-bad2-48f7e530010f.png)
+
+Desde el docker-compose.yml le decimos que nos copie este directorio, en un directorio del contenedor.
+
+```
+RUTA --> ./dump/:/docker-entrypoint-initdb.d/dump/
+```
+
+![Captura de pantalla de 2021-11-23 14-09-52](https://user-images.githubusercontent.com/62303274/143029877-0e576c80-565c-4fea-8060-86a7d8b7cf0b.png)
+
+Para que ejecute la acción de cargar los datos, creamos un script que nos realiza dicha acción. En este caso mongorestore.sh
+
+![Captura de pantalla de 2021-11-23 14-11-48](https://user-images.githubusercontent.com/62303274/143030211-4be37070-a4c3-49fb-8e84-870c804771cd.png)
+
+Como en el caso del directorio "dump", tenemos que decirle que copie el script dentro del mismo directorio.
+
+```
+RUTA --> ./mongorestore.sh:/docker-entrypoint-initdb.d/mongorestore.sh
+```
+Se elige este directorio ya que una vez arrancado el contenedor, se procesan todos los archivos contenidos dentro del directorio /docker-entrypoint-initdb.d
+que sean del tipo ".sh o .js" por esto ejecutará el script sin tener que hacerlo posteriormente.
 
 
 ## Prometheus y Grafana
