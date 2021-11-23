@@ -54,6 +54,32 @@ RUTA --> ./mongorestore.sh:/docker-entrypoint-initdb.d/mongorestore.sh
 Se elige este directorio ya que una vez arrancado el contenedor, se procesan todos los archivos contenidos dentro del directorio /docker-entrypoint-initdb.d
 que sean del tipo ".sh o .js" por esto ejecutará el script sin tener que hacerlo posteriormente.
 
+### Levantar los contenedores
+
+Utilizamos el comando:
+
+```
+ $sudo docker-compose up
+```
+
+![Captura de pantalla de 2021-11-23 14-25-25](https://user-images.githubusercontent.com/62303274/143032210-93766557-3c28-47fe-8301-377c0f088e2d.png)
+
+### Comprovar estado
+
+Para comprovar el estado de los contenedores:
+```
+$sudo docker-compose ps
+```
+
+![Captura de pantalla de 2021-11-23 14-26-31](https://user-images.githubusercontent.com/62303274/143032413-4cbe260d-94d2-4517-b4dd-9f3a73f231bb.png)
+
+Abrimos un navagador en el 4200 para ver que la app esta operativa.
+
+![Captura de pantalla de 2021-11-23 14-28-24](https://user-images.githubusercontent.com/62303274/143032625-704749ab-33b2-4b5a-aa07-aaa6db4e9beb.png)
+
+
+![Captura de pantalla de 2021-11-23 14-29-07](https://user-images.githubusercontent.com/62303274/143032716-58d9b56e-02f2-43b1-a5cc-f97f5f55333d.png)
+
 
 ## Prometheus y Grafana
 
